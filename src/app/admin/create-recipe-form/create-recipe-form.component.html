@@ -1,0 +1,56 @@
+<app-spinner [isLoading]="isLoading"></app-spinner>
+<mat-dialog-content>
+    <a href="" onclick="return false;">
+        <mat-icon matTooltip="Close" (click)="onClose()">close</mat-icon>
+    </a>
+    <form [formGroup]="createRecipe" (ngSubmit)="onSubmit()">
+        <mat-form-field class="col-10">
+            <input matInput type="text" placeholder="Recipe Name" formControlName="recipe_name">
+            <mat-error *ngIf="this.createRecipe.get('recipe_name').invalid && this.createRecipe.get('recipe_name').touched"
+            class="alert alert-danger"> You must inout recipe name </mat-error><br></mat-form-field>
+        <br>
+        <mat-form-field class="col-10">
+            <input matInput type="text" placeholder="Image URL" formControlName="img">
+            <mat-error *ngIf="this.createRecipe.get('img').invalid && this.createRecipe.get('img').touched"
+            class="alert alert-danger"> You must input image URL </mat-error><br>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="col-10">
+            <input matInput type="text" placeholder="Description" formControlName="description">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="col-10">
+            <input matInput type="number" placeholder="Price" formControlName="price">
+            <mat-error *ngIf="this.createRecipe.get('price').invalid && this.createRecipe.get('price').touched"
+            class="alert alert-danger"> You must input the price </mat-error><br>
+        </mat-form-field>
+        <br>
+        <div formArrayName="input">
+            <div *ngFor="let a of input.controls; let i=index">
+                <div [formGroupName]="i">
+                    <br>
+                    {{'Ingredient ' + (i+1)}}
+                    <br>
+    
+                    <mat-form-field>
+                        <mat-select placeholder="Choose the ingredient" formControlName="ingredient_id">
+                            <mat-option [disabled]="a.choosenStatus" (click)="onCheckIngredient()" *ngFor="let a of ingredientsToChoose" [value]="a.id">
+                                {{a.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="this.input.at(i).get('ingredient_id')?.invalid && this.input.at(i).get('ingredient_id')?.touched"
+                            class="alert alert-danger"> You must input the ingredient </mat-error><br>
+                    </mat-form-field> <br>
+    
+                    <mat-form-field class="col-10">
+                        <input matInput type="number" placeholder="Amount of stock needed" formControlName="stock_used">
+                    </mat-form-field><mat-error *ngIf="this.input.at(i).get('stock_used')?.invalid && this.input.at(i).get('stock_used')?.touched"
+                    class="alert alert-danger"> You must input the amount </mat-error><br><br>
+                        <button *ngIf="input.length>1" (click)="removeInput(i)" mat-flat-button color="warn">{{'Remove this ingredient'}}</button> <br><br>
+                </div>
+            </div>
+        </div>
+        <button style="margin-left: 20px;" type="button" (click)="addInput()"  mat-raised-button>{{'Add more ingredient'}}</button><br><br>
+        <button style="margin-left: 60px;" mat-raised-button type="submit" color="primary">Submit</button>
+    </form>
+</mat-dialog-content>

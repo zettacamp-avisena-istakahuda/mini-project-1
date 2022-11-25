@@ -1,0 +1,63 @@
+.tp-container {
+    position: absolute;
+    top: 9rem;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    z-index:0;
+}
+
+.tp-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+    width: 100px;
+    margin-left: 40px;
+}
+
+.buttonArrow {
+    position: fixed;
+    margin-top: 1rem;
+    color: black;
+    z-index: 3;
+
+}
+
+.cart-logo {
+    position: absolute;
+    z-index: 4;
+    right: 30px;
+    top: 20px;
+    height: 15px;
+}
+
+.cart-logo>p:nth-child(2) {
+    position: absolute;
+    top: -9px;
+    right: 0px;
+    color: black;
+    font-weight: 800;
+}
+
+mat-icon {
+    color: greenyellow;
+    transform: scale(1.2);
+}
+
+
+
+mat-sidenav-content::-webkit-scrollbar {
+    display: none;
+}
+
+mat-form-field{
+    position: absolute;
+    z-index: 6;
+}
+
+.flag{
+    width:20px;
+    height: 20px;
+}

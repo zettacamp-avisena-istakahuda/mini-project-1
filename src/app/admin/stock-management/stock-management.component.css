@@ -1,0 +1,19 @@
+table {
+  width: 100%;
+}
+
+a{
+  text-decoration: none;
+}
+
+button{
+  margin-left: 2rem;
+  margin-top: 3rem;
+}
+
+.paginationOperation{
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+  margin-left: 90%;
+}

@@ -1,0 +1,21 @@
+<app-spinner [isLoading]="isLoading"></app-spinner>
+<div>
+    <a href="" onclick="return false;">
+        <mat-icon matTooltip="Close" (click)="onClose()">close</mat-icon>
+    </a>
+    <p>{{'Halaman ' + (this.data.action | titlecase) + ' Data'}}</p>
+    <mat-form-field appearance="standard">
+        <mat-label>Name</mat-label>
+        <input [formControl]="name" type="text" matInput>
+        <mat-error *ngIf="this.name.invalid && this.name.touched" class="alert alert-danger"> You must input the name
+        </mat-error><br>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard">
+        <mat-label>Stock</mat-label>
+        <input [formControl]="stock" type="number" matInput>
+        <mat-error *ngIf="this.stock.invalid && this.stock.touched" class="alert alert-danger"> You must input the name
+        </mat-error><br>
+    </mat-form-field>
+    <button (click)="onSubmit()" style="margin-left: 120px;" mat-flat-button color="primary">Submit</button>
+</div>

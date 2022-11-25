@@ -1,0 +1,54 @@
+{
+  "userForm": {
+    "_id": "ID",
+    "name": "Nama",
+    "age": "Umur",
+    "gender": "Jenis Kelamin",
+    "male": "Laki-laki",
+    "female": "Perempuan",
+    "email": "Surel",
+    "position": "Posisi",
+    "maritalStatus": "Status Perkawinan",
+    "married": "Menikah",
+    "single": "Belum Menikah",
+    "address": "Alamat",
+    "zipCode": "Kode Pos",
+    "city": "Kota",
+    "country": "Negara",
+    "last_name": "Nama Belakang",
+    "first_name": "Nama Depan",
+    "type": "Tipe",
+    "DOB": "Tanggal Lahir",
+    "user_type": "Tipe User",
+    "Participant": "Peserta",
+    "Mentor": "Pelatih",
+    "ID_number": "Nomor ID",
+    "close": "Tutup"
+
+
+
+
+   
+   
+    },
+    "actions": {
+      "submit": "Kirim"
+    },
+    "warmindo":{
+      "menu_management_page": "Halaman Manajemen Menu",
+      "recipe_name": "Nama Resep",
+      "description": "Deskripsi",
+      "ingredients": "Bahan-bahan",
+      "price": "Harga",
+      "action": "Aksi",
+      "stock_management_page": "Halaman Manajemen Stok",
+      "name": "Nama",
+      "stock": "Stok",
+      "add_new_ingredient": "Tambah Bahan Baru",
+      "page": "Halaman",
+      "of": "dari",
+      "add_new_menu": "Tambah Menu Baru",
+      "logout": "Keluar",
+      "login": "Masuk"
+    }
+  }

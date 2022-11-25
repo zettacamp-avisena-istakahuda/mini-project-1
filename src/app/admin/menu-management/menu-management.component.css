@@ -1,0 +1,63 @@
+table {
+    width: 100%;
+}
+
+td {
+    border: 15px solid white;
+}
+
+.mat-column-recipe_name {
+    width: 20%;
+}
+
+.mat-column-description {
+    width: 30%;
+
+}
+
+
+.mat-column-ingredients {
+    width: 10%;
+}
+
+.mat-column-price {
+    width: 20%;
+    text-align: center;
+}
+
+
+.mat-column-status {
+    width: 12%;
+}
+
+.mat-column-operation {
+    width: 30%;
+}
+
+button {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.paginationOperation{
+    display: flex;
+    flex-direction: row;
+    margin-top: 1rem;
+    margin-left: 90%;
+  }
+
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateY(200%);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}

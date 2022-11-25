@@ -1,0 +1,27 @@
+<app-spinner [isLoading]="isLoading"></app-spinner>
+<div ng-disabled="a.menu[0].recipe_id.status!='active'" class="cart" *ngFor="let a of dataCart">
+    <img [src]="a.menu[0].recipe_id.img" alt="">
+    <div class="nameNote">
+        <p>{{a.menu[0].recipe_id.recipe_name}}</p>
+        <div (click)="onEditNote(a.id, a.menu[0].note)" class="note">
+            <p>{{a.menu[0].note}}</p>
+        </div>
+    </div>
+
+    <div class="action">
+        <a href="#" (click)="amountOperation(a.id, 'pull', a.menu[0].amount, a.available)" onclick="return false;">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+        </a>
+        <p>{{a.menu[0].amount}}</p>
+        <a href="#" (click)="amountOperation(a.id, 'push', a.menu[0].amount, a.available)" onclick="return false;">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </a>
+    </div>
+    <a href="#" (click)="amountOperation(a.id, 'delete')" onclick="return false;">
+        <mat-icon class="delete">delete</mat-icon>
+    </a>
+
+</div>
+<h1>{{'Total Price: ' + (this.totalCartPrice | currency: "Rp. ")}}</h1>
+<button (click)="checkout()" style="margin-left:70%; margin-top:2rem;" mat-raised-button color="primary">BUY</button>
+

@@ -1,0 +1,75 @@
+.cart {
+    border: 3px solid yellow;
+    border-radius: 20px;
+    width: 50%;
+    height: 100px;
+    margin-left: 21rem;
+    padding: 8px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
+
+.cart>img:nth-child(1) {
+    height: 100%;
+    width: 7rem;
+    border: 1px darkgreen solid;
+    border-radius: 20px;  
+}
+
+.nameNote{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    margin-left: 30px;
+}
+
+.note::-webkit-scrollbar {
+    display: none;
+  }
+
+.nameNote>p:nth-child(1){
+    font-weight: 800;
+    margin-left: 30px;
+    margin-top: 5px;
+}
+
+.note{
+    width: 120%;
+    height: 100%;
+    border: 2px black solid;
+    border-radius: 20px;
+    margin-left: 20px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.note>p{
+    margin-left: 20px;
+    width: 90%;
+    height: 50px;
+}
+.action{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 25%;
+    width: 80px;
+    margin-left: 17rem;
+    margin-top: 5rem;
+    color: black
+}
+
+.delete{
+    margin-top: 77px;
+    margin-left: 18px;
+    color: red;
+}
+
+a{
+    text-decoration: none;
+}
+h1{
+    margin-left: 23%;
+    margin-top: 20px;
+}
+

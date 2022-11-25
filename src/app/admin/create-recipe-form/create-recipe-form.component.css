@@ -1,0 +1,8 @@
+a{
+    margin-left: 11rem;
+    color: red;
+}
+
+mat-dialog-content::-webkit-scrollbar {
+    display: none;
+  }
