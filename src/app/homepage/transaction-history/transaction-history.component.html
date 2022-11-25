@@ -7,6 +7,16 @@
     </mat-select>
 </mat-form-field>
 
+<div class="paginationOperation">
+    <a href="#" (click) = "previousPage()" onclick="return false;">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+    </a>
+    <p>{{'Page ' + this.page + ' of ' + this.max_page}} </p>
+    <a href="#" (click) = "nextPage()" onclick="return false;">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+    </a>
+</div>
+
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="order_time">
         <th mat-header-cell *matHeaderCellDef>Order Time</th>

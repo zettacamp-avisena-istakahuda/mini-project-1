@@ -11,3 +11,10 @@ table {
     width: 23%;
 
 }
+
+.paginationOperation{
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+  margin-left: 90%;
+}

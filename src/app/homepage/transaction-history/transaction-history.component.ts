@@ -12,6 +12,9 @@ import { MatTableDataSource } from '@angular/material/table';
 export class TransactionHistoryComponent implements OnInit {
   private subsUser = new SubSink();
   private subsTransaction = new SubSink();
+
+  page = 1;
+  max_page: number = 1
   allUserName = new FormControl();
   dataTable: any = []
   dataUser!: any
@@ -25,18 +28,45 @@ export class TransactionHistoryComponent implements OnInit {
 
     })
 
-    this.subsTransaction.sink = this.service.getAllTransactions('success', false, this.allUserName.value).valueChanges.subscribe((resp: any) => {
+    this.subsTransaction.sink = this.service.getAllTransactions('success', false, this.allUserName.value, this.page).valueChanges.subscribe((resp: any) => {
       this.dataTable = resp.data.getAllTransactions.data;
       this.dataSource = new MatTableDataSource(this.dataTable)
+      this.max_page = resp.data.getAllTransactions.max_page;
     })
   }
 
   onFilter() {
-    console.log(this.allUserName.value)
-    this.subsTransaction.sink = this.service.getAllTransactions('success', false, this.allUserName.value).valueChanges.subscribe((resp: any) => {
+    this.max_page = 1
+    this.subsTransaction.sink = this.service.getAllTransactions('success', false, this.allUserName.value, this.page).valueChanges.subscribe((resp: any) => {
       this.dataTable = resp.data.getAllTransactions.data;
+      console.log(this.dataTable);
+      
       this.dataSource = new MatTableDataSource(this.dataTable)
-    })    
+      this.max_page = resp.data.getAllTransactions.max_page;
+    })
+    this.service.getAllTransactions('success', false, this.allUserName.value, this.page).refetch()
+  }
+
+  previousPage() {
+    if (this.page > 1) {
+      this.page--
+      this.subsTransaction.sink = this.service.getAllTransactions('success', false, this.allUserName.value, this.page).valueChanges.subscribe((resp: any) => {
+        this.dataTable = resp.data.getAllTransactions.data;
+        this.dataSource = new MatTableDataSource(this.dataTable)
+      })
+      this.service.getAllTransactions('success', false, this.allUserName.value, this.page).refetch()
+    }
+  }
+
+  nextPage() {
+    if (this.page < this.max_page) {
+      this.page++
+      this.subsTransaction.sink = this.service.getAllTransactions('success', false, this.allUserName.value, this.page).valueChanges.subscribe((resp: any) => {
+        this.dataTable = resp.data.getAllTransactions.data;
+        this.dataSource = new MatTableDataSource(this.dataTable)
+      })
+      this.service.getAllTransactions('success', false, this.allUserName.value, this.page).refetch()
+    }
   }
 
 }

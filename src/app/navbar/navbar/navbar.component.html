@@ -12,6 +12,7 @@
         <a [routerLink]="['/homepage']">
             <img src="../../../assets/images/logo.png" alt="">
         </a>
+        <h3 *ngIf="this.fullName">{{(this.role | titlecase) + ": " + this.fullName}}</h3>
     </div>
 
     <div class="navbar-menu">

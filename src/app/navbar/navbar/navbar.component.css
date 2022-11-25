@@ -1,11 +1,12 @@
-.cart-logo{
+.cart-logo {
     position: absolute;
     z-index: 4;
     right: 30px;
-    top:20px;
+    top: 20px;
     height: 15px;
 }
-.cart-logo>div:nth-child(2){
+
+.cart-logo>div:nth-child(2) {
     position: absolute;
     width: 73%;
     height: 110%;
@@ -20,7 +21,7 @@
 }
 
 
-mat-icon{
+mat-icon {
     color: greenyellow;
     transform: scale(1.2);
 }
@@ -32,16 +33,30 @@ mat-icon{
 }
 
 .logo {
-    width: 90px;
+    display: flex;
+    flex-direction: row;
+    width: 250px;
     height: 90px;
     z-index: 2;
     position: absolute;
     margin-left: 30px;
 }
 
-.logo:hover {
-    transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-  }
+.logo>h3 {
+    margin-top: 18px;
+    margin-left: 10px;
+    color: black;
+    transform: none;
+}
+
+.logo img {
+    width: 90px;
+}
+
+.logo>a:hover {
+    transform: scale(1.1);
+    /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
 
 img {
     width: 100%;
@@ -60,15 +75,16 @@ img {
     right: 70px
 }
 
-.navbar-menu > a {
-   margin: 0 7px 0 7px;
+.navbar-menu>a {
+    margin: 0 7px 0 7px;
 }
 
-a{
+a {
     text-decoration: none;
-    color: yellow;   
+    color: yellow;
 }
 
 a:hover {
-    transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-  }
+    transform: scale(1.1);
+    /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}

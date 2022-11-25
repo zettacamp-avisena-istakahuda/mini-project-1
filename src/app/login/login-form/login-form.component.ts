@@ -36,6 +36,7 @@ export class LoginFormComponent implements OnInit {
         this.isLoading = false;
         localStorage.setItem('token', resp.data.getToken.message)
         localStorage.setItem('user_type', resp.data.getToken.user.role)
+        localStorage.setItem('user_name',  resp.data.getToken.user.fullName)
         Swal.fire({
           icon: 'success',
           title: 'Login Succesful',

@@ -25,6 +25,7 @@ export class ApiServiceService {
           message
           user{
             role
+            fullName
             }
           }
           
@@ -192,15 +193,22 @@ export class ApiServiceService {
     })
   }
 
-  getAllTransactions(status: string, isCart: boolean, fullName?: string) {
+  getAllTransactions(status: string, isCart: boolean, fullName?: string, page?: number) {
     if(fullName == null){
      fullName=""
     }
+    if(page == null){
+      page=1
+     }
     return this.apollo.watchQuery({
       query: gql `query GetAllTransactions {
-      getAllTransactions(order_status: "${status}",
+      getAllTransactions(
+        order_status: "${status}",
+        page: ${page},
+        limit:10,
         isCart: ${ isCart },
         fullName_user: "${fullName}") {
+          max_page
           data {
           id
           totalPrice

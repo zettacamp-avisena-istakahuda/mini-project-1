@@ -17,9 +17,13 @@ cartAmount!: number;
 isLogin: any;
 status:any
 
+fullName = localStorage.getItem('user_name');
+role = localStorage.getItem('user_type');
+
   constructor(private dialog: MatDialog, private service: ApiServiceService) { }
 
   ngOnInit(): void {
+  console.log(this.fullName)
     this.subsCart.sink = this.service.getAllTransactions('pending', true).valueChanges.subscribe((resp: any) => {
       this.cartAmount = resp.data.getAllTransactions.data.length
     })

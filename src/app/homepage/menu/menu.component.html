@@ -16,6 +16,7 @@
             <mat-icon *ngIf="!a.cartStatus" (click)="onAddCart(a.id)" [ngStyle]="{'color':'green'}">add_shopping_cart</mat-icon>
             <mat-icon *ngIf="a.cartStatus"  [ngStyle]="{'color':'grey'}">add_shopping_cart</mat-icon>
         </a>
+        <p>{{a.available}}</p>
         <img *ngIf="a.available <= 0" class="out-of-stock" src="../../../assets/images/stok-habis.png" alt="">
     </div>
 </div>
