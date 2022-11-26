@@ -27,6 +27,7 @@
     "fast-copy": "^3.0.0",
     "graphql": "^16.6.0",
     "graphql-modules": "^2.1.0",
+    "ngx-material-timepicker": "^5.5.3",
     "rxjs": "~7.5.0",
     "subsink": "^1.0.2",
     "sweetalert2": "^11.6.9",
