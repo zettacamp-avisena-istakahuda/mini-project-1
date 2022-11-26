@@ -27,3 +27,7 @@ table {
   width: 200px !important;
   height: 18px !important;
 }
+
+mat-form-field{
+  margin-left: 30px;
+}
