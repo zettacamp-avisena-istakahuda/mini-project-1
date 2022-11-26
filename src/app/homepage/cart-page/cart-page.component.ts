@@ -60,7 +60,7 @@ export class CartPageComponent implements OnInit {
         title: 'Maaf stok tidak cukup ',
       })
     }
-    else if (amount == available! - 1 && action === 'push') {
+    else if (amount == available! && action === 'push') {
       Swal.fire({
         icon: 'error',
         title: 'Maaf stok tidak cukup ',
