@@ -1,18 +1,38 @@
 <h1 style="text-align:center; font-weight: 800;">Transaction History</h1>
 <mat-form-field>
     <mat-select placeholder="Select user by name" [formControl]="allUserName">
-        <mat-option [disabled]="a.choosenStatus" (click)="onFilter()" *ngFor="let a of dataUser" [value]="a.fullName">
+        <mat-option [disabled]="a.choosenStatus" *ngFor="let a of dataUser" [value]="a.fullName">
             {{a.fullName}}
         </mat-option>
     </mat-select>
 </mat-form-field>
 
+<mat-form-field class="example-form-field" appearance="legacy">
+    <mat-label>Filter Time</mat-label>
+    <mat-date-range-input (click)="onFilter()" [rangePicker]="picker">
+        <input matStartDate [formControl]="dateStart" placeholder="Start date">
+        <input matEndDate [formControl]="dateEnd" placeholder="End date">
+    </mat-date-range-input>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+</mat-form-field>
+<mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+
+
+<div *ngIf="this.dateStart.value">
+    <mat-form-field>
+        <input type="time" [formControl]="clockStart" mat-timepicker matInput placeholder="First day time" value="0:0">
+    </mat-form-field>
+    <mat-form-field class="example-form-field">
+        <input type="time" [formControl]="clockEnd" mat-timepicker matInput placeholder="Second day time" value="0:0">
+    </mat-form-field>
+</div>
+
 <div class="paginationOperation">
-    <a href="#" (click) = "previousPage()" onclick="return false;">
+    <a href="#" (click)="previousPage()" onclick="return false;">
         <mat-icon>keyboard_arrow_left</mat-icon>
     </a>
     <p>{{'Page ' + this.page + ' of ' + this.max_page}} </p>
-    <a href="#" (click) = "nextPage()" onclick="return false;">
+    <a href="#" (click)="nextPage()" onclick="return false;">
         <mat-icon>keyboard_arrow_right</mat-icon>
     </a>
 </div>

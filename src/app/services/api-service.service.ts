@@ -193,21 +193,34 @@ export class ApiServiceService {
     })
   }
 
-  getAllTransactions(status: string, isCart: boolean, fullName?: string, page?: number) {
-    if(fullName == null){
-     fullName=""
+  getAllTransactions(status: string, isCart: boolean, fullName?: string, page?: number, date_start?: string, date_end?: string) {
+    if (fullName == null) {
+      fullName = ""
     }
-    if(page == null){
-      page=1
-     }
+    if (page == null) {
+      page = 1
+    }
+    if (date_start == null) {
+      date_start = ""
+    }
+    if (date_end == null) {
+      date_end = ""
+    }
+    console.log(date_start);
+    console.log(date_end);
+    
+    
     return this.apollo.watchQuery({
-      query: gql `query GetAllTransactions {
+      query: gql`query GetAllTransactions {
       getAllTransactions(
         order_status: "${status}",
         page: ${page},
         limit:10,
-        isCart: ${ isCart },
-        fullName_user: "${fullName}") {
+        isCart: ${isCart},
+        fullName_user: "${fullName}",
+        order_date_start: "${date_start}",
+        order_date_end: "${date_end}"
+        ) {
           max_page
           data {
           id
@@ -231,11 +244,11 @@ export class ApiServiceService {
       }
     }`
     })
-}
+  }
 
-getAllRecipes() {
-  return this.apollo.watchQuery({
-    query: gql`query GetAllRecipes {
+  getAllRecipes() {
+    return this.apollo.watchQuery({
+      query: gql`query GetAllRecipes {
         getAllRecipes {
           data {
             id
@@ -255,16 +268,16 @@ getAllRecipes() {
           }
         }
       }`
-  })
-}
-
-getAllRecipesPagination(page: number, val: string) {
-  let a: any = ""
-  if (val) {
-    a = val;
+    })
   }
-  return this.apollo.watchQuery({
-    query: gql`query GetAllRecipes {
+
+  getAllRecipesPagination(page: number, val: string) {
+    let a: any = ""
+    if (val) {
+      a = val;
+    }
+    return this.apollo.watchQuery({
+      query: gql`query GetAllRecipes {
         getAllRecipes(page: ${page}, limit: 10, recipe_name: "${a}") {
           data {
             id
@@ -285,13 +298,13 @@ getAllRecipesPagination(page: number, val: string) {
           max_page
         }
       }`
-  })
-}
+    })
+  }
 
-deleteIngredient(id: any): Observable < any > {
-  console.log(id)
+  deleteIngredient(id: any): Observable<any> {
+    console.log(id)
     return this.apollo.mutate({
-    mutation: gql`mutation Mutation
+      mutation: gql`mutation Mutation
       {
         deleteIngredient(
           id:"${id}"
@@ -300,13 +313,13 @@ deleteIngredient(id: any): Observable < any > {
           message
         }
       }`
-  })
-}
+    })
+  }
 
 
-getAllIngredients() {
-  return this.apollo.watchQuery({
-    query: gql`query {
+  getAllIngredients() {
+    return this.apollo.watchQuery({
+      query: gql`query {
         getAllIngredient {
           data {
             id
@@ -316,16 +329,16 @@ getAllIngredients() {
           }
         }
       }`
-  })
-}
-
-getAllIngredientsPagination(page?: number, name?: string) {
-  let a: any = ""
-  if (name) {
-    a = name;
+    })
   }
-  return this.apollo.watchQuery({
-    query: gql`query {
+
+  getAllIngredientsPagination(page?: number, name?: string) {
+    let a: any = ""
+    if (name) {
+      a = name;
+    }
+    return this.apollo.watchQuery({
+      query: gql`query {
         getAllIngredient(page: ${page}, limit: 10, name: "${a}"){
           data {
             id
@@ -336,68 +349,68 @@ getAllIngredientsPagination(page?: number, name?: string) {
           max_page
         }
       }`
-  })
-}
+    })
+  }
 
-checkout(): Observable < any > {
-  return this.apollo.mutate({
-    mutation: gql`mutation Mutation {
+  checkout(): Observable<any> {
+    return this.apollo.mutate({
+      mutation: gql`mutation Mutation {
         checkoutTransaction {
           id
         }
       }`
-  })
-}
-
-
-extractIngredients(data: Array<any>) {
-  let ingredients: Array<string> = []
-  for (let a of data) {
-    let x = ''
-    for (let b of a.ingredients) {
-      if (x == '') {
-        x = b.ingredient_id.name;
-      }
-      else {
-        x = x + ', ' + b.ingredient_id.name;
-      }
-    }
-    ingredients.push(x)
+    })
   }
-  return ingredients
-}
 
-extractIngredientsTable(data: any) {
-  data = copy(data)
-  let i = 0
-  // let ingredients: Array<string> = []
-  for (let a of data) {
-    let x = ''
-    for (let b of a.ingredients) {
-      if (x == '') {
-        x = b.ingredient_id.name;
+
+  extractIngredients(data: Array<any>) {
+    let ingredients: Array<string> = []
+    for (let a of data) {
+      let x = ''
+      for (let b of a.ingredients) {
+        if (x == '') {
+          x = b.ingredient_id.name;
+        }
+        else {
+          x = x + ', ' + b.ingredient_id.name;
+        }
       }
-      else {
-        x = x + ', ' + b.ingredient_id.name;
-      }
+      ingredients.push(x)
     }
-    // ingredients.push(x)
-    data[i].extractedIngredient = x
-    i++
+    return ingredients
   }
-  return data
-}
 
-getAllUsers() {
-  return this.apollo.watchQuery({
-    query: gql`query Query {
+  extractIngredientsTable(data: any) {
+    data = copy(data)
+    let i = 0
+    // let ingredients: Array<string> = []
+    for (let a of data) {
+      let x = ''
+      for (let b of a.ingredients) {
+        if (x == '') {
+          x = b.ingredient_id.name;
+        }
+        else {
+          x = x + ', ' + b.ingredient_id.name;
+        }
+      }
+      // ingredients.push(x)
+      data[i].extractedIngredient = x
+      i++
+    }
+    return data
+  }
+
+  getAllUsers() {
+    return this.apollo.watchQuery({
+      query: gql`query Query {
         getAllUsers {
           data {
             fullName
           }
         }
       }`
-  })
-}
+    })
+  }
 
 }

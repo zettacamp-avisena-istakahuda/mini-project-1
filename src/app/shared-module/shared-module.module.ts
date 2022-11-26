@@ -19,6 +19,10 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { HttpClient } from '@angular/common/http';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { DatePipe } from '@angular/common'
 
 @NgModule({
   declarations: [],
@@ -26,7 +30,7 @@ import { HttpClient } from '@angular/common/http';
     CommonModule, MatIconModule, MatToolbarModule, MatDialogModule,
     MatFormFieldModule, MatInputModule, MatButtonModule, FormsModule,
     ReactiveFormsModule, RouterModule, MatTableModule, BrowserAnimationsModule, BrowserModule, MatSelectModule,
-    MatSlideToggleModule, MatProgressSpinnerModule, MatSidenavModule, MatTooltipModule, TranslateModule.forRoot({
+    MatSlideToggleModule, NgxMaterialTimepickerModule, MatNativeDateModule, MatDatepickerModule, MatProgressSpinnerModule, MatSidenavModule, MatTooltipModule, TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
@@ -35,9 +39,10 @@ import { HttpClient } from '@angular/common/http';
     })
   ],
   exports: [MatIconModule, MatToolbarModule, MatDialogModule,
-    MatFormFieldModule, MatInputModule, MatButtonModule, FormsModule,
-    ReactiveFormsModule, RouterModule, MatTableModule, BrowserAnimationsModule, BrowserModule, MatSelectModule,
-    MatProgressSpinnerModule, MatSidenavModule, MatSlideToggleModule, MatTooltipModule]
+    MatFormFieldModule, MatDatepickerModule, MatInputModule, MatButtonModule, FormsModule,
+    ReactiveFormsModule, MatNativeDateModule, RouterModule, MatTableModule, BrowserAnimationsModule, BrowserModule, MatSelectModule,
+    MatProgressSpinnerModule, NgxMaterialTimepickerModule, MatSidenavModule, MatSlideToggleModule, MatTooltipModule],
+  providers: [DatePipe]
 })
 export class SharedModuleModule { }
 
