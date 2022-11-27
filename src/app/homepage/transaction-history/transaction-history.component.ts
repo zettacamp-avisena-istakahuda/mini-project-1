@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { SubSink } from 'subsink';
 import { ApiServiceService } from 'src/app/services/api-service.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { DatePipe } from '@angular/common'
+import * as XLSX from 'xlsx';
+
 
 
 @Component({
@@ -12,6 +14,7 @@ import { DatePipe } from '@angular/common'
   styleUrls: ['./transaction-history.component.css']
 })
 export class TransactionHistoryComponent implements OnInit {
+  @ViewChild('TABLE') table!: ElementRef;
   private subsUser = new SubSink();
   private subsTransaction = new SubSink();
 
@@ -39,12 +42,12 @@ export class TransactionHistoryComponent implements OnInit {
 
     })
 
-    this.subsTransaction.sink = this.service.getAllTransactions('success', false, 
-    this.allUserName.value, this.page, this.dateStartProcess(this.dateStart.value), this.dateEndProcess(this.dateEnd.value)).valueChanges.subscribe((resp: any) => {
-      this.dataTable = resp.data.getAllTransactions.data;
-      this.dataSource = new MatTableDataSource(this.dataTable)
-      this.max_page = resp.data.getAllTransactions.max_page;
-    })
+    this.subsTransaction.sink = this.service.getAllTransactions('success', false,
+      this.allUserName.value, this.page, this.dateStartProcess(this.dateStart.value), this.dateEndProcess(this.dateEnd.value)).valueChanges.subscribe((resp: any) => {
+        this.dataTable = resp.data.getAllTransactions.data;
+        this.dataSource = new MatTableDataSource(this.dataTable)
+        this.max_page = resp.data.getAllTransactions.max_page;
+      })
 
     this.allUserName.valueChanges.subscribe((val) => {
       this.onFilter()
@@ -61,61 +64,74 @@ export class TransactionHistoryComponent implements OnInit {
     this.clockEnd.valueChanges.subscribe((val) => {
       this.onFilter()
     });
-    
+
   }
 
   onFilter() {
     this.page = 1
-    this.subsTransaction.sink = this.service.getAllTransactions('success', false, 
-    this.allUserName.value, this.page, this.dateStartProcess(this.dateStart.value), this.dateEndProcess(this.dateEnd.value)).valueChanges.subscribe((resp: any) => {
-      this.dataTable = resp.data.getAllTransactions.data;
-      this.dataSource = new MatTableDataSource(this.dataTable)
-      this.max_page = resp.data.getAllTransactions.max_page;
-    })
-    this.service.getAllTransactions('success', false, 
-    this.allUserName.value, this.page, this.dateStartProcess(this.dateStart.value), this.dateEndProcess(this.dateEnd.value)).refetch()
+    this.subsTransaction.sink = this.service.getAllTransactions('success', false,
+      this.allUserName.value, this.page, this.dateStartProcess(this.dateStart.value), this.dateEndProcess(this.dateEnd.value)).valueChanges.subscribe((resp: any) => {
+        this.dataTable = resp.data.getAllTransactions.data;
+        this.dataSource = new MatTableDataSource(this.dataTable)
+        this.max_page = resp.data.getAllTransactions.max_page;
+      })
+    this.service.getAllTransactions('success', false,
+      this.allUserName.value, this.page, this.dateStartProcess(this.dateStart.value), this.dateEndProcess(this.dateEnd.value)).refetch()
   }
 
   previousPage() {
     if (this.page > 1) {
       this.page--
-      this.subsTransaction.sink = this.service.getAllTransactions('success', false, 
-      this.allUserName.value, this.page, this.dateStartProcess(this.dateStart.value), this.dateEndProcess(this.dateEnd.value)).valueChanges.subscribe((resp: any) => {
-        this.dataTable = resp.data.getAllTransactions.data;
-        this.dataSource = new MatTableDataSource(this.dataTable)
-      })
-      this.service.getAllTransactions('success', false, 
-      this.allUserName.value, this.page, this.dateStartProcess(this.dateStart.value), this.dateEndProcess(this.dateEnd.value)).refetch()    }
+      this.subsTransaction.sink = this.service.getAllTransactions('success', false,
+        this.allUserName.value, this.page, this.dateStartProcess(this.dateStart.value), this.dateEndProcess(this.dateEnd.value)).valueChanges.subscribe((resp: any) => {
+          this.dataTable = resp.data.getAllTransactions.data;
+          this.dataSource = new MatTableDataSource(this.dataTable)
+        })
+      this.service.getAllTransactions('success', false,
+        this.allUserName.value, this.page, this.dateStartProcess(this.dateStart.value), this.dateEndProcess(this.dateEnd.value)).refetch()
+    }
   }
 
   nextPage() {
     if (this.page < this.max_page) {
       this.page++
-      this.subsTransaction.sink = this.service.getAllTransactions('success', false, 
-      this.allUserName.value, this.page, this.dateStartProcess(this.dateStart.value), this.dateEndProcess(this.dateEnd.value)).valueChanges.subscribe((resp: any) => {
-        this.dataTable = resp.data.getAllTransactions.data;
-        this.dataSource = new MatTableDataSource(this.dataTable)
-      })
-      this.service.getAllTransactions('success', false, 
-      this.allUserName.value, this.page, this.dateStartProcess(this.dateStart.value), this.dateEndProcess(this.dateEnd.value)).refetch()    }
+      this.subsTransaction.sink = this.service.getAllTransactions('success', false,
+        this.allUserName.value, this.page, this.dateStartProcess(this.dateStart.value), this.dateEndProcess(this.dateEnd.value)).valueChanges.subscribe((resp: any) => {
+          this.dataTable = resp.data.getAllTransactions.data;
+          this.dataSource = new MatTableDataSource(this.dataTable)
+        })
+      this.service.getAllTransactions('success', false,
+        this.allUserName.value, this.page, this.dateStartProcess(this.dateStart.value), this.dateEndProcess(this.dateEnd.value)).refetch()
+    }
   }
 
-  dateStartProcess(val: string){
-      if(val){
-        return(this.datePipe.transform(val, 'yyyy-MM-dd')+"T"+this.clockStart.value+":00+07:00");        
-      }  
-      else{
-        return ""
-      }   
-  }
-
-  dateEndProcess(val: string){
-    if(val){
-      return(this.datePipe.transform(val, 'yyyy-MM-dd')+"T"+this.clockEnd.value+":00+07:00");        
-    }  
-    else{
+  dateStartProcess(val: string) {
+    if (val) {
+      return (this.datePipe.transform(val, 'yyyy-MM-dd') + "T" + this.clockStart.value + ":00+07:00");
+    }
+    else {
       return ""
-    }   
-}
+    }
+  }
+
+  dateEndProcess(val: string) {
+    if (val) {
+      return (this.datePipe.transform(val, 'yyyy-MM-dd') + "T" + this.clockEnd.value + ":00+07:00");
+    }
+    else {
+      return ""
+    }
+  }
+
+  ExportToExcel()
+  {
+    const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(this.table.nativeElement);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    
+    /* save to file */
+    XLSX.writeFile(wb, 'DataTransaksi.xlsx');
+    
+  }
 
 }

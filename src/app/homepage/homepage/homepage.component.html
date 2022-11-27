@@ -1,0 +1,5 @@
+<carousel cellWidth='100%' [loop]="true" [autoplay]="true" [arrows]="true" [autoplayInterval]="2000" [dots]="true">
+    <div class="carousel-cell" *ngFor="let a of test" style="background-color: red;">
+        <p>{{a}}</p>
+    </div>
+</carousel>

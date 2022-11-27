@@ -22,6 +22,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { IvyCarouselModule } from 'angular14-responsive-carousel';
 import { DatePipe } from '@angular/common'
 
 @NgModule({
@@ -30,7 +31,7 @@ import { DatePipe } from '@angular/common'
     CommonModule, MatIconModule, MatToolbarModule, MatDialogModule,
     MatFormFieldModule, MatInputModule, MatButtonModule, FormsModule,
     ReactiveFormsModule, RouterModule, MatTableModule, BrowserAnimationsModule, BrowserModule, MatSelectModule,
-    MatSlideToggleModule, NgxMaterialTimepickerModule, MatNativeDateModule, MatDatepickerModule, MatProgressSpinnerModule, MatSidenavModule, MatTooltipModule, TranslateModule.forRoot({
+    MatSlideToggleModule, IvyCarouselModule, NgxMaterialTimepickerModule, MatNativeDateModule, MatDatepickerModule, MatProgressSpinnerModule, MatSidenavModule, MatTooltipModule, TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
@@ -41,7 +42,7 @@ import { DatePipe } from '@angular/common'
   exports: [MatIconModule, MatToolbarModule, MatDialogModule,
     MatFormFieldModule, MatDatepickerModule, MatInputModule, MatButtonModule, FormsModule,
     ReactiveFormsModule, MatNativeDateModule, RouterModule, MatTableModule, BrowserAnimationsModule, BrowserModule, MatSelectModule,
-    MatProgressSpinnerModule, NgxMaterialTimepickerModule, MatSidenavModule, MatSlideToggleModule, MatTooltipModule],
+    MatProgressSpinnerModule, IvyCarouselModule, NgxMaterialTimepickerModule, MatSidenavModule, MatSlideToggleModule, MatTooltipModule],
   providers: [DatePipe]
 })
 export class SharedModuleModule { }
