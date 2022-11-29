@@ -4,6 +4,8 @@ import { LoginFormComponent } from 'src/app/login/login-form/login-form.componen
 import { SubSink } from 'subsink';
 import { ApiServiceService } from 'src/app/services/api-service.service';
 import Swal from 'sweetalert2'
+import { TranslateService } from '@ngx-translate/core';
+import {Router} from "@angular/router"
 
 
 @Component({
@@ -13,6 +15,7 @@ import Swal from 'sweetalert2'
 })
 export class NavbarComponent implements OnInit {
 private subsCart = new SubSink();
+private subsLogOut = new SubSink();
 cartAmount!: number;
 isLogin: any;
 status:any
@@ -20,10 +23,10 @@ status:any
 fullName = localStorage.getItem('user_name');
 role = localStorage.getItem('user_type');
 
-  constructor(private dialog: MatDialog, private service: ApiServiceService) { }
+  constructor(private dialog: MatDialog, public service: ApiServiceService, 
+    private translate: TranslateService, private router: Router) { }
 
   ngOnInit(): void {
-  console.log(this.fullName)
     this.subsCart.sink = this.service.getAllTransactions('pending', true).valueChanges.subscribe((resp: any) => {
       this.cartAmount = resp.data.getAllTransactions.data.length
     })
@@ -55,18 +58,30 @@ role = localStorage.getItem('user_type');
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          localStorage.clear()
-          window.location.reload()
+          this.subsLogOut.sink = this.service.logout().subscribe((resp: any) => {
+               if(resp){
+                localStorage.clear()
+                window.location.replace("/homepage")
+               }
+           })
+         
         }
       })
 
     }
     else{
-      this.dialog.open(LoginFormComponent, {
-        width: '250px',
-        panelClass: 'custom-modalbox',
-      });
+      this.router.navigate(['login'])
+
+      // this.dialog.open(LoginFormComponent, {
+      //   width: '250px',
+      //   panelClass: 'custom-modalbox',
+      // });
     }
+  }
+
+  setLanguage(lang: string) {
+    this.translate.use(lang);
+    this.service.selectedLang = lang
   }
 
 }

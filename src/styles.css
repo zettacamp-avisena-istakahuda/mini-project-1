@@ -6,6 +6,6 @@ body::-webkit-scrollbar {
     display: none;
   }
 
-.custom-modalbox > mat-dialog-container {
+/* .custom-modalbox > mat-dialog-container {
     background-color: darkgreen !important;
-  }
+  } */

@@ -11,6 +11,7 @@ interface input {
   providedIn: 'root'
 })
 export class ApiServiceService {
+  selectedLang = 'en';
   constructor(private apollo: Apollo) { }
 
   login(username: any, password: any): Observable<any> {
@@ -118,6 +119,19 @@ export class ApiServiceService {
       }`
     })
   }
+  updateRecipeHighlight(data: any): Observable<any> {
+    return this.apollo.mutate({
+      mutation: gql`mutation 
+      UpdateRecipe{
+          updateRecipe(
+            id: "${data.id}"
+            highlight: ${data.highlight}
+            ) {
+            recipe_name
+          }
+      }`
+    })
+  }
 
   updateTransaction(id: string, action: string): Observable<any> {
     return this.apollo.mutate({
@@ -165,18 +179,24 @@ export class ApiServiceService {
     })
   }
 
-  getActiveMenu(name: string) {
+  getActiveMenu(name?: string, highlight?: boolean) {
     let a: any = ""
+    let b = null;
     if (name) {
       a = name;
+    }
+    if(highlight){
+      b = highlight
     }
     return this.apollo.watchQuery({
       query: gql`query GetActiveMenu {
         getActiveMenu(
-          recipe_name: "${a}"
+          recipe_name: "${a}",
+          highlight: ${b}
         ) {
           data {
             id
+            highlight
             available
             recipe_name
             description
@@ -260,11 +280,9 @@ export class ApiServiceService {
                 name
                 id
               }
-              stock_used
             }
             price
             img
-            status
           }
         }
       }`
@@ -281,6 +299,7 @@ export class ApiServiceService {
         getAllRecipes(page: ${page}, limit: 10, recipe_name: "${a}") {
           data {
             id
+            highlight
             available
             recipe_name
             description
@@ -357,6 +376,16 @@ export class ApiServiceService {
       mutation: gql`mutation Mutation {
         checkoutTransaction {
           id
+        }
+      }`
+    })
+  }
+
+  logout(): Observable<any> {
+    return this.apollo.mutate({
+      mutation: gql`mutation UpdateUser{
+        updateUser(isUsed: false) {
+        isUsed
         }
       }`
     })

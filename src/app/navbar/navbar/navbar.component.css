@@ -26,10 +26,19 @@ mat-icon {
     transform: scale(1.2);
 }
 
+.language {
+    width: 110px;
+    position: absolute;
+    left: 8.5%;
+    top: 20%;
+    z-index: 3;
+}
+
 .navbar {
     width: 100%;
     height: 150px;
-    z-index: 6;
+    position: absolute;
+    z-index: 2;
 }
 
 .logo {
@@ -62,6 +71,7 @@ img {
     width: 100%;
     height: 100%;
 }
+
 
 .navbar-menu {
     display: flex;

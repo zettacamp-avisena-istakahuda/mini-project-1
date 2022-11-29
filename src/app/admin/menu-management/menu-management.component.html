@@ -1,10 +1,11 @@
 <app-spinner [isLoading]="isLoading"></app-spinner>
-<h1 style="text-align:center; font-weight: 800;">{{'warmindo.menu_management_page' | translate}}</h1>
+<h1 style="text-align:center; margin-top: 3rem;font-weight: 800;">{{'warmindo.menu_management_page' | translate}}</h1>
 <div class="paginationOperation">
     <a href="#" (click)="previousPage()" onclick="return false;">
         <mat-icon>keyboard_arrow_left</mat-icon>
     </a>
-    <p>{{'Page ' + this.page + ' of ' + this.max_page}} </p>
+    <p>{{('warmindo.page' | translate) + ' ' + this.page + ' ' + ('warmindo.of' | translate) + ' ' + this.max_page}}
+    </p>
     <a href="#" (click)="nextPage()" onclick="return false;">
         <mat-icon>keyboard_arrow_right</mat-icon>
     </a>
@@ -14,39 +15,57 @@
     <ng-container matColumnDef="recipe_name_filter">
         <th mat-header-cell *matHeaderCellDef>
             <mat-form-field appearance="legacy">
-                <input [formControl]="search_recipe_name" matInput placeholder="Search Recipe Name">
+                <input [formControl]="search_recipe_name" matInput
+                    placeholder="{{'warmindo.search_recipe_name' | translate}}">
             </mat-form-field>
         </th>
     </ng-container>
 
     <ng-container matColumnDef="recipe_name">
-        <th mat-header-cell *matHeaderCellDef>Recipe Name</th>
+        <th mat-header-cell *matHeaderCellDef>{{'warmindo.recipe_name' | translate}}</th>
         <td mat-cell *matCellDef="let element"> {{element.recipe_name}} </td>
     </ng-container>
 
     <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <th mat-header-cell *matHeaderCellDef>{{'warmindo.description' | translate}}</th>
         <td mat-cell *matCellDef="let element"> {{element.description}} </td>
     </ng-container>
 
     <ng-container matColumnDef="ingredients">
-        <th mat-header-cell *matHeaderCellDef>Ingredients</th>
+        <th mat-header-cell *matHeaderCellDef>{{'warmindo.ingredients' | translate}}</th>
         <td mat-cell *matCellDef="let element"> {{element.extractedIngredient}} </td>
     </ng-container>
 
     <ng-container matColumnDef="price">
-        <th mat-header-cell *matHeaderCellDef> Price </th>
+        <th mat-header-cell *matHeaderCellDef>{{'warmindo.price' | translate}}</th>
         <td mat-cell *matCellDef="let element"> {{element.price}}
         </td>
     </ng-container>
 
     <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <th mat-header-cell *matHeaderCellDef>{{'warmindo.menu_status' | translate}}</th>
         <td mat-cell *matCellDef="let element">
-            <a href="#" matTooltip="Published" *ngIf="element.status==='active'" (click)="editStatus(element)" onclick="return false;">
+            <a href="#" matTooltip="Published" *ngIf="element.status==='active'" (click)="editStatus(element)"
+                onclick="return false;">
+                <mat-icon [ngStyle]="{'color':'green'}">visibility</mat-icon>
+            </a>
+            <a href="#" matTooltip={{element.status}} *ngIf="element.status==='unpublished'"
+                (click)="editStatus(element)" onclick="return false;">
+                <mat-icon [ngStyle]="{'color':'red'}">visibility_off</mat-icon>
+            </a>
+            <!-- <a href="#" (click)="editStatus(element)" onclick="return false;">{{element.status}}</a>     -->
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="highlight">
+        <th mat-header-cell *matHeaderCellDef>Highlight Status</th>
+        <td mat-cell *matCellDef="let element">
+            <a href="#" matTooltip="Highlighted" *ngIf="element.highlight==true"
+                (click)="editHighlightedStatus(element)" onclick="return false;">
                 <mat-icon [ngStyle]="{'color':'green'}">power_settings_new</mat-icon>
             </a>
-            <a href="#" matTooltip={{element.status}} *ngIf="element.status==='unpublished'" (click)="editStatus(element)" onclick="return false;">
+            <a href="#" matTooltip="Non-highlighted" *ngIf="element.highlight==false"
+                (click)="editHighlightedStatus(element)" onclick="return false;">
                 <mat-icon [ngStyle]="{'color':'red'}">power_settings_new</mat-icon>
             </a>
             <!-- <a href="#" (click)="editStatus(element)" onclick="return false;">{{element.status}}</a>     -->
@@ -54,7 +73,7 @@
     </ng-container>
 
     <ng-container matColumnDef="operation">
-        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <th mat-header-cell *matHeaderCellDef>{{'warmindo.action' | translate}}</th>
         <td mat-cell *matCellDef="let element">
             <a href="#" matTooltip="Edit Data" (click)="openDialogEdit(element, 'edit')" onclick="return false;">
                 <mat-icon [ngStyle]="{'color':'blue'}">edit</mat-icon>
@@ -70,8 +89,8 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
     <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" colspan="4">No data matches ""</td>
+        <td class="mat-cell" colspan="4">{{'warmindo.no_data_matches' | translate}}</td>
     </tr>
 </table>
 
-<button (click)="openDialog()" mat-flat-button color="primary">Add New Menu</button>
+<button (click)="openDialog()" mat-flat-button color="primary">{{'warmindo.add_new_menu' | translate}}</button>

@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
   constructor(private service: ApiServiceService, private translate: TranslateService) {
     translate.setDefaultLang('en');
     translate.use('en');
+    
   }
 
   ngOnInit(): void {

@@ -19,7 +19,7 @@ import { HttpClient } from '@angular/common/http';
     MenuManagementComponent
   ],
   imports: [
-    CommonModule, SharedModuleModule, NavbarModule, LoadingSpinnerModule, TranslateModule.forRoot({
+    CommonModule, SharedModuleModule, NavbarModule, LoadingSpinnerModule, TranslateModule.forChild({
       loader: {
           provide: TranslateLoader,
           useFactory: HttpLoaderFactory,

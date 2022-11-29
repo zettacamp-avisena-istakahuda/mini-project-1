@@ -12,6 +12,7 @@ import { FormControl } from '@angular/forms';
 
 interface IMenu {
   available: number
+  highlight: boolean
   recipe_name: string
   img: string
   price: number
@@ -28,7 +29,6 @@ interface IMenu {
   styleUrls: ['./menu-management.component.css']
 })
 export class MenuManagementComponent implements OnInit {
-  private subsMenu = new SubSink();
   private subsMenuUpdate = new SubSink();
   private subsPagination = new SubSink();
 
@@ -40,7 +40,7 @@ export class MenuManagementComponent implements OnInit {
   dataMenu: IMenu[] = []
   dataSource = new MatTableDataSource(this.dataMenu)
   dataMenu2: IMenu[] = []
-  displayedColumns: string[] = ['recipe_name', 'description', 'ingredients', 'price', 'status', 'operation'];
+  displayedColumns: string[] = ['recipe_name', 'description', 'ingredients', 'price', 'status', 'highlight','operation'];
   displayedFilter: string[] = ['recipe_name_filter'];
 
 
@@ -125,7 +125,24 @@ export class MenuManagementComponent implements OnInit {
         })
       }
     })
+  }
 
+  editHighlightedStatus(data: any){
+    data = copy(data)
+    if (data.highlight == true) {
+      data.highlight = false
+    }
+    else if (data.highlight == false) {
+      data.highlight = true
+    }
+
+    this.isLoading = true
+    this.subsMenuUpdate.sink = this.service.updateRecipeHighlight(data).subscribe(resp => {
+      if (resp) {
+        this.isLoading = false
+        this.service.getAllRecipesPagination(this.page, this.search).refetch()
+      }
+    })
   }
 
   deleteRecipe(data: any) {

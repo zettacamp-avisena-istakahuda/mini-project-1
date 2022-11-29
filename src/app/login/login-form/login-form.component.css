@@ -1,0 +1,14 @@
+.language {
+    width: 60px;
+    position: relative;
+    margin-left: 60%;
+}
+
+.form {
+    margin-top: 5rem;
+    border: 3px solid yellow;
+    border-radius: 50px;
+    width:17%;
+    margin-left: 40%;
+    padding: 20px;
+}

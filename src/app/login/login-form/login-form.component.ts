@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { SubSink } from 'subsink';
 import { ApiServiceService } from 'src/app/services/api-service.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -14,15 +15,15 @@ import Swal from 'sweetalert2'
 })
 export class LoginFormComponent implements OnInit {
 
-  username = new FormControl('');
-  password = new FormControl('');
+  username = new FormControl('', Validators.required);
+  password = new FormControl('', Validators.required);
 
   isLoading = false;
   private subsLogin = new SubSink();
 
-  constructor(private service: ApiServiceService,
-    private dialog: MatDialogRef<LoginFormComponent>,
-    private router: Router
+  constructor(public service: ApiServiceService,
+    private router: Router,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -42,18 +43,22 @@ export class LoginFormComponent implements OnInit {
           title: 'Login Succesful',
         })
         setTimeout(() => {
-          window.location.reload()
+          window.location.replace("/homepage")          
         }, 1000)
         // this.router.navigate(['/menu'])
-        this.dialog.close()
       }
     }, err => {
       Swal.fire({
         icon: 'error',
-        title: err.message,
+        title: this.translate.instant(`warmindo.${err.message}`),
       })
       this.isLoading = false
     }
     )
+  }
+
+  setLanguage(lang: string) {
+    this.translate.use(lang);
+    this.service.selectedLang = lang
   }
 }

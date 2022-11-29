@@ -1,14 +1,28 @@
 <app-spinner [isLoading]="isLoading"></app-spinner>
-<p>Login dulu ya</p>
-<mat-form-field appearance="standard">
-    <mat-label>Username</mat-label>
-    <input [formControl]="username" type="text" matInput>
-</mat-form-field>
-
-<mat-form-field appearance="standard">
-    <mat-label>Password</mat-label>
-    <input [formControl]="password" type="password" matInput>
-</mat-form-field>
-
-<button (click)="login()" style="margin-left: 120px;" mat-flat-button color="primary">Login</button>
-
+<div class="form">
+    <mat-form-field appearance="legacy" class="language">
+        <mat-label>{{'warmindo.language' | translate}}</mat-label>
+        <mat-select [(value)]="this.service.selectedLang" #lang (valueChange)="setLanguage(lang.value)">
+            <mat-option value="en">English</mat-option>
+            <mat-option value="id">Indonesian</mat-option>
+        </mat-select>
+      </mat-form-field>
+    <h3 style="font-weight:800;">Login</h3>
+    
+    <form action="">
+        <mat-form-field appearance="standard">
+            <mat-label>{{'warmindo.email'|translate}}</mat-label>
+            <input [formControl]="username" type="text" matInput>
+            <mat-error *ngIf="this.username.invalid && this.username.touched" class="alert alert-danger">{{'warmindo.mat-error-email' | translate}}</mat-error><br>
+        </mat-form-field>
+        <br>
+        
+        <mat-form-field appearance="standard">
+            <mat-label>{{'warmindo.password'|translate}}</mat-label>
+            <input [formControl]="password" type="password" matInput>
+            <mat-error *ngIf="this.password.invalid && this.password.touched" class="alert alert-danger"> {{'warmindo.mat-error-password' | translate}}</mat-error><br>
+        </mat-form-field>
+        <br>
+        <button (click)="login()" style="margin-left:39%;" mat-flat-button color="primary">Login</button>
+    </form>
+</div>

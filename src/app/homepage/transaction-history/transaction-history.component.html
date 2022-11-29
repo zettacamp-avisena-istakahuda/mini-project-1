@@ -1,6 +1,6 @@
-<h1 style="text-align:center; font-weight: 800;">Transaction History</h1>
+<h1 style="text-align:center; margin-top: 3rem;font-weight: 800;">{{'warmindo.transaction_history' | translate}}</h1>
 <mat-form-field>
-    <mat-select placeholder="Select user by name" [formControl]="allUserName">
+    <mat-select placeholder="{{'warmindo.select_user_by_name' | translate}}" [formControl]="allUserName">
         <mat-option [disabled]="a.choosenStatus" *ngFor="let a of dataUser" [value]="a.fullName">
             {{a.fullName}}
         </mat-option>
@@ -8,7 +8,7 @@
 </mat-form-field>
 
 <mat-form-field class="example-form-field" appearance="legacy">
-    <mat-label>Filter Time</mat-label>
+    <mat-label>{{'warmindo.filter_time' | translate}}</mat-label>
     <mat-date-range-input (click)="onFilter()" [rangePicker]="picker">
         <input matStartDate [formControl]="dateStart" placeholder="Start date">
         <input matEndDate [formControl]="dateEnd" placeholder="End date">
@@ -20,10 +20,10 @@
 
 <div *ngIf="this.dateStart.value">
     <mat-form-field>
-        <input type="time" [formControl]="clockStart" mat-timepicker matInput placeholder="First day time" value="0:0">
+        <input type="time" [formControl]="clockStart" mat-timepicker matInput placeholder="{{'warmindo.first_day_time' | translate}}" value="0:0">
     </mat-form-field>
     <mat-form-field class="example-form-field">
-        <input type="time" [formControl]="clockEnd" mat-timepicker matInput placeholder="Second day time" value="0:0">
+        <input type="time" [formControl]="clockEnd" mat-timepicker matInput placeholder="{{'warmindo.second_day_time' | translate}}" value="0:0">
     </mat-form-field>
 </div>
 
@@ -31,7 +31,8 @@
     <a href="#" (click)="previousPage()" onclick="return false;">
         <mat-icon>keyboard_arrow_left</mat-icon>
     </a>
-    <p>{{'Page ' + this.page + ' of ' + this.max_page}} </p>
+    <p>{{('warmindo.page' | translate) + ' ' + this.page + ' ' + ('warmindo.of' | translate) + ' ' + this.max_page}}
+    </p>
     <a href="#" (click)="nextPage()" onclick="return false;">
         <mat-icon>keyboard_arrow_right</mat-icon>
     </a>
@@ -40,20 +41,20 @@
 <div #TABLE>
     <table mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="order_time">
-            <th mat-header-cell *matHeaderCellDef>Order Time</th>
+            <th mat-header-cell *matHeaderCellDef>{{'warmindo.order_time' | translate}}</th>
             <td mat-cell *matCellDef="let element"> {{element.order_date}} </td>
         </ng-container>
         <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <th mat-header-cell *matHeaderCellDef>{{'warmindo.name' | translate}}</th>
             <td mat-cell *matCellDef="let element"> {{element.user_id.fullName}} </td>
         </ng-container>
         <ng-container matColumnDef="item_name">
-            <th mat-header-cell *matHeaderCellDef>Item Name</th>
+            <th mat-header-cell *matHeaderCellDef>{{'warmindo.item_name' | translate}}</th>
             <td mat-cell *matCellDef="let element"> {{element.menu[0].recipe_id.recipe_name}} </td>
         </ng-container>
 
         <ng-container matColumnDef="amount">
-            <th mat-header-cell *matHeaderCellDef>Amount</th>
+            <th mat-header-cell *matHeaderCellDef>{{'warmindo.amount' | translate}}</th>
             <td mat-cell *matCellDef="let element"> {{element.menu[0].amount}} </td>
         </ng-container>
 
@@ -61,9 +62,9 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
         <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="4">No data matches ""</td>
+            <td class="mat-cell" colspan="4">{{'warmindo.no_data_matches' | translate}}</td>
         </tr>
     </table>
 </div>
 
-<button (click)="ExportToExcel()" mat-flat-button color="primary">Export Data</button>
+<button (click)="ExportToExcel()" mat-flat-button color="primary">{{'warmindo.export_data' | translate}}</button>

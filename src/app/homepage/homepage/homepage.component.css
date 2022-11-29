@@ -1,7 +1,113 @@
+.contact{
+  position: fixed;
+  width: 300px;
+  height: 100px;
+  background-color: grey;
+
+}
+
+.wrap {
+  position: absolute;
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(190, 190, 5);
+}
+
 .example-icon {
-    padding: 0 14px;
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+carousel {
+  border: 4px yellow solid;
+  border-radius: 20px;
+  margin-left: 10%;
+}
+
+img {
+  height: max-content;
+}
+
+
+.carousel-cell>p {
+  font-size: 50px;
+  font-weight: 700;
+  color: white;
+  position: absolute;
+  top: 65%;
+  left: 30%;
+}
+
+.carousel-cell>i {
+  font-size: 30px;
+  color: white;
+  position: absolute;
+  top: 75%;
+  left: 30%;
+}
+
+h3 {
+  font-size: 25px;
+  font-weight: 600;
+  color: white;
+  margin-left: 10%;
+  margin-top: 5rem;
+}
+
+.yellow-splash {
+  animation: MoveUpDown 4s linear infinite;
+  position: absolute;
+  right: 15%;
+  width: 30%;
+  max-height: 80%;
+}
+
+.info {
+  width: 100%;
+  margin-top: 52rem;
+  border: 3px solid black;
+  position: absolute;
+  height: 45rem;
+  box-sizing: border-box;
+  padding-left: 10rem;
+  padding-top: 5rem;
+  background-image: url(https://img.freepik.com/premium-vector/ethnic-tribal-pattern-green-backgound_667511-190.jpg);
+}
+
+.info>p {
+  color: white;
+  max-width: 40%;
+  text-align: left;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.carouselWrap {
+  width: 100%;
+  height:fit-content;
+  padding-bottom: 10rem;
+  border: 3px solid black;
+  position: absolute;
+  background-image: url(https://img.freepik.com/premium-vector/beautiful-vector-background-with-abstract-colorful-red-tribal-seamless-pattern_76645-1281.jpg);
+}
+
+:host::ng-deep.carousel-cells .carousel-cell img {
+  object-fit: unset !important;
+  border-radius: 20px;
+}
+
+@keyframes MoveUpDown {
+
+  0%,
+  100% {
+    top: 10%;
   }
-  
-  .example-spacer {
-    flex: 1 1 auto;
+
+  50% {
+    top: 15%
   }
+}

@@ -1,5 +1,29 @@
-<carousel cellWidth='100%' [loop]="true" [autoplay]="true" [arrows]="true" [autoplayInterval]="2000" [dots]="true">
-    <div class="carousel-cell" *ngFor="let a of test" style="background-color: red;">
-        <p>{{a}}</p>
-    </div>
-</carousel>
+<div class="carouselWrap">
+    <h3>Menu spesial kita</h3>
+    <carousel [height]='this.screenHeight' [width]='this.screenWidth' cellWidth='100%' [loop]="true" [autoplay]="true"
+        [autoplayInterval]="4000" [dots]="true" transitionTimingFunction='ease-in-out' [pauseOnHover]="false"
+        [freeScroll]="true" [transitionDuration]='450' [borderRadius]='100' [lightDOM]='true' [images]="_images">
+        <div #cell class="carousel-cell" *ngFor="let a of dataHighlight">
+            <img [src]="a.img">
+            <p>{{a.recipe_name}}</p>
+            <i>{{a.description}}</i>
+        </div>
+    </carousel>
+</div>
+
+<div class="info">
+    <h1 style="font-weight: 700; color: white;">Warmindo Bosque</h1>
+    <img class="yellow-splash" src="../../../assets/images/indomie-splash.png" alt="">
+    <p>Hampir tidak ada yang tidak kenal dengan INDOMIE. “Indomie diluncurkan sejak tahun 1982 dan sekarang tersedia di
+        banyak negara, seperti Amerika Serikat, Australia, Inggris, Timur Tengah, dan sebagainya,” tulis produsen
+        Indomie, PT Indofood Sukses Makmur Tbk dalam situs resminya seperti dikutip Kompas.com.</p>
+    <p>Sekarang dengan konsep baru, WARUNG MAKAN INDOMIE ( WARMINDO) menjadi lebih banyak penggemarnya. Warung makan
+        Indomie yang lebih kekinian dengan mengusung konsep 'self service' atau ambil sendiri menjadi hits di tanah air.
+    </p>
+    <p>Bahkan WARMINDO KEKINIAN ini mengalamai lonjakan omset saat pandemi seperti ini. Ini yang membuat banyak pebisnis
+        menyukai bisnis warmindo kekinian ini, dengan produk INDOMIE yangs udah terkenal memudahkan pemasarannya.</p>
+</div>
+
+
+   
+

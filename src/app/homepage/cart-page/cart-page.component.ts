@@ -48,7 +48,7 @@ export class CartPageComponent implements OnInit {
   }
 
   amountOperation(id: string, action: string, amount?: number, available?: number) {
-    console.log(available);
+    console.log(id);
     
     this.decreement = amount
     if (amount == 1 && action === 'pull') {
@@ -60,7 +60,7 @@ export class CartPageComponent implements OnInit {
         title: 'Maaf stok tidak cukup ',
       })
     }
-    else if (amount == available! - 1 && action === 'push') {
+    else if (amount == available! && action === 'push') {
       Swal.fire({
         icon: 'error',
         title: 'Maaf stok tidak cukup ',

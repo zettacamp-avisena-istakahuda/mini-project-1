@@ -1,13 +1,14 @@
 
-<h1 style="text-align:center; font-weight: 800;">Stock Management Page</h1>
+<h1 style="text-align:center; margin-top: 3rem;font-weight: 800;">{{'warmindo.stock_management_page' | translate}}</h1>
 
-<button (click)="openDialog('add')" mat-flat-button color="primary">Add New Ingredient</button>
+<button (click)="openDialog('add')" mat-flat-button color="primary">{{'warmindo.add_new_ingredient' | translate}}</button>
 <div class="paginationOperation">
-    <a href="#" (click) = "previousPage()" onclick="return false;">
+    <a href="#" (click)="previousPage()" onclick="return false;">
         <mat-icon>keyboard_arrow_left</mat-icon>
     </a>
-    <p>{{'Page ' + this.page + ' of ' + this.max_page}} </p>
-    <a href="#" (click) = "nextPage()" onclick="return false;">
+    <p>{{('warmindo.page' | translate) + ' ' + this.page + ' ' + ('warmindo.of' | translate) + ' ' + this.max_page}}
+    </p>
+    <a href="#" (click)="nextPage()" onclick="return false;">
         <mat-icon>keyboard_arrow_right</mat-icon>
     </a>
 </div>
@@ -16,13 +17,13 @@
     <ng-container matColumnDef="ingredient_name_filter">
         <th mat-header-cell *matHeaderCellDef>
             <mat-form-field appearance="legacy">
-                <input [formControl] = "search_ingredient_name" matInput placeholder="Search Ingredient Name">
+                <input [formControl] = "search_ingredient_name" matInput placeholder="{{'warmindo.search_ingredient_name' | translate}}">
             </mat-form-field>
         </th>
     </ng-container>
 
     <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <th mat-header-cell *matHeaderCellDef>{{'warmindo.name' | translate}}</th>
         <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
 
@@ -41,13 +42,13 @@
     </ng-container>
 
     <ng-container matColumnDef="stock">
-        <th mat-header-cell *matHeaderCellDef> Stock </th>
+        <th mat-header-cell *matHeaderCellDef> {{'warmindo.stock' | translate}} </th>
         <td mat-cell *matCellDef="let element"> {{element.stock}}
         </td>
     </ng-container>
 
     <ng-container matColumnDef="operation">
-        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <th mat-header-cell *matHeaderCellDef>{{'warmindo.action' | translate}}</th>
         <td mat-cell *matCellDef="let element">
             <a href="#" onclick="return false;"><mat-icon (click)="openDialog('edit', element.name, element.stock, element.id)" [ngStyle]="{'color':'blue'}">edit</mat-icon></a>
             <a href="#" onclick="return false;"><mat-icon (click)="onDelete(element.id)" [ngStyle]="{'color':'red'}">delete</mat-icon></a>
@@ -59,6 +60,6 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
     <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" colspan="4">No data matches ""</td>
+        <td class="mat-cell" colspan="4">{{'warmindo.no_data_matches' | translate}}</td>
     </tr>
 </table>

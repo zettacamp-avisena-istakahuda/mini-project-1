@@ -4,7 +4,7 @@ import { ApolloClientOptions, InMemoryCache } from '@apollo/client/core';
 import { HttpLink } from 'apollo-angular/http';
 import { HttpHeaders } from '@angular/common/http';
 
-const uri = 'https://f69d-182-253-183-11.ap.ngrok.io/';  
+const uri = 'https://6bd2-103-236-192-220.ap.ngrok.io/';  
 export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
    let token: any = 'j'
    token = localStorage.getItem('token');

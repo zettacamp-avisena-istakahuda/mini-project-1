@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2'
 import { FormControl } from '@angular/forms';
 import copy from 'fast-copy';
+import { Router } from '@angular/router';
 
 
 interface IMenu {
@@ -44,7 +45,7 @@ export class MenuComponent implements OnInit {
   dataMenu: any = []
   dataOrder: IOrder[] = []
   ingredients: Array<string> = []
-  constructor(private service: ApiServiceService, private dialog: MatDialog) { }
+  constructor(private service: ApiServiceService, private dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -95,7 +96,11 @@ export class MenuComponent implements OnInit {
       })
     }
     else {
-      this.openDialog()
+      Swal.fire({
+        position:'top',
+        title: 'Login dulu ya'
+      })
+      this.router.navigate(['login'])
     }
   }
 
@@ -115,9 +120,21 @@ export class MenuComponent implements OnInit {
         }
         i++;
       }
-    }
-    console.log(this.dataMenu);
-    
+    }    
+  }
+
+   onCart(id: string) {
+    Swal.fire({
+      title: '',
+      showCancelButton: true,
+      showConfirmButton: true,
+      input: 'number'
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        
+      }
+    })
   }
 
 }

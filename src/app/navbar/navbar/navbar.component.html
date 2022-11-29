@@ -24,4 +24,10 @@
         </a>
     </div>
     <img src="../../../assets/images/warmindo.png">
+    <mat-form-field appearance="legacy" class="language">
+        <mat-select [(value)]="this.service.selectedLang" #lang (valueChange)="setLanguage(lang.value)">
+            <mat-option value="en">English</mat-option>
+            <mat-option value="id">Indonesian</mat-option>
+        </mat-select>
+      </mat-form-field>
 </div>

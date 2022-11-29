@@ -24,7 +24,7 @@
     box-sizing: border-box;
     border: 3px yellow solid;
     width: 250px;
-    height: 400px;
+    height: 450px;
     margin-left: 140px;
     padding: 10px;
     position: relative;
@@ -69,6 +69,12 @@
     margin-top: 15 px;
 }
 
+.availableText{
+    text-align: center;
+    font-size: 10px;
+    color: darkgray;
+    margin-top: 10px;
+}
 .card-container>p:nth-child(5) {
     left: 75px;
     font-size: 13px;

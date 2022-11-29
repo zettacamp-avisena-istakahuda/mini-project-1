@@ -6,3 +6,8 @@ a{
 mat-dialog-content::-webkit-scrollbar {
     display: none;
   }
+
+  .forButton{
+    display: flex;
+    flex-direction: row;
+  }

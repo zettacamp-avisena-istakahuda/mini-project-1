@@ -61,7 +61,7 @@ export class IngredientEditFormComponent implements OnInit {
             this.isLoading = false
             Swal.fire({
               icon: 'success',
-              title: 'Menu has been successfully edited',
+              title: 'Ingredient has been successfully edited',
             })
             this.dialog.close()
           }

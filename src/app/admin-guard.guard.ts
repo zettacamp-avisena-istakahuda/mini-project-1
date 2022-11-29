@@ -17,7 +17,7 @@ export class AdminGuardGuard implements CanActivate {
       }
       else{
         window.alert("access denied")
-      }
+       }
 
     return access;
   }

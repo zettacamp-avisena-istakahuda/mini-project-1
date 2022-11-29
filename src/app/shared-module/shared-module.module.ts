@@ -22,8 +22,10 @@ import { HttpClient } from '@angular/common/http';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
-import { IvyCarouselModule } from 'angular14-responsive-carousel';
+import { IvyCarouselModule } from 'angular-responsive-carousel2';
 import { DatePipe } from '@angular/common'
+import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @NgModule({
   declarations: [],
@@ -31,18 +33,14 @@ import { DatePipe } from '@angular/common'
     CommonModule, MatIconModule, MatToolbarModule, MatDialogModule,
     MatFormFieldModule, MatInputModule, MatButtonModule, FormsModule,
     ReactiveFormsModule, RouterModule, MatTableModule, BrowserAnimationsModule, BrowserModule, MatSelectModule,
-    MatSlideToggleModule, IvyCarouselModule, NgxMaterialTimepickerModule, MatNativeDateModule, MatDatepickerModule, MatProgressSpinnerModule, MatSidenavModule, MatTooltipModule, TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    })
+    MatSlideToggleModule, IvyCarouselModule, CarouselModule, MdbCarouselModule, NgxMaterialTimepickerModule, MatNativeDateModule,
+    MatDatepickerModule, MatProgressSpinnerModule, MatSidenavModule, MatTooltipModule
   ],
   exports: [MatIconModule, MatToolbarModule, MatDialogModule,
     MatFormFieldModule, MatDatepickerModule, MatInputModule, MatButtonModule, FormsModule,
     ReactiveFormsModule, MatNativeDateModule, RouterModule, MatTableModule, BrowserAnimationsModule, BrowserModule, MatSelectModule,
-    MatProgressSpinnerModule, IvyCarouselModule, NgxMaterialTimepickerModule, MatSidenavModule, MatSlideToggleModule, MatTooltipModule],
+    MatProgressSpinnerModule, IvyCarouselModule, CarouselModule, MdbCarouselModule, NgxMaterialTimepickerModule, MatSidenavModule, 
+    MatSlideToggleModule, MatTooltipModule],
   providers: [DatePipe]
 })
 export class SharedModuleModule { }
