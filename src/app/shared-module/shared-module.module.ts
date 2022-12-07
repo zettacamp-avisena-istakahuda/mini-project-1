@@ -26,6 +26,9 @@ import { IvyCarouselModule } from 'angular-responsive-carousel2';
 import { DatePipe } from '@angular/common'
 import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatStepperModule } from '@angular/material/stepper';
+
 
 @NgModule({
   declarations: [],
@@ -34,13 +37,13 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     MatFormFieldModule, MatInputModule, MatButtonModule, FormsModule,
     ReactiveFormsModule, RouterModule, MatTableModule, BrowserAnimationsModule, BrowserModule, MatSelectModule,
     MatSlideToggleModule, IvyCarouselModule, CarouselModule, MdbCarouselModule, NgxMaterialTimepickerModule, MatNativeDateModule,
-    MatDatepickerModule, MatProgressSpinnerModule, MatSidenavModule, MatTooltipModule
+    MatDatepickerModule, MatProgressSpinnerModule, MatSidenavModule, MatTooltipModule, MatMenuModule, MatStepperModule
   ],
   exports: [MatIconModule, MatToolbarModule, MatDialogModule,
     MatFormFieldModule, MatDatepickerModule, MatInputModule, MatButtonModule, FormsModule,
     ReactiveFormsModule, MatNativeDateModule, RouterModule, MatTableModule, BrowserAnimationsModule, BrowserModule, MatSelectModule,
-    MatProgressSpinnerModule, IvyCarouselModule, CarouselModule, MdbCarouselModule, NgxMaterialTimepickerModule, MatSidenavModule, 
-    MatSlideToggleModule, MatTooltipModule],
+    MatProgressSpinnerModule, IvyCarouselModule, CarouselModule, MdbCarouselModule, NgxMaterialTimepickerModule, MatSidenavModule,
+    MatSlideToggleModule, MatTooltipModule, MatMenuModule, MatStepperModule],
   providers: [DatePipe]
 })
 export class SharedModuleModule { }

@@ -12,6 +12,10 @@ table {
 
 }
 
+.mat-column-total_order2 {
+  text-align: center;
+}
+
 .paginationOperation{
   display: flex;
   flex-direction: row;

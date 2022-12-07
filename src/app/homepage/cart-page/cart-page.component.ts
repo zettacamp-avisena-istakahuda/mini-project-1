@@ -49,34 +49,58 @@ export class CartPageComponent implements OnInit {
 
   amountOperation(id: string, action: string, amount?: number, available?: number) {
     console.log(id);
-    
+
     this.decreement = amount
     if (amount == 1 && action === 'pull') {
 
     }
-    else if(amount==1 && available==1){
+    else if (amount == 1 && available == 1) {
       Swal.fire({
         icon: 'error',
-        title: 'Maaf stok tidak cukup ',
+        title: 'Amount is not enough',
       })
     }
     else if (amount == available! && action === 'push') {
       Swal.fire({
         icon: 'error',
-        title: 'Maaf stok tidak cukup ',
+        title: 'Amount is not enough',
       })
     }
     else {
-      this.isLoading = true
-      this.subsOperation.sink = this.service.updateTransaction(id, action).subscribe((resp: any) => {
-        if (resp) {
-          this.service.getAllTransactions('pending', true).refetch()
-          this.isLoading = false
-        }
-        else {
-          this.isLoading = false
-        }
-      })
+
+      if (action === 'delete') {
+        Swal.fire({
+          title: 'Do you want to delete?',
+          showDenyButton: true,
+          showCancelButton: true,
+          showConfirmButton: false,
+          denyButtonText: `Yes`,
+        }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isDenied) {
+            this.isLoading = true
+            this.subsOperation.sink = this.service.updateTransaction(id, action).subscribe((resp: any) => {
+              if (resp) {
+                this.service.getAllTransactions('pending', true).refetch()
+                this.isLoading = false
+              }
+              else {
+                this.isLoading = false
+              }
+            })
+          }
+        })
+      }
+      else if(action!='delete'){this.isLoading = true
+        this.subsOperation.sink = this.service.updateTransaction(id, action).subscribe((resp: any) => {
+          if (resp) {
+            this.service.getAllTransactions('pending', true).refetch()
+            this.isLoading = false
+          }
+          else {
+            this.isLoading = false
+          }
+        })}
     }
   }
 
@@ -90,6 +114,7 @@ export class CartPageComponent implements OnInit {
         })
         this.isLoading = false;
         this.service.getAllTransactions('pending', true).refetch()
+        this.service.getOneUser().refetch()
       }
     }, err => {
       Swal.fire({
@@ -111,11 +136,11 @@ export class CartPageComponent implements OnInit {
 
   async onEditNote(id: string, noteText: string) {
     const { value: note = noteText } = await Swal.fire({
-      title: 'Kalau ada request, kabarin disini ya',
+      title: 'If there is a request, please leave',
       input: 'text',
       inputValue: noteText,
     })
-    if (note || note==="") {
+    if (note || note === "") {
       this.isLoading = true
       this.subsOperation.sink = this.service.updateTransactionNote(id, note).subscribe((resp: any) => {
         if (resp) {

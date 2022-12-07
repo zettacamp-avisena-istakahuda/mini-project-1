@@ -7,11 +7,17 @@ interface input {
   ingredient_id: string
   stock_used: number
 }
+
 @Injectable({
   providedIn: 'root'
 })
 export class ApiServiceService {
   selectedLang = 'en';
+  userData = {
+    fullName: '',
+    img: '',
+    balance: 0
+  }
   constructor(private apollo: Apollo) { }
 
   login(username: any, password: any): Observable<any> {
@@ -25,11 +31,25 @@ export class ApiServiceService {
           {
           message
           user{
+            email
             role
             fullName
             }
           }
-          
+      }`
+    })
+  }
+  getOneUser() {
+    return this.apollo.watchQuery({
+      query: gql`query Query {
+        getOneUser {
+          img
+          fullName
+          balance
+          first_name
+          last_name
+          email
+        }
       }`
     })
   }
@@ -185,7 +205,7 @@ export class ApiServiceService {
     if (name) {
       a = name;
     }
-    if(highlight){
+    if (highlight) {
       b = highlight
     }
     return this.apollo.watchQuery({
@@ -226,10 +246,8 @@ export class ApiServiceService {
     if (date_end == null) {
       date_end = ""
     }
-    console.log(date_start);
-    console.log(date_end);
-    
-    
+
+
     return this.apollo.watchQuery({
       query: gql`query GetAllTransactions {
       getAllTransactions(
@@ -321,7 +339,6 @@ export class ApiServiceService {
   }
 
   deleteIngredient(id: any): Observable<any> {
-    console.log(id)
     return this.apollo.mutate({
       mutation: gql`mutation Mutation
       {
@@ -383,8 +400,8 @@ export class ApiServiceService {
 
   logout(): Observable<any> {
     return this.apollo.mutate({
-      mutation: gql`mutation UpdateUser{
-        updateUser(isUsed: false) {
+      mutation: gql`mutation logout{
+        logout(isUsed: false, email: "${localStorage.getItem('email')}") {
         isUsed
         }
       }`
@@ -439,6 +456,67 @@ export class ApiServiceService {
           }
         }
       }`
+    })
+  }
+
+  updateUser(data: any): Observable<any> {
+    return this.apollo.mutate({
+      mutation: gql`mutation Mutation{
+        updateUser(
+          last_name: "${data.lastName}", 
+          first_name:"${data.frontName}", 
+          email: "${data.email}", 
+          img: "${data.avatarURL}") {
+          id
+        }
+      }`
+    })
+  }
+
+  changePassword(data:any, action: boolean){
+    return this.apollo.mutate({
+      mutation: gql`mutation Mutation{
+        changePassword(
+          email:"${data.email}", 
+          fromLogin: ${action}, 
+          old_password: "${data.password}", 
+          new_password: "${data.newPassword1}") {
+          id
+        }
+      }`
+    })
+  }
+
+  register(data:any){
+    return this.apollo.mutate({
+      mutation: gql`mutation Register{
+        register(
+          password: "${data.password}", 
+          email: "${data.email}", 
+          last_name: "${data.lastName}", 
+          first_name: "${data.frontName}", 
+          security_question: "${data.question}", 
+          security_answer: "${data.answer}"
+          ) {
+          email
+      
+        }
+      }`
+    })
+  }
+
+  forgotPassword(data:any){
+    return this.apollo.mutate({
+      mutation: gql`mutation Mutation {
+        forgotPassword(
+          email: "${data.email}",
+          security_question: "${data.question}",
+          security_answer: "${data.answer}"
+        ) {
+          security_question
+        }
+      }
+      `
     })
   }
 

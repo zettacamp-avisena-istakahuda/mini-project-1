@@ -115,6 +115,7 @@ export class MenuManagementComponent implements OnInit {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
+
         this.isLoading = true
         this.subsMenuUpdate.sink = this.service.updateRecipeStatus(data).subscribe(resp => {
           if (resp) {

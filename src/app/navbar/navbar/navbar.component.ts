@@ -5,7 +5,7 @@ import { SubSink } from 'subsink';
 import { ApiServiceService } from 'src/app/services/api-service.service';
 import Swal from 'sweetalert2'
 import { TranslateService } from '@ngx-translate/core';
-import {Router} from "@angular/router"
+import { Router } from "@angular/router"
 
 
 @Component({
@@ -14,27 +14,26 @@ import {Router} from "@angular/router"
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-private subsCart = new SubSink();
-private subsLogOut = new SubSink();
-cartAmount!: number;
-isLogin: any;
-status:any
+  private subsCart = new SubSink();
+  private subsLogOut = new SubSink();
+  cartAmount!: number;
+  isLogin: any;
+  status: any
+  token = localStorage.getItem('token')
+  role = localStorage.getItem('user_type');
 
-fullName = localStorage.getItem('user_name');
-role = localStorage.getItem('user_type');
-
-  constructor(private dialog: MatDialog, public service: ApiServiceService, 
+  constructor(private dialog: MatDialog, public service: ApiServiceService,
     private translate: TranslateService, private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.subsCart.sink = this.service.getAllTransactions('pending', true).valueChanges.subscribe((resp: any) => {
       this.cartAmount = resp.data.getAllTransactions.data.length
     })
     this.isLogin = localStorage.getItem('token')
-    if(this.isLogin){
-        this.status = 'Logout'
+    if (this.isLogin) {
+      this.status = 'Logout'
     }
-    else{
+    else {
       this.status = 'Login'
     }
   }
@@ -46,8 +45,8 @@ role = localStorage.getItem('user_type');
     });
   }
 
-  logAction(){
-    if(this.isLogin){
+  logAction() {
+    if (this.isLogin) {
       Swal.fire({
         title: 'Beneran mau logout?',
         showDenyButton: true,
@@ -59,17 +58,17 @@ role = localStorage.getItem('user_type');
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           this.subsLogOut.sink = this.service.logout().subscribe((resp: any) => {
-               if(resp){
-                localStorage.clear()
-                window.location.replace("/homepage")
-               }
-           })
-         
+            if (resp) {
+              localStorage.clear()
+              window.location.replace("/homepage")
+            }
+          })
+
         }
       })
 
     }
-    else{
+    else {
       this.router.navigate(['login'])
 
       // this.dialog.open(LoginFormComponent, {

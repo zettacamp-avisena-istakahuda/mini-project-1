@@ -23,7 +23,7 @@ export class HomepageComponent implements OnInit {
   }
   @HostListener('window:resize', ['$event'])
   getScreenSize() {
-    this.screenHeight = 0.8 * window.innerHeight;
+    this.screenHeight = 0.75 * window.innerHeight;
     this.screenWidth = 0.8 * window.innerWidth;
   }
 
@@ -36,6 +36,7 @@ export class HomepageComponent implements OnInit {
       }
     })
     this.service.getActiveMenu("", true).refetch()
+
   }
 
 }

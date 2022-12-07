@@ -7,9 +7,13 @@ import { LoadingSpinnerModule } from '../loading-spinner/loading-spinner.module'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
+import { AccountSettingComponent } from './account-setting/account-setting.component';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 @NgModule({
   declarations: [
-    LoginFormComponent
+    LoginFormComponent,
+    AccountSettingComponent,
+    ForgetPasswordComponent
   ],
   imports: [
     CommonModule, SharedModuleModule, LoadingSpinnerModule, TranslateModule.forChild({
@@ -20,7 +24,7 @@ import { HttpClient } from '@angular/common/http';
       }
   })
   ],
-  exports:[LoginFormComponent]
+  exports:[LoginFormComponent, AccountSettingComponent]
 })
 export class LoginModule { }
 

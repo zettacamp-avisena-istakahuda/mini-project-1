@@ -1,22 +1,24 @@
-<app-spinner [isLoading]="isLoading"></app-spinner>
-<h1 style="text-align:center; margin-top: 3rem;font-weight: 800;">Menu</h1>
+<div class="wrapper">
+    <h1 style="text-align:center; margin-top: 3rem;font-weight: 800;">Menu</h1>
 
-<mat-form-field appearance="outline">
-    <input [formControl] = "search_menu_name" matInput placeholder="{{'warmindo.menu_search' | translate}}">
-</mat-form-field>
-
-<div class="content">
-    <div class="card-container" *ngFor="let a of dataMenu; let i = index;">
-        <img [src]="a.img" alt="">
-        <p>{{a.recipe_name}}</p>
-        <p>{{a.description}}</p>
-        <p>{{('warmindo.ingredients' | translate) + ': ' + this.ingredients[i]}}</p>
-        <p>{{a.price | currency: "Rp. "}}</p>
-        <a *ngIf="a.available > 0" href="#" onclick="return false;" >
-            <mat-icon *ngIf="!a.cartStatus" (click)="onAddCart(a.id)" [ngStyle]="{'color':'green'}">add_shopping_cart</mat-icon>
-            <mat-icon *ngIf="a.cartStatus"  [ngStyle]="{'color':'grey'}">add_shopping_cart</mat-icon>
-        </a>
-        <p class="availableText">{{('warmindo.menu_amount' | translate) + a.available}}</p>
-        <img *ngIf="a.available <= 0" class="out-of-stock" src="../../../assets/images/stok-habis.png" alt="">
+    <mat-form-field appearance="outline">
+        <input [formControl] = "search_menu_name" matInput placeholder="{{'warmindo.menu_search' | translate}}">
+    </mat-form-field>
+    
+    <div class="content">
+        <div class="card-container" *ngFor="let a of dataMenu; let i = index;">
+            <img [src]="a.img" alt="">
+            <p>{{a.recipe_name}}</p>
+            <p>{{a.description}}</p>
+            <p>{{('warmindo.ingredients' | translate) + ': ' + this.ingredients[i]}}</p>
+            <p>{{a.price | currency: "Rp. "}}</p>
+            <a *ngIf="a.available > 0" href="#" onclick="return false;" >
+                <mat-icon *ngIf="!a.cartStatus" (click)="onAddCart(a.id)" [ngStyle]="{'color':'green'}">add_shopping_cart</mat-icon>
+                <mat-icon *ngIf="a.cartStatus"  [ngStyle]="{'color':'grey'}">add_shopping_cart</mat-icon>
+            </a>
+            <p class="availableText">{{('warmindo.menu_amount' | translate) + a.available}}</p>
+            <img *ngIf="a.available <= 0" class="out-of-stock" src="../../../assets/images/stok-habis.png" alt="">
+        </div>
     </div>
 </div>
+<app-spinner [isLoading]="isLoading"></app-spinner>

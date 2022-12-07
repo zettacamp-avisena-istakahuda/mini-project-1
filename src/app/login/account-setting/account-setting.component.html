@@ -1,0 +1,51 @@
+<h2>Profile</h2>
+<form [formGroup]="settingForm" (ngSubmit)="saveChanges()">
+    <div class="content">
+        <div style="display:flex; flex-direction: row;">
+            <p style="font-size:20px; font-weight:700;">Profile Picture</p>
+            <img class="profilePicture" src="{{this.imgURL}}">
+            <p style="font-size:20px; font-weight:700; top:40%; left:32%; position: absolute;">Edit avatar using URL</p>
+            <mat-form-field class="col-10" appearance="outline"
+                style="width:41%; top:43%; left:32%; position: absolute;">
+                <input matInput type="text" placeholder="Use URL for avatar" formControlName="avatarURL">
+            </mat-form-field>
+            <p style="font-size:20px; font-weight:700; top:53%; left:19%; position: absolute;">Front Name</p>
+            <mat-form-field class="col-10" appearance="outline"
+                style="width:26%; top:56%; left:19%; position: absolute;">
+                <input matInput type="text" formControlName="frontName">
+            </mat-form-field>
+            <p style="font-size:20px; font-weight:700; top:53%; left:47%; position: absolute;">Last Name</p>
+            <mat-form-field class="col-10" appearance="outline"
+                style="width:26%; top:56%; left:47%; position: absolute;">
+                <input matInput type="text" formControlName="lastName">
+            </mat-form-field>
+            <p style="font-size:20px; font-weight:700; top:64%; left:19%; position: absolute;">E-mail</p>
+            <mat-form-field class="col-10" appearance="outline"
+                style="width:26%; top:67%; left:19%; position: absolute;">
+                <input matInput type="email" formControlName="email">
+            </mat-form-field>
+            <p style="font-size:20px; font-weight:700; top:64%; left:47%; position: absolute;">New Password</p>
+            <mat-form-field class="col-10" appearance="outline"
+                style="width:26%; top:67%; left:47%; position: absolute;">
+                <input matInput type="password" formControlName="newPassword1"
+                    placeholder="To change password, input your new password here">
+            </mat-form-field>
+            <div *ngIf="this.changePassword">
+                <p style="font-size:20px; font-weight:700; top:75%; left:47%; position: absolute;">Repeat Your New
+                    Password</p>
+                <mat-form-field class="col-10" appearance="outline"
+                    style="width:26%; top:78%; left:47%; position: absolute;">
+                    <input matInput type="password" formControlName="newPassword2">
+                    <mat-error
+                        class="alert alert-danger" *ngIf="true">Password doesn't match </mat-error><br>
+                </mat-form-field>
+                <p style="font-size:20px; font-weight:700; top:86%; left:47%; position: absolute;">Your Old Password</p>
+                <mat-form-field class="col-10" appearance="outline"
+                    style="width:26%; top:89%; left:47%; position: absolute;">
+                    <input matInput type="password" formControlName="password">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <button disabled="{{this.lodash.isEqual(this.postForm, this.settingForm.value) || !(this.settingForm.value.newPassword1 === this.settingForm.value.newPassword2)}}" mat-flat-button color="primary">Save Changes</button>
+</form>

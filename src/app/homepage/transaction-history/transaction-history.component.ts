@@ -23,6 +23,7 @@ export class TransactionHistoryComponent implements OnInit {
     end: new FormControl<Date | null>(null),
   });
 
+  totalIncome!: number
   page = 1;
   max_page: number = 1
   allUserName = new FormControl();
@@ -33,7 +34,8 @@ export class TransactionHistoryComponent implements OnInit {
   dataTable: any = []
   dataUser!: any
   dataSource = new MatTableDataSource(this.dataTable)
-  displayedColumns: string[] = ['order_time', 'name', 'item_name', 'amount'];
+  displayedColumns: string[] = ['order_time', 'name', 'item_name', 'amount', 'price'];
+  displayedFilter: string[] = ['total_order', 'total_order2'];
   constructor(private service: ApiServiceService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
@@ -45,9 +47,14 @@ export class TransactionHistoryComponent implements OnInit {
     this.subsTransaction.sink = this.service.getAllTransactions('success', false,
       this.allUserName.value, this.page, this.dateStartProcess(this.dateStart.value), this.dateEndProcess(this.dateEnd.value)).valueChanges.subscribe((resp: any) => {
         this.dataTable = resp.data.getAllTransactions.data;
+        this.totalIncome = this.countTotalIncome(this.dataTable);
+        
         this.dataSource = new MatTableDataSource(this.dataTable)
         this.max_page = resp.data.getAllTransactions.max_page;
       })
+    this.service.getAllTransactions('success', false,
+      this.allUserName.value, this.page, this.dateStartProcess(this.dateStart.value), this.dateEndProcess(this.dateEnd.value)).refetch()
+
 
     this.allUserName.valueChanges.subscribe((val) => {
       this.onFilter()
@@ -72,6 +79,7 @@ export class TransactionHistoryComponent implements OnInit {
     this.subsTransaction.sink = this.service.getAllTransactions('success', false,
       this.allUserName.value, this.page, this.dateStartProcess(this.dateStart.value), this.dateEndProcess(this.dateEnd.value)).valueChanges.subscribe((resp: any) => {
         this.dataTable = resp.data.getAllTransactions.data;
+        this.totalIncome = this.countTotalIncome(this.dataTable);
         this.dataSource = new MatTableDataSource(this.dataTable)
         this.max_page = resp.data.getAllTransactions.max_page;
       })
@@ -85,6 +93,7 @@ export class TransactionHistoryComponent implements OnInit {
       this.subsTransaction.sink = this.service.getAllTransactions('success', false,
         this.allUserName.value, this.page, this.dateStartProcess(this.dateStart.value), this.dateEndProcess(this.dateEnd.value)).valueChanges.subscribe((resp: any) => {
           this.dataTable = resp.data.getAllTransactions.data;
+          this.totalIncome = this.countTotalIncome(this.dataTable);
           this.dataSource = new MatTableDataSource(this.dataTable)
         })
       this.service.getAllTransactions('success', false,
@@ -98,6 +107,7 @@ export class TransactionHistoryComponent implements OnInit {
       this.subsTransaction.sink = this.service.getAllTransactions('success', false,
         this.allUserName.value, this.page, this.dateStartProcess(this.dateStart.value), this.dateEndProcess(this.dateEnd.value)).valueChanges.subscribe((resp: any) => {
           this.dataTable = resp.data.getAllTransactions.data;
+          this.totalIncome = this.countTotalIncome(this.dataTable);
           this.dataSource = new MatTableDataSource(this.dataTable)
         })
       this.service.getAllTransactions('success', false,
@@ -123,15 +133,24 @@ export class TransactionHistoryComponent implements OnInit {
     }
   }
 
-  ExportToExcel()
-  {
-    const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(this.table.nativeElement);
+  ExportToExcel() {
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    
+
     /* save to file */
     XLSX.writeFile(wb, 'DataTransaksi.xlsx');
-    
+  }
+
+  countTotalIncome(data:any){
+     let total = 0  
+     for (let a of data){
+         total = total + a.totalPrice
+         console.log(total);
+         
+     }
+     
+     return total
   }
 
 }

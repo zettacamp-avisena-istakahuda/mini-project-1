@@ -1,28 +1,71 @@
 <app-spinner [isLoading]="isLoading"></app-spinner>
 <div class="form">
+    <a href=# (click)="changeSlide()" class="registerLink" *ngIf="this.formStatus==='Login'" onclick="return false;">Don't have an account? Register here</a>
+    <a href=# (click)="forgetPassword()" class="forgetLink" *ngIf="this.formStatus==='Login'" onclick="return false;">Forget password</a>
     <mat-form-field appearance="legacy" class="language">
         <mat-label>{{'warmindo.language' | translate}}</mat-label>
         <mat-select [(value)]="this.service.selectedLang" #lang (valueChange)="setLanguage(lang.value)">
             <mat-option value="en">English</mat-option>
             <mat-option value="id">Indonesian</mat-option>
         </mat-select>
-      </mat-form-field>
-    <h3 style="font-weight:800;">Login</h3>
-    
-    <form action="">
-        <mat-form-field appearance="standard">
+    </mat-form-field>
+    <h3 style="font-weight:800; margin-left:60px;">{{this.formStatus}}</h3>
+
+    <form *ngIf="this.formStatus==='Login'">
+        <mat-form-field appearance="standard" style="width: 270px;">
             <mat-label>{{'warmindo.email'|translate}}</mat-label>
             <input [formControl]="username" type="text" matInput>
-            <mat-error *ngIf="this.username.invalid && this.username.touched" class="alert alert-danger">{{'warmindo.mat-error-email' | translate}}</mat-error><br>
+            <mat-error *ngIf="this.username.invalid && this.username.touched" class="alert alert-danger">
+                {{'warmindo.mat-error-email' | translate}}</mat-error><br>
         </mat-form-field>
         <br>
-        
-        <mat-form-field appearance="standard">
+
+        <mat-form-field appearance="standard"  style="width: 270px;">
             <mat-label>{{'warmindo.password'|translate}}</mat-label>
             <input [formControl]="password" type="password" matInput>
-            <mat-error *ngIf="this.password.invalid && this.password.touched" class="alert alert-danger"> {{'warmindo.mat-error-password' | translate}}</mat-error><br>
+            <mat-error *ngIf="this.password.invalid && this.password.touched" class="alert alert-danger">
+                {{'warmindo.mat-error-password' | translate}}</mat-error><br>
         </mat-form-field>
         <br>
-        <button (click)="login()" style="margin-left:39%;" mat-flat-button color="primary">Login</button>
+        <button (click)="login()" style="margin-left:16%;" mat-flat-button color="primary">{{this.formStatus}}</button>
     </form>
+
+    <form class="register" [formGroup]="registerForm" *ngIf="this.formStatus==='Register'">
+        <p style="font-size:14px; font-weight:700; top: 0px; left:0%; position: absolute;">E-mail</p> 
+        <mat-form-field appearance="outline" style="font-size:14px; font-weight:700; top:20px; left:0%; width:430px; position: absolute;">
+            <input type="text" matInput formControlName="email">
+        </mat-form-field>
+        <p style="font-size:14px; font-weight:700; top: 100px; left:0%; position: absolute;">Front Name</p> 
+        <mat-form-field appearance="outline" style="font-size:14px; font-weight:700; top:120px; left:0%; width:180px; position: absolute;">
+            <input type="text" matInput formControlName="frontName">
+        </mat-form-field>
+        <p style="font-size:14px; font-weight:700; top: 100px; left:60%; position: absolute;">Last Name</p> 
+        <mat-form-field appearance="outline" style="font-size:14px; font-weight:700; top:120px; left:60%; width:180px; position: absolute;">
+            <input type="text" matInput formControlName="lastName">
+        </mat-form-field>
+        <p style="font-size:14px; font-weight:700; top: 200px; left:0%; position: absolute;">Password</p> 
+        <mat-form-field appearance="outline" style="font-size:14px; font-weight:700; top:220px; left:0%; width:430px; position: absolute;">
+            <input type="password" matInput formControlName="password">
+        </mat-form-field>
+        <p style="font-size:14px; font-weight:700; top: 300px; left:0%; position: absolute;">Repeat your password</p> 
+        <mat-form-field appearance="outline" style="font-size:14px; font-weight:700; top:320px; left:0%; width:430px; position: absolute;">
+            <input type="password" matInput formControlName="password2">
+            <mat-hint *ngIf="this.registerForm.value.password!=this.registerForm.value.password2">Password doesn't match</mat-hint>
+        </mat-form-field>
+        <p style="font-size:14px; font-weight:700; top: 400px; left:0%; position: absolute;">Create your security question</p> 
+        <mat-form-field appearance="outline" style="font-size:14px; font-weight:700; top:420px; left:0%; width:180px; position: absolute;">
+            <input type="text" matInput formControlName="question">
+        </mat-form-field>
+        <p style="font-size:14px; font-weight:700; width:200px; top: 400px; left:60%; position: absolute;">Your security question answer</p> 
+        <mat-form-field appearance="outline" style="font-size:14px; font-weight:700; top:420px; left:60%; width:180px; position: absolute;">
+            <input type="text" matInput formControlName="answer">
+        </mat-form-field>
+        <p style="font-size:14px; font-weight:700; top: 500px; left:0%; position: absolute;">Profile picture URL (optional)</p> 
+        <mat-form-field appearance="outline" style="font-size:14px; font-weight:700; top:520px; left:0%; width:430px; position: absolute;">
+            <input type="text" matInput formControlName="avatarURL">
+        </mat-form-field>
+        <button (click)="login()" disabled="{{!this.registerForm.valid || (this.registerForm.value.password!=this.registerForm.value.password2)}}" style="top: 600px; left:45%; position: absolute;" mat-flat-button color="primary">{{this.formStatus}}</button>
+
+    </form>
+
 </div>
