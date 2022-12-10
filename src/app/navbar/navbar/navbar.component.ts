@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginFormComponent } from 'src/app/login/login-form/login-form.component';
 import { SubSink } from 'subsink';
@@ -11,7 +11,9 @@ import { Router } from "@angular/router"
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
+  encapsulation: ViewEncapsulation.Emulated
+
 })
 export class NavbarComponent implements OnInit {
   private subsCart = new SubSink();

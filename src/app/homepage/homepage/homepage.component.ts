@@ -43,6 +43,9 @@ export class HomepageComponent implements OnInit {
       for (let a of this.dataPromo) {
         this.dataPromo2.push(a)
       }
+      for (let a of this.dataPromo) {
+        this.dataPromo2.push(a)
+      }
       for (let b of this.dataPromo2) {
         this._images2.push(this.dataImages2)
       }

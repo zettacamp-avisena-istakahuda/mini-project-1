@@ -9,20 +9,19 @@
                 <h1>{{x.title}}</h1>
                 <p>{{x.description}}</p>
             </div>
+            <img src="https://static.vecteezy.com/system/resources/previews/001/887/350/non_2x/dark-green-red-gradient-blur-pattern-vector.jpg" alt="">
+
             <div class="promoCollection">
                 <div class="promo" *ngFor="let y of x.menuDiscount">
                     <img src="../../../assets/images/zyro-image.png">
                     <div class="promoImage">
                         <img [src]="y.recipe_id.img">
                     </div>
-
                     <div class="promoData">
                         <p>{{y.recipe_id.recipe_name}}</p>
                         <p>{{y.recipe_id.discountAmount + "% Off"}}</p>
                         <p style="text-decoration:line-through;">{{y.recipe_id.price | currency: "Rp. "}}</p>
                         <p>{{y.recipe_id.finalPrice | currency: "Rp. "}}</p>
-
-
                     </div>
 
                     <div class="promoGrabIt">
@@ -31,6 +30,7 @@
 
                 </div>
             </div>
+
         </div>
         <!-- <div #cell class="carousel-cell" *ngFor="let a of dataHighlight">
             <img [src]="a.img">
