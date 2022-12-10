@@ -1,0 +1,68 @@
+<div class="promoWrap">
+    <h3>Menu promo kita</h3>
+    <carousel class="carouselPromo" [height]='this.screenHeight' [width]='this.screenWidth' cellWidth='100%'
+        [loop]="true" [autoplay]="true" [autoplayInterval]="4000" [dots]="true" transitionTimingFunction='ease-in-out'
+        [pauseOnHover]="false" [freeScroll]="true" [transitionDuration]='450' [borderRadius]='100' [lightDOM]='true'
+        [images]="_images2">
+        <div #cell class="carousel-cell" *ngFor="let x of dataPromo">
+            <div class="promoInfo">
+                <h1>{{x.title}}</h1>
+                <p>{{x.description}}</p>
+            </div>
+            <div class="promoCollection">
+                <div class="promo" *ngFor="let y of x.menuDiscount">
+                    <img src="../../../assets/images/zyro-image.png">
+                    <div class="promoImage">
+                        <img [src]="y.recipe_id.img">
+                    </div>
+
+                    <div class="promoData">
+                        <p>{{y.recipe_id.recipe_name}}</p>
+                        <p>{{y.recipe_id.discountAmount + "% Off"}}</p>
+                        <p style="text-decoration:line-through;">{{y.recipe_id.price | currency: "Rp. "}}</p>
+                        <p>{{y.recipe_id.finalPrice | currency: "Rp. "}}</p>
+
+
+                    </div>
+
+                    <div class="promoGrabIt">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- <div #cell class="carousel-cell" *ngFor="let a of dataHighlight">
+            <img [src]="a.img">
+            <p>{{a.recipe_name}}</p>
+            <i>{{a.description}}</i>
+        </div> -->
+    </carousel>
+</div>
+
+<div class="carouselWrap">
+    <h3>Menu spesial kita</h3>
+    <carousel class="carouselHighlight" [height]='this.screenHeight' [width]='this.screenWidth' cellWidth='100%'
+        [loop]="true" [autoplay]="true" [autoplayInterval]="4000" [dots]="true" transitionTimingFunction='ease-in-out'
+        [pauseOnHover]="false" [freeScroll]="true" [transitionDuration]='450' [borderRadius]='100' [lightDOM]='true'
+        [images]="_images">
+        <div #cell class="carousel-cell" *ngFor="let a of dataHighlight">
+            <img [src]="a.img">
+            <p>{{a.recipe_name}}</p>
+            <i>{{a.description}}</i>
+        </div>
+    </carousel>
+</div>
+
+<div class="info">
+    <h1 style="font-weight: 700; color: white;">Warmindo Bosque</h1>
+    <img class="yellow-splash" src="../../../assets/images/indomie-splash.png" alt="">
+    <p>Hampir tidak ada yang tidak kenal dengan INDOMIE. “Indomie diluncurkan sejak tahun 1982 dan sekarang tersedia di
+        banyak negara, seperti Amerika Serikat, Australia, Inggris, Timur Tengah, dan sebagainya,” tulis produsen
+        Indomie, PT Indofood Sukses Makmur Tbk dalam situs resminya seperti dikutip Kompas.com.</p>
+    <p>Sekarang dengan konsep baru, WARUNG MAKAN INDOMIE ( WARMINDO) menjadi lebih banyak penggemarnya. Warung makan
+        Indomie yang lebih kekinian dengan mengusung konsep 'self service' atau ambil sendiri menjadi hits di tanah air.
+    </p>
+    <p>Bahkan WARMINDO KEKINIAN ini mengalamai lonjakan omset saat pandemi seperti ini. Ini yang membuat banyak pebisnis
+        menyukai bisnis warmindo kekinian ini, dengan produk INDOMIE yangs udah terkenal memudahkan pemasarannya.</p>
+</div>

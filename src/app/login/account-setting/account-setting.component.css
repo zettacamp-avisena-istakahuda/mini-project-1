@@ -1,0 +1,26 @@
+h2{
+    margin-top: 5%;
+    margin-left: 11%;
+    font-size: 30px;
+}
+
+.content{
+    width: 60%;
+    height: 90%;
+    margin-left: 19%;
+    margin-top: 3%;
+}
+.profilePicture{
+    position: absolute;
+    top: 23%;
+    max-width: 12%;
+
+}
+.profilePicture > img{
+    max-width: 70%;
+}
+button{
+    position: absolute;
+    left: 90%;
+    top: 10%;
+}

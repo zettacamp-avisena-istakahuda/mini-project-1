@@ -1,0 +1,43 @@
+<div class="wrapper">
+    <h1 style="text-align:center; margin-top: 3rem;font-weight: 800;">Menu</h1>
+    <div class="filter" [matMenuTriggerFor]="menu2">
+        <p>FILTER</p>
+        <mat-icon>tune</mat-icon>
+    </div>
+    <hr class="hr">
+
+
+    <div class="content">
+        <div class="card-container" *ngFor="let a of dataMenu; let i = index;">
+            <img [src]="a.img" alt="">
+            <p>{{a.recipe_name}}</p>
+            <p>{{a.description}}</p>
+            <p>{{('warmindo.ingredients' | translate) + ': ' + this.ingredients[i]}}</p>
+            <p>{{a.price | currency: "Rp. "}}</p>
+            <!-- <a class="cartLogo" *ngIf="a.available > 0" href="#" onclick="return false;">
+                <mat-icon *ngIf="!a.cartStatus" (click)="onAddCart(a.id)" [ngStyle]="{'color':'green'}">
+                    add_shopping_cart</mat-icon>
+                <mat-icon *ngIf="a.cartStatus" [ngStyle]="{'color':'grey'}">add_shopping_cart</mat-icon>
+            </a> -->
+            <p class="availableText">{{('warmindo.menu_amount' | translate) + a.available}}</p>
+            <a class="cartButton" (click)="onCart(a.id)" *ngIf="a.available > 0 && !a.cartStatus" href="" onclick="return false;">
+                <p>Add to cart</p>
+               <mat-icon>add_shopping_cart</mat-icon>
+            </a>
+            <img *ngIf="a.available <= 0" class="out-of-stock" src="../../../assets/images/stok-habis.png" alt="">
+        </div>
+    </div>
+</div>
+<app-spinner [isLoading]="isLoading"></app-spinner>
+
+<mat-menu #menu2="matMenu" xPosition="before">
+    <mat-form-field appearance="outline" (click)="$event.stopPropagation()">
+        <input [formControl]="search_menu_name" matInput placeholder="{{'warmindo.menu_search' | translate}}">
+    </mat-form-field>
+    <div class="matMenuSortPrice" (click)="$event.stopPropagation()" (click)="this.priceSorting()">
+        <p>Sort Price</p>
+        <mat-icon *ngIf="this.sortPrice==null" style="margin-left:3px; margin-top:-3px;">unfold_more</mat-icon>
+        <mat-icon *ngIf="this.sortPrice==='asc'" style="margin-left:3px; margin-top:-3px;">arrow_upward</mat-icon>
+        <mat-icon *ngIf="this.sortPrice==='desc'" style="margin-left:3px; margin-top:-3px;">arrow_downward</mat-icon>
+    </div>
+</mat-menu>

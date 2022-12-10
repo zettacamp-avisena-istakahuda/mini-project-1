@@ -1,0 +1,55 @@
+table {
+    width: 100%;
+  }
+
+  .mat-column-order_time {
+    width: 23%;
+
+}
+
+.mat-column-name {
+    width: 23%;
+
+}
+
+.mat-column-total_order2 {
+  text-align: center;
+}
+
+.paginationOperation{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  position: relative;
+  justify-content: flex-end;
+  padding-right: 20px;
+}
+
+.filterDateOperation{
+  display: flex;
+  width: 97%;
+  flex-direction: row;
+  position: relative;
+  justify-content: flex-end;
+}
+
+.paginationOperation>p{
+  margin-top: 3px;
+}
+.example-form-field {
+  margin: 0 8px 16px 30px;
+}
+
+::ng-deep .mat-date-range-input{
+  width: 200px !important;
+  height: 18px !important;
+}
+
+mat-form-field{
+  margin-left: 30px;
+}
+
+button{
+  margin-top: 20px;
+  margin-left: 92%;
+}

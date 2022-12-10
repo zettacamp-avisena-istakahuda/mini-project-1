@@ -1,0 +1,27 @@
+
+<app-navbar></app-navbar>
+<mat-sidenav-container class="tp-container">
+  
+    <mat-sidenav mode="side" [opened]="isShowing">
+      <section class="tp-section">
+        <a style="text-decoration:none; color:black;" routerLink='stock-management'><span>{{'warmindo.stock_management_page' | translate}}</span></a>
+      </section>
+      <br>
+      <section class="tp-section">
+        <a style="text-decoration:none; color:black;" routerLink="menu-management"><span>{{'warmindo.menu_management_page' | translate}}</span></a>
+      </section>
+      <section class="tp-section">
+        <a style="text-decoration:none; color:black;" routerLink="transaction-history"><span>{{'warmindo.transaction_history' | translate}}</span></a>
+      </section>
+    </mat-sidenav>
+    <mat-sidenav-content>
+
+      <button *ngIf="this.userType==='admin'" class="buttonArrow" mat-button (click)="toggleSidenav()">
+        <mat-icon *ngIf="!isShowing">keyboard_arrow_right</mat-icon>
+        <mat-icon *ngIf="isShowing">keyboard_arrow_left</mat-icon>
+      </button>
+  
+      <router-outlet></router-outlet>
+  
+    </mat-sidenav-content>
+  </mat-sidenav-container>

@@ -1,0 +1,27 @@
+<app-spinner [isLoading]="isLoading"></app-spinner>
+<div>
+    <a href="" onclick="return false;">
+        <mat-icon matTooltip="Close" (click)="onClose()">close</mat-icon>
+    </a>
+    <p>{{('warmindo.stock_' + (this.data.action)) | translate}}</p>
+    <mat-form-field appearance="standard">
+        <mat-label>{{'warmindo.name' | translate}}</mat-label>
+        <input [formControl]="name" type="text" matInput>
+        <mat-error *ngIf="this.name.invalid && this.name.touched" class="alert alert-danger">
+            {{'warmindo.stock_name_error' | translate}}
+        </mat-error><br>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard">
+        <mat-label>{{'warmindo.stock' | translate}}</mat-label>
+        <input [formControl]="stock" type="number" matInput>
+        <mat-error *ngIf="this.stock.invalid && this.stock.touched" class="alert alert-danger">
+            {{'warmindo.stock_stock_error' | translate}}
+        </mat-error><br>
+    </mat-form-field>
+    <div class="forButton"> 
+        <button (click)="onClose()" type="button" mat-flat-button color="warn">Cancel</button>
+        <button (click)="onSubmit()" style="margin-left:25px;" mat-flat-button color="primary">{{'warmindo.submit' |translate}}</button>
+    </div>
+
+</div>
