@@ -3,6 +3,7 @@ import { SubSink } from 'subsink';
 import { ApiServiceService } from 'src/app/services/api-service.service';
 import Swal from 'sweetalert2'
 import copy from 'fast-copy';
+import { FormControl } from '@angular/forms';
 
 
 interface ICartData {
@@ -36,6 +37,8 @@ export class CartPageComponent implements OnInit {
   private subsCartData = new SubSink();
   private subsOperation = new SubSink();
   private subsCheckout = new SubSink();
+  private editAmount = new SubSink();
+
 
 
   constructor(private service: ApiServiceService) { }
@@ -91,7 +94,8 @@ export class CartPageComponent implements OnInit {
           }
         })
       }
-      else if(action!='delete'){this.isLoading = true
+      else if (action != 'delete') {
+        this.isLoading = true
         this.subsOperation.sink = this.service.updateTransaction(id, action).subscribe((resp: any) => {
           if (resp) {
             this.service.getAllTransactions('pending', true).refetch()
@@ -100,7 +104,8 @@ export class CartPageComponent implements OnInit {
           else {
             this.isLoading = false
           }
-        })}
+        })
+      }
     }
   }
 
@@ -151,4 +156,42 @@ export class CartPageComponent implements OnInit {
     }
   }
 
+  emptyCart() {
+    Swal.fire({
+      title: 'Do you want to clear your cart?',
+      showDenyButton: true,
+      showCancelButton: true,
+      showConfirmButton: false,
+      denyButtonText: `Yes`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isDenied) {
+        this.isLoading = true
+        this.subsOperation.sink = this.service.updateTransaction("", "emptyCart").subscribe((resp: any) => {
+          if (resp) {
+            this.service.getAllTransactions('pending', true).refetch()
+            this.isLoading = false
+          }
+        })
+      }
+    })
+  }
+
+  amountChange(id: string, amount: any) {
+
+    setTimeout(() => {
+      if (amount > 0) {
+        this.isLoading = true
+        this.subsOperation.sink = this.service.editAmountTransaction(id, amount).subscribe((resp: any) => {
+          if (resp) {
+            this.service.getAllTransactions('pending', true).refetch()
+            this.isLoading = false
+          }
+          else {
+            this.isLoading = false
+          }
+        })
+      }
+    }, 2500)
+  }
 }

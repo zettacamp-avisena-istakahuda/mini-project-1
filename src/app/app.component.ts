@@ -63,6 +63,8 @@ export class AppComponent implements OnInit, AfterContentInit {
   logout(){
     this.subsLogout.sink = this.service.logout().subscribe((resp: any) => {
       if (resp) {
+        console.log("tes");
+        
         localStorage.clear()
         window.location.replace("/login")
       }

@@ -89,13 +89,13 @@ export class ApiServiceService {
     })
   }
 
-  createTransaction(id: string): Observable<any> {
+  createTransaction(id: string, amount: number): Observable<any> {
     return this.apollo.mutate({
       mutation: gql`mutation Mutation{
         createTransaction(input: {
           recipe_id: "${id}"
-          amount: 1
-          note:" "
+          amount: ${amount}
+          note:""
         }) {
           user_id {
             first_name
@@ -167,6 +167,20 @@ export class ApiServiceService {
     })
   }
 
+  editAmountTransaction(id: string, amount: number): Observable<any> {
+    return this.apollo.mutate({
+      mutation: gql`mutation 
+      UpdateTransaction{
+          updateTransaction(
+            id: "${id}"
+            amount: ${amount}
+            ) {
+            id
+          }
+      }`
+    })
+  }
+
   updateTransactionNote(id: string, note: string): Observable<any> {
     console.log(note);
 
@@ -199,7 +213,7 @@ export class ApiServiceService {
     })
   }
 
-  getActiveMenu(name?: string, highlight?: boolean) {
+  getActiveMenu(name?: string, highlight?: boolean | null, sortPrice?: string | null) {
     let a: any = ""
     let b = null;
     if (name) {
@@ -212,7 +226,10 @@ export class ApiServiceService {
       query: gql`query GetActiveMenu {
         getActiveMenu(
           recipe_name: "${a}",
-          highlight: ${b}
+          highlight: ${b},
+          sorting:{
+            price: ${sortPrice}
+          }
         ) {
           data {
             id
@@ -233,7 +250,8 @@ export class ApiServiceService {
     })
   }
 
-  getAllTransactions(status: string, isCart: boolean, fullName?: string, page?: number, date_start?: string, date_end?: string) {
+  getAllTransactions(status: string, isCart: boolean, fullName?: string, page?: number,
+    date_start?: string, date_end?: string, filter_date?: string | null) {
     if (fullName == null) {
       fullName = ""
     }
@@ -246,7 +264,11 @@ export class ApiServiceService {
     if (date_end == null) {
       date_end = ""
     }
+    if (filter_date == null) {
+      filter_date = null
+    }
 
+    console.log(filter_date);
 
     return this.apollo.watchQuery({
       query: gql`query GetAllTransactions {
@@ -257,7 +279,10 @@ export class ApiServiceService {
         isCart: ${isCart},
         fullName_user: "${fullName}",
         order_date_start: "${date_start}",
-        order_date_end: "${date_end}"
+        order_date_end: "${date_end}",
+        filterDate: {
+          option: ${filter_date}
+        } 
         ) {
           max_page
           data {
@@ -307,14 +332,21 @@ export class ApiServiceService {
     })
   }
 
-  getAllRecipesPagination(page: number, val: string) {
+  getAllRecipesPagination(page: number, val: string, sortPrice?: string | null) {
     let a: any = ""
     if (val) {
       a = val;
     }
     return this.apollo.watchQuery({
       query: gql`query GetAllRecipes {
-        getAllRecipes(page: ${page}, limit: 10, recipe_name: "${a}") {
+        getAllRecipes(
+          page: ${page}, 
+          limit: 10, 
+          recipe_name: "${a}",
+          sorting: {
+            price: ${sortPrice}
+          }
+          ) {
           data {
             id
             highlight
@@ -356,7 +388,11 @@ export class ApiServiceService {
   getAllIngredients() {
     return this.apollo.watchQuery({
       query: gql`query {
-        getAllIngredient {
+        getAllIngredient(
+          sort: {
+            name: asc,
+          }
+        ) {
           data {
             id
             name 
@@ -368,14 +404,22 @@ export class ApiServiceService {
     })
   }
 
-  getAllIngredientsPagination(page?: number, name?: string) {
+  getAllIngredientsPagination(page?: number, name?: string, sortName?: string, sortStock?: string) {
     let a: any = ""
     if (name) {
       a = name;
     }
     return this.apollo.watchQuery({
       query: gql`query {
-        getAllIngredient(page: ${page}, limit: 10, name: "${a}"){
+        getAllIngredient(
+          page: ${page}, 
+          limit: 10, 
+          name: "${a}",
+          sort: {
+            name: ${sortName},
+            stock: ${sortStock}, 
+          }
+          ){
           data {
             id
             name 
@@ -473,7 +517,7 @@ export class ApiServiceService {
     })
   }
 
-  changePassword(data:any, action: boolean){
+  changePassword(data: any, action: boolean) {
     return this.apollo.mutate({
       mutation: gql`mutation Mutation{
         changePassword(
@@ -487,7 +531,7 @@ export class ApiServiceService {
     })
   }
 
-  register(data:any){
+  register(data: any) {
     return this.apollo.mutate({
       mutation: gql`mutation Register{
         register(
@@ -505,18 +549,53 @@ export class ApiServiceService {
     })
   }
 
-  forgotPassword(data:any){
+  forgotPassword(data: any) {
+    console.log(data.newPassword);
+
     return this.apollo.mutate({
       mutation: gql`mutation Mutation {
         forgotPassword(
           email: "${data.email}",
-          security_question: "${data.question}",
-          security_answer: "${data.answer}"
+          token: "${data.token}",
+          new_password: "${data.newPassword}"
         ) {
           security_question
         }
       }
       `
+    })
+  }
+
+  reqTokenByEmail(data: any) {
+    return this.apollo.mutate({
+      mutation: gql`mutation Mutation {
+        reqTokenByEmail(email: "${data.email}") {
+          id
+        }
+      }
+      `
+    })
+  }
+
+  getAllSpecialOffers() {
+    return this.apollo.watchQuery({
+      query: gql`query Query {
+        getAllSpecialOffers {
+          data {
+            title
+            description
+            menuDiscount {
+              recipe_id {
+                recipe_name
+                price
+                discountAmount
+                finalPrice
+                img
+              }
+            }
+          }
+        }
+      }`
     })
   }
 

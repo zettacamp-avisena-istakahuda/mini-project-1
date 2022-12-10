@@ -1,5 +1,6 @@
 table {
   width: 100%;
+  position: absolute;
 }
 
 a{
@@ -13,7 +14,11 @@ button{
 
 .paginationOperation{
   display: flex;
+  width: 100%;
   flex-direction: row;
-  margin-top: 1rem;
-  margin-left: 89%;
+  position: relative;
+  justify-content: flex-end;
+}
+.paginationOperation>p{
+  margin-top: 3px;
 }

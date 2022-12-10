@@ -6,6 +6,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import Swal from 'sweetalert2'
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class IngredientEditFormComponent implements OnInit {
 
   constructor(private service: ApiServiceService,
     private dialog: MatDialogRef<IngredientEditFormComponent>,
+    private translate: TranslateService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -37,7 +39,7 @@ export class IngredientEditFormComponent implements OnInit {
       if (this.data.action == 'add') {
         this.subsForm.sink = this.service.addIngredient(this.name.value, this.stock.value).subscribe(resp => {
           if (resp) {
-            this.service.getAllIngredientsPagination(this.data.page,this.data.search).refetch()
+            this.service.getAllIngredientsPagination(this.data.page, this.data.search, this.data.sortName, this.data.sortStock).refetch()
             this.isLoading = false
             Swal.fire({
               icon: 'success',
@@ -57,7 +59,7 @@ export class IngredientEditFormComponent implements OnInit {
       else if (this.data.action == 'edit') {
         this.subsForm.sink = this.service.updateIngredient(this.data.id, this.name.value, this.stock.value).subscribe(resp => {
           if (resp) {
-            this.service.getAllIngredientsPagination(this.data.page,this.data.search).refetch()
+            this.service.getAllIngredientsPagination(this.data.page, this.data.search, this.data.sortName, this.data.sortStock).refetch()
             this.isLoading = false
             Swal.fire({
               icon: 'success',
@@ -65,6 +67,12 @@ export class IngredientEditFormComponent implements OnInit {
             })
             this.dialog.close()
           }
+        }, err => {
+          Swal.fire({
+            icon: 'error',
+            title: err.message,
+          })
+          this.isLoading = false
         })
       }
     }
@@ -76,9 +84,11 @@ export class IngredientEditFormComponent implements OnInit {
       })
     }
 
+    this.service.getAllIngredients().refetch()
+
   }
 
-  onClose(){
+  onClose() {
     this.dialog.close()
   }
 

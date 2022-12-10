@@ -3,8 +3,9 @@ import { ApolloModule, APOLLO_OPTIONS } from 'apollo-angular';
 import { ApolloClientOptions, InMemoryCache } from '@apollo/client/core';
 import { HttpLink } from 'apollo-angular/http';
 import { HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
-const uri = 'https://b436-103-236-192-220.ap.ngrok.io/';  
+const uri = environment.apiURL;  
 export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
    let token: any = 'j'
    token = localStorage.getItem('token');

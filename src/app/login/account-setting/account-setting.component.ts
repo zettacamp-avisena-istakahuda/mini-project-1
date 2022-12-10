@@ -61,7 +61,7 @@ export class AccountSettingComponent implements OnInit {
     this.settingForm.controls['avatarURL'].valueChanges.subscribe((resp: any) => {
 
       if (resp) {
-        this.imgURL = resp.avatarURL
+        this.imgURL = resp        
       }
 
     })

@@ -11,18 +11,18 @@ td {
 }
 
 .mat-column-description {
-    width: 30%;
+    width: 14%;
 
 }
 
 
 .mat-column-ingredients {
-    width: 8%;
+    width: 20%;
 }
 
 .mat-column-price {
     width: 13%;
-    text-align: center;
+
 }
 
 
@@ -50,12 +50,17 @@ a {
     color: black;
 }
 
-.paginationOperation{
+.paginationOperation {
     display: flex;
+    width: 100%;
     flex-direction: row;
-    margin-top: 1rem;
-    margin-left: 89.5%;
-  }
+    position: relative;
+    justify-content: flex-end;
+}
+
+.paginationOperation>p {
+    margin-top: 3px;
+}
 
 @keyframes slideInFromLeft {
     0% {

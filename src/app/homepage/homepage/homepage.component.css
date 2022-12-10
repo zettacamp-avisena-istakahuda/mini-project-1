@@ -1,4 +1,4 @@
-.contact{
+.contact {
   position: fixed;
   width: 300px;
   height: 100px;
@@ -22,7 +22,12 @@
   flex: 1 1 auto;
 }
 
-carousel {
+.carouselPromo {
+  margin-left: 10%;
+
+}
+
+.carouselHighlight {
   border: 4px yellow solid;
   border-radius: 20px;
   margin-left: 10%;
@@ -68,8 +73,7 @@ h3 {
 
 .info {
   width: 100%;
-  margin-top: 56%;
-  border: 3px solid black;
+  margin-top: 100%;
   position: absolute;
   height: fit-content;
   padding-bottom: 20%;
@@ -89,17 +93,119 @@ h3 {
 
 .carouselWrap {
   width: 100%;
-  height:110%;
+  margin-top: 56%;
+  height: 110%;
   padding-bottom: 10rem;
   border: 3px solid black;
   position: absolute;
   background-image: url(https://img.freepik.com/premium-vector/beautiful-vector-background-with-abstract-colorful-red-tribal-seamless-pattern_76645-1281.jpg);
 }
 
+.promoWrap {
+  width: 100%;
+  height: 110%;
+  padding-bottom: 10rem;
+  position: absolute;
+  background-image: url(https://img.freepik.com/premium-vector/ethnic-tribal-pattern-green-backgound_667511-190.jpg);
+}
+
+.promoCollection {
+  height: 70vh;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  position: relative;
+  flex-grow: 3;
+
+}
+
+.promoInfo {
+  text-align: center;
+  width: 100%;
+  height: 16vh;
+  color: white;
+}
+
+.promoInfo>p {
+  font-style: italic;
+}
+
+.promo {
+  -webkit-animation: rotating 4s linear infinite;
+  -moz-animation: rotating 4s linear infinite;
+  -ms-animation: rotating 4s linear infinite;
+  -o-animation: rotating 4s linear infinite;
+  animation: rotating 4s linear infinite;
+  width: 25vw;
+}
+
+.promoImage {
+  width: 20%;
+  height: 60%;
+  z-index: 3;
+  position: absolute;
+  top: 18%;
+  left: 6.5%;
+}
+
+.promoImage>img {
+  max-width: 100%;
+  border-radius: 20px;
+  border: 3px solid green;
+}
+
+.promoData {
+  width: 51%;
+  height: 65%;
+  z-index: 3;
+  position: absolute;
+  top: 15%;
+  left: 33%;
+  text-align: center;
+  color: white;
+  font-size: 0.8vw;
+}
+
+.promoData > p {
+  margin: 4px 4px;
+}
+.promoData >p:nth-child(0){
+  font-size: 13px;
+}
+.promoData >p:nth-child(1){
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.promoGrabIt {
+  width: 28%;
+  height: 19%;
+  z-index: 3;
+  position: absolute;
+  top: 40%;
+  left: 77%;
+  transform: rotate(-90deg);
+}
+
+.promo:nth-child(3n-1) {
+  margin-left: 120px;
+  -webkit-animation: rotating 4s linear infinite;
+  -moz-animation: rotating 4s linear infinite;
+  -ms-animation: rotating 4s linear infinite;
+  -o-animation: rotating 4s linear infinite;
+  animation: rotating 4s linear infinite;
+}
+
+.promo>img {
+  max-width: 100%;
+}
+
 :host::ng-deep.carousel-cells .carousel-cell img {
   object-fit: unset !important;
   border-radius: 20px;
 }
+
+
 
 @keyframes MoveUpDown {
 
@@ -110,5 +216,25 @@ h3 {
 
   50% {
     top: 15%
+  }
+}
+
+@keyframes rotating {
+
+  0%,
+  100% {
+    -ms-transform: rotate(-5deg);
+    -moz-transform: rotate(-5deg);
+    -webkit-transform: rotate(-5deg);
+    -o-transform: rotate(-5deg);
+    transform: rotate(-5deg);
+  }
+
+  50% {
+    -ms-transform: rotate(5deg);
+    -moz-transform: rotate(5deg);
+    -webkit-transform: rotate(5deg);
+    -o-transform: rotate(5deg);
+    transform: rotate(5deg);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SubSink } from 'subsink';
 import { ApiServiceService } from 'src/app/services/api-service.service';
 import { LoginFormComponent } from 'src/app/login/login-form/login-form.component';
@@ -26,7 +26,9 @@ interface IOrder {
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css']
+  styleUrls: ['./menu.component.css'],
+  encapsulation: ViewEncapsulation.Emulated
+
 })
 export class MenuComponent implements OnInit {
   private subsPromo = new SubSink();
@@ -39,7 +41,7 @@ export class MenuComponent implements OnInit {
   isLoading = false;
   login!: string | null
   cartAmount = 0
-
+  sortPrice: string | null = null
   search!: string
   dataCartAdded: any = []
   dataMenu: any = []
@@ -49,9 +51,9 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
 
-  
 
-    this.subsPromo.sink = this.service.getActiveMenu(this.search).valueChanges.subscribe((resp: any) => {
+
+    this.subsPromo.sink = this.service.getActiveMenu(this.search, null, this.sortPrice).valueChanges.subscribe((resp: any) => {
       this.dataMenu = resp.data.getActiveMenu.data
       this.dataMenu = copy(this.dataMenu)
       this.ingredients = this.service.extractIngredients(this.dataMenu)
@@ -69,19 +71,19 @@ export class MenuComponent implements OnInit {
 
     this.search_menu_name.valueChanges.subscribe((val) => {
       this.search = val
-      this.subsPromo.sink = this.service.getActiveMenu(this.search).valueChanges.subscribe((resp: any) => {
+      this.subsPromo.sink = this.service.getActiveMenu(this.search, null, this.sortPrice).valueChanges.subscribe((resp: any) => {
         this.dataMenu = resp.data.getActiveMenu.data
         this.ingredients = this.service.extractIngredients(this.dataMenu)
       })
     });
-    this.service.getActiveMenu(this.search).refetch()
+    this.service.getActiveMenu(this.search, null, this.sortPrice).refetch()
 
   }
 
-  onAddCart(id: string) {
-    if (this.login) {
+  onAddCart(id: string, amount: number) {
+
       this.isLoading = true;
-      this.subsOrder.sink = this.service.createTransaction(id).subscribe((resp: any) => {
+      this.subsOrder.sink = this.service.createTransaction(id, amount).subscribe((resp: any) => {
         if (resp) {
           this.service.getAllTransactions('pending', true).refetch()
           this.isLoading = false;
@@ -94,14 +96,7 @@ export class MenuComponent implements OnInit {
           })
         }
       })
-    }
-    else {
-      Swal.fire({
-        position:'top',
-        title: 'Login dulu ya'
-      })
-      this.router.navigate(['login'])
-    }
+  
   }
 
   openDialog(): void {
@@ -112,31 +107,62 @@ export class MenuComponent implements OnInit {
   }
 
   cartStatus() {
-    for (let a of this.dataCartAdded) {            
+    for (let a of this.dataCartAdded) {
       let i = 0;
-      for (let b of this.dataMenu) {        
+      for (let b of this.dataMenu) {
         if (a.menu[0].recipe_id.id === b.id) {
           this.dataMenu[i].cartStatus = true
         }
         i++;
       }
-    }    
+    }
   }
 
-   onCart(id: string) {
-    Swal.fire({
-      title: '',
-      showCancelButton: true,
-      showConfirmButton: true,
-      input: 'number'
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        
-      }
+  onCart(id: string) {
+    if (this.login) {
+      Swal.fire({
+        title: 'Input the amount',
+        showCancelButton: true,
+        showConfirmButton: true,
+        input: 'number',
+        inputAttributes:{
+          min: '1',
+        }
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          if (result.value > 0) {
+            this.onAddCart(id, result.value)
+          }
+        }
+      })
+    }
+    else {
+      Swal.fire({
+        position: 'top',
+        title: 'Login dulu ya'
+      })
+      this.router.navigate(['login'])
+    }
+  }
+
+  priceSorting() {
+    if (this.sortPrice == null) {
+      this.sortPrice = "asc"
+    }
+    else if (this.sortPrice === "asc") {
+      this.sortPrice = "desc"
+    }
+    else {
+      this.sortPrice = null
+    }
+
+    this.subsPromo.sink = this.service.getActiveMenu(this.search, null, this.sortPrice).valueChanges.subscribe((resp: any) => {
+      this.dataMenu = resp.data.getActiveMenu.data
+      this.ingredients = this.service.extractIngredients(this.dataMenu)
     })
+    this.service.getActiveMenu(this.search, null, this.sortPrice).refetch()
   }
-
 }
 
 

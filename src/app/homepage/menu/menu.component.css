@@ -1,17 +1,18 @@
-
-.wrapper{
+.wrapper {
     position: absolute;
     width: 100%;
     height: fit-content;
-    padding-bottom: 20%;
+    padding-bottom: 40%;
     background-image: url(https://png.pngtree.com/background/20210710/original/pngtree-restaurant-menu-background-material-picture-image_1033618.jpg);
 }
+
 .content {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     width: 80%;
     margin-left: 8%;
+    margin-top: 6rem;
 }
 
 .out-of-stock {
@@ -31,15 +32,15 @@
     box-sizing: border-box;
     border: 3px yellow solid;
     width: 20%;
-    height: 450px;
+    height: 500px;
     margin-left: 140px;
     padding: 10px;
     position: relative;
     background-color: rgba(95, 90, 90, 0.5);
 }
 
-.card-container-disabled{
-   background-color: red;
+.card-container-disabled {
+    background-color: red;
 }
 
 .card-container:hover {
@@ -78,21 +79,51 @@
     margin-top: 15px;
 }
 
-.availableText{
+.availableText {
     text-align: center;
     font-size: 10px;
     color: white;
     margin-top: 10px;
 }
+
 .card-container>p:nth-child(5) {
-    left: 29%;
+    left: 33%;
     font-size: 13px;
     position: absolute;
-    bottom: 20px;
+    bottom: 80px;
     font-weight: 700;
 }
 
-.card-container>a {
+.cartButton {
+    width: 100%;
+    height: 70px;
+    background-color: rgb(13, 13, 219, 0.5);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-radius: 0px 0px 30px 30px;
+}
+
+.cartButton>p {
+    position: absolute;
+    top: 30%;
+    left: 20%;
+    color: white;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.cartButton>mat-icon {
+    position: absolute;
+    top: 30%;
+    left: 70%;
+    color: white;
+    font-size: 35px;
+    width: fit-content;
+    height: fit-content;
+}
+
+.card-container>.cartLogo {
     position: absolute;
     bottom: 10px;
     left: 85%;
@@ -103,11 +134,56 @@
     margin-top: 200px
 }
 
-mat-form-field{
-    position: fixed;
-    bottom: 0;
-    right: 10px;
-    width: 14%;
+.hr {
+    border: 1px dotted red;
+    border-radius: 5px;
+}
+
+.filter {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    right: 5px;
+    height: 30px;
+    width: 100px;
+    top: 8vh;
+    border: 2px solid black;
+    border-radius: 25px;
+    background-color: rgba(59, 48, 48, 0.4);
+    padding-left: 32px;
+    padding-top: 5px;
+}
+
+.filter>p {
+    color: white;
+    font-weight: 700;
+    margin-top: 3px;
+}
+
+.filter>mat-icon {
+    color: white;
+    margin-left: 5px;
+}
+
+mat-form-field {
+    margin-left: 40px;
+}
+
+.matMenuSortPrice {
+    display: flex;
+    flex-direction: row;
+    font-weight: 700;
+    margin-left: 15%;
+}
+
+::ng-deep .mat-menu-panel {
+    margin-right: 100px;
+    border-radius: 25px;
+    border: 2px dashed green;
+    width: 500px;
+    background-color: rgb(238, 234, 234, 0.7);
+    margin-top: 20px;
+    height: 130px;
 }
 
 @keyframes slideInFromLeft {

@@ -1,6 +1,7 @@
 <app-spinner [isLoading]="isLoading"></app-spinner>
 
 <div *ngIf="dataCart.length > 0">
+
     <div ng-disabled="a.menu[0].recipe_id.status!='active'" class="cart" *ngFor="let a of dataCart">
         <img [src]="a.menu[0].recipe_id.img" alt="">
         <div class="nameNote">
@@ -9,23 +10,42 @@
                 <p>{{a.menu[0].note}}</p>
             </div>
         </div>
-    
-        <div class="action">
-            <a href="#" (click)="amountOperation(a.id, 'pull', a.menu[0].amount, a.available)" onclick="return false;">
-                <mat-icon>keyboard_arrow_left</mat-icon>
-            </a>
-            <p>{{a.menu[0].amount}}</p>
-            <a href="#" (click)="amountOperation(a.id, 'push', a.menu[0].amount, a.available)" onclick="return false;">
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </a>
-        </div>
-        <a href="#" (click)="amountOperation(a.id, 'delete')" onclick="return false;">
+
+
+        <a href="#" class="delete" (click)="amountOperation(a.id, 'delete')" onclick="return false;">
             <mat-icon class="delete">delete</mat-icon>
         </a>
-    
+
+        <p class="cartTotalPrice">{{a.totalPrice | currency: "Rp. "}}</p>
+
+        <div class="action">
+            <a href="#" (click)="amountOperation(a.id, 'push', a.menu[0].amount, a.available)" onclick="return false;">
+                <mat-icon>keyboard_arrow_up</mat-icon>
+            </a>
+            <input #amountCart style="width:30px; height:20px; text-align:center; border: 2px solid green;
+                    border-radius: 10px;" value="{{a.menu[0].amount}}" (keyup)="amountChange(a.id, amountCart.value)"
+                maxlength="2" min="1" onfocusout="if(this.value < 1) this.value = 1"
+                oninput="javascript: if(this.value < 1 && this.value.length>0) this.value = 1; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                type="number">
+
+            <a href="#" style="margin-top:5px;" (click)="amountOperation(a.id, 'pull', a.menu[0].amount, a.available)"
+                onclick="return false;">
+                <mat-icon>keyboard_arrow_down</mat-icon>
+            </a>
+        </div>
     </div>
+
+
+
     <h1>{{'Total Price: ' + (this.totalCartPrice | currency: "Rp. ")}}</h1>
-    <button (click)="checkout()" style="margin-left:70%; margin-top:2rem;" mat-raised-button color="primary">BUY</button>
+    <div class="button">
+        <button (click)="emptyCart()" mat-raised-button color="warn">CLEAR CART</button>
+        <button (click)="checkout()" mat-raised-button color="primary">BUY</button>
+    </div>
 </div>
 
 
+<div class="emptyCart" *ngIf="dataCart.length < 1">
+    <img class="emptyCartImage" src="../../../assets/images/empty_cart.png">
+    <p>Oops.. Looks like your cart is empty. Go grab some of our specialties!</p>
+</div>

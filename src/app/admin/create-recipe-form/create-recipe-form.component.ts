@@ -96,7 +96,7 @@ export class CreateRecipeFormComponent implements OnInit {
       if (this.data.action == 'edit') {
         this.subsIngredients.sink = this.service.updateRecipe(this.createRecipe.value, this.selectedRecipeID).subscribe(resp => {
           if (resp) {
-            this.service.getAllRecipesPagination(this.data.page, this.data.search).refetch()
+            this.service.getAllRecipesPagination(this.data.page, this.data.search, this.data.sortPrice).refetch()
             this.isLoading = false
             Swal.fire({
               icon: 'success',
@@ -109,7 +109,7 @@ export class CreateRecipeFormComponent implements OnInit {
       else {
         this.subsIngredients.sink = this.service.createRecipe(this.createRecipe.value).subscribe(resp => {
           if (resp) {
-            this.service.getAllRecipesPagination(this.data.page, this.data.search).refetch()
+            this.service.getAllRecipesPagination(this.data.page, this.data.search, this.data.sortPrice).refetch()
             this.isLoading = false
             Swal.fire({
               icon: 'success',

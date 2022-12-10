@@ -32,6 +32,7 @@ export class MenuManagementComponent implements OnInit {
   private subsMenuUpdate = new SubSink();
   private subsPagination = new SubSink();
 
+  sortPrice: string|null = null
   search_recipe_name = new FormControl();
   page = 1;
   max_page: number = 1
@@ -47,7 +48,7 @@ export class MenuManagementComponent implements OnInit {
   constructor(private service: ApiServiceService, private dialog: MatDialog, private translate: TranslateService ) { }
   
   ngOnInit(): void {
-    this.subsPagination.sink = this.service.getAllRecipesPagination(this.page, this.search).valueChanges.subscribe((resp: any) => {
+    this.subsPagination.sink = this.service.getAllRecipesPagination(this.page, this.search, this.sortPrice).valueChanges.subscribe((resp: any) => {
       this.dataMenu = resp.data.getAllRecipes.data      
       this.dataMenu2 = this.service.extractIngredientsTable(this.dataMenu)
       this.dataSource = new MatTableDataSource(this.dataMenu2)
@@ -57,16 +58,16 @@ export class MenuManagementComponent implements OnInit {
     this.search_recipe_name.valueChanges.subscribe((val) => {
       this.page = 1
       this.search = val
-      this.subsPagination.sink = this.service.getAllRecipesPagination(1, val).valueChanges.subscribe((resp: any) => {
+      this.subsPagination.sink = this.service.getAllRecipesPagination(1, val, this.sortPrice).valueChanges.subscribe((resp: any) => {
         this.dataMenu = resp.data.getAllRecipes.data      
         this.dataMenu2 = this.service.extractIngredientsTable(this.dataMenu)
         this.dataSource = new MatTableDataSource(this.dataMenu2)
         this.max_page = resp.data.getAllRecipes.max_page
       })
-      this.service.getAllRecipesPagination(this.page, this.search).refetch()
+      this.service.getAllRecipesPagination(this.page, this.search, this.sortPrice).refetch()
      });
 
-    this.service.getAllRecipesPagination(this.page, this.search).refetch()
+    this.service.getAllRecipesPagination(this.page, this.search, this.sortPrice).refetch()
   }
 
   openDialog(): void {
@@ -75,7 +76,8 @@ export class MenuManagementComponent implements OnInit {
       data: {
         action: 'submit',
         page: this.page,
-        search: this.search
+        search: this.search,
+        sortPrice: this.sortPrice
       }
 
     });
@@ -88,7 +90,8 @@ export class MenuManagementComponent implements OnInit {
         selectedCard: selectedCard,
         action: action,
         page: this.page,
-        search: this.search
+        search: this.search,
+        sortPrice: this.sortPrice
       }
 
     });
@@ -120,7 +123,7 @@ export class MenuManagementComponent implements OnInit {
         this.subsMenuUpdate.sink = this.service.updateRecipeStatus(data).subscribe(resp => {
           if (resp) {
             this.isLoading = false
-            this.service.getAllRecipesPagination(this.page, this.search).refetch()
+            this.service.getAllRecipesPagination(this.page, this.search, this.sortPrice).refetch()
             Swal.fire('Menu status has been changed to ' + data.status)
           }
         })
@@ -141,7 +144,7 @@ export class MenuManagementComponent implements OnInit {
     this.subsMenuUpdate.sink = this.service.updateRecipeHighlight(data).subscribe(resp => {
       if (resp) {
         this.isLoading = false
-        this.service.getAllRecipesPagination(this.page, this.search).refetch()
+        this.service.getAllRecipesPagination(this.page, this.search, this.sortPrice).refetch()
       }
     })
   }
@@ -161,7 +164,7 @@ export class MenuManagementComponent implements OnInit {
         data.status = 'deleted'
         this.subsMenuUpdate.sink = this.service.updateRecipeStatus(data).subscribe(resp => {
           if (resp) {
-            this.service.getAllRecipesPagination(this.page, this.search).refetch()
+            this.service.getAllRecipesPagination(this.page, this.search, this.sortPrice).refetch()
             this.isLoading = false
             Swal.fire('Menu deleted')
           }
@@ -173,25 +176,44 @@ export class MenuManagementComponent implements OnInit {
   previousPage(){
     if(this.page>1){
       this.page--
-      this.subsPagination.sink = this.service.getAllRecipesPagination(this.page, this.search).valueChanges.subscribe((resp: any) => {
+      this.subsPagination.sink = this.service.getAllRecipesPagination(this.page, this.search, this.sortPrice).valueChanges.subscribe((resp: any) => {
         this.dataMenu = resp.data.getAllRecipes.data
         this.dataMenu2 = this.service.extractIngredientsTable(this.dataMenu)
         this.dataSource = new MatTableDataSource(this.dataMenu2)
       })
-      this.service.getAllRecipesPagination(this.page, this.search).refetch()
+      this.service.getAllRecipesPagination(this.page, this.search, this.sortPrice).refetch()
     }
   }
   nextPage(){
 
     if(this.page < this.max_page){
       this.page++
-      this.subsPagination.sink = this.service.getAllRecipesPagination(this.page, this.search).valueChanges.subscribe((resp: any) => {
+      this.subsPagination.sink = this.service.getAllRecipesPagination(this.page, this.search, this.sortPrice).valueChanges.subscribe((resp: any) => {
         this.dataMenu = resp.data.getAllRecipes.data
         this.dataMenu2 = this.service.extractIngredientsTable(this.dataMenu)
         this.dataSource = new MatTableDataSource(this.dataMenu2)
       }) 
-      this.service.getAllRecipesPagination(this.page, this.search).refetch()
+      this.service.getAllRecipesPagination(this.page, this.search, this.sortPrice).refetch()
     }
+  }
+
+  priceSort(){
+    if (this.sortPrice == null) {
+      this.sortPrice = "asc"
+    }
+    else if (this.sortPrice === "asc") {
+      this.sortPrice = "desc"
+    }
+    else {
+      this.sortPrice = null
+    }
+
+    this.subsPagination.sink = this.service.getAllRecipesPagination(this.page, this.search, this.sortPrice).valueChanges.subscribe((resp: any) => {
+      this.dataMenu = resp.data.getAllRecipes.data
+      this.dataMenu2 = this.service.extractIngredientsTable(this.dataMenu)
+      this.dataSource = new MatTableDataSource(this.dataMenu2)
+    }) 
+    this.service.getAllRecipesPagination(this.page, this.search, this.sortPrice).refetch()
   }
 }
 
