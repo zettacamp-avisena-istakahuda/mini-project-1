@@ -12,9 +12,9 @@
         <a [routerLink]="['/homepage']">
             <img src="../../../assets/images/logo.png" alt="">
         </a>
-        <h3 *ngIf="this.token">{{(this.role | titlecase) + ": " + this.service.userData?.fullName}}</h3>
+        <h3 *ngIf="this.token">{{(this.role | titlecase) + ": " + this.service.userData.fullName}}</h3>
         <a class="profilePict" [matMenuTriggerFor]="menu" *ngIf="this.token" href="#" onclick="return false;">
-            <img src="{{this.service.userData?.img}}">
+            <img src="{{this.service.userData.img}}">
         </a>
     </div>
 
