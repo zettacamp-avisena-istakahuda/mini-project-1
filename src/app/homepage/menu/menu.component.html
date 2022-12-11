@@ -45,7 +45,9 @@
 
 <mat-menu #menuPopUp="matMenu" xPosition="before">
     <ng-template matMenuContent let-description="description" let-ingredients="ingredients">
-        <p style="text-align:center; font-weight:700; font-size: 15px;" mat-menu-item>{{description}}</p>
-        <p mat-menu-item>{{'Ingredients: ' + ingredients}}</p>
+        <div style="width:100%;inline-size: 100%;overflow-wrap: break-word;">        
+            <p style="text-align:center; font-weight:700; font-size: 15px;" mat-menu-item>{{description}}</p>
+            <p mat-menu-item>{{'Ingredients: ' + ingredients}}</p>
+        </div>
     </ng-template>
 </mat-menu>

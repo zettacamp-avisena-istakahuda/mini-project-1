@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  apiURL: 'https://jade-nice-crane.cyclic.app/'
+  apiURL: 'https://b29b-182-253-183-20.ap.ngrok.io/'
 };
-
+//https://jade-nice-crane.cyclic.app/
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

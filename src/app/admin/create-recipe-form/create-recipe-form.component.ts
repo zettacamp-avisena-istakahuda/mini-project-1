@@ -104,6 +104,12 @@ export class CreateRecipeFormComponent implements OnInit {
             })
             this.dialog.close()
           }
+        }, err => {
+          Swal.fire({
+            icon: 'error',
+            title: err.message,
+          })
+          this.isLoading = false
         })
       }
       else {
@@ -117,6 +123,12 @@ export class CreateRecipeFormComponent implements OnInit {
             })
             this.dialog.close()
           }
+        }, err => {
+          Swal.fire({
+            icon: 'error',
+            title: err.message,
+          })
+          this.isLoading = false
         })
       }
     }

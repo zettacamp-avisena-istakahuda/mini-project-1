@@ -185,9 +185,9 @@ mat-form-field {
     width: 500px;
     background-color: rgb(238, 234, 234, 0.7);
     margin-top: 20px;
-    height: 130px;
-    overflow-y: scroll;
-    overflow-y: hidden;
+    height: fit-content;
+    /* overflow-y: scroll;
+    overflow-y: hidden; */
 }
 
 @keyframes slideInFromLeft {
