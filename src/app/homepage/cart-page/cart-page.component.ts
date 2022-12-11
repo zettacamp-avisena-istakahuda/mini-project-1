@@ -198,7 +198,12 @@ export class CartPageComponent implements OnInit {
         }
       })
     }
-
-
+    else if(amount>max && amount != null){
+      Swal.fire({
+        icon: 'error',
+        title: 'Max amount available is ' + max,
+      })
+      this.service.getAllTransactions('pending', true).refetch()
+    }
   }
 }
