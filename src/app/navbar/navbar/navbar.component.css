@@ -34,6 +34,10 @@ mat-icon {
     z-index: 3;
 }
 
+.languageChoosen{
+    background-color: aqua;
+}
+
 .navbar {
     width: 100%;
     height: 150px;

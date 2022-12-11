@@ -21,6 +21,7 @@ export class NavbarComponent implements OnInit {
   cartAmount!: number;
   isLogin: any;
   status: any
+  language = "x"
   token = localStorage.getItem('token')
   role = localStorage.getItem('user_type');
 
@@ -38,6 +39,8 @@ export class NavbarComponent implements OnInit {
     else {
       this.status = 'Login'
     }
+
+    this.language = this.service.selectedLang
   }
 
   openDialog(): void {
