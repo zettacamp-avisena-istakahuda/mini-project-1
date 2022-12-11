@@ -46,7 +46,7 @@
                         <input matInput type="number" placeholder="{{'warmindo.stock_amount'|translate}}" formControlName="stock_used">
                     </mat-form-field><mat-error *ngIf="this.input.at(i).get('stock_used')?.invalid && this.input.at(i).get('stock_used')?.touched"
                     class="alert alert-danger"> {{'warmindo.input_amount_error' | translate}} </mat-error><br><br>
-                        <button *ngIf="input.length>1" (click)="removeInput(i)" mat-flat-button color="warn">{{'warmindo.remove_ingredient' | translate}}</button> <br><br>
+                        <button *ngIf="input.length>1" (click)="removeInput(i)" mat-flat-button color="warn">{{'warmindo.remove_ingredient' | translate}}</button>
                 </div>
             </div>
         </div>
