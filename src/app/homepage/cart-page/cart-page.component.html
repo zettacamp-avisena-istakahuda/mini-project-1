@@ -27,7 +27,7 @@
                 min="1"
                 max="{{a.available}}" 
                 onfocusout="if(this.value < 1) this.value = 1"
-                oninput="javascript: if(this.value < 1 && this.value.length>0) this.value = 1;"
+                oninput="javascript: if(this.value < 1 && this.value.length>0) this.value = 1; "
                 type="number">
 
             <a href="#" style="margin-top:5px;" (click)="amountOperation(a.id, 'pull', a.menu[0].amount, a.available)"

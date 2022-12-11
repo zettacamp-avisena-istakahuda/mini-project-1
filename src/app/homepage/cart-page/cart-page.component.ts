@@ -93,9 +93,15 @@ export class CartPageComponent implements OnInit {
           }
         })
       }
-      else if (action != 'delete' && amount! > 0) {
+      else if (action != 'delete') {
+        if(action==='push'){
+          amount!++
+        }
+        else{
+          amount!--
+        }
         this.isLoading = true
-        this.subsOperation.sink = this.service.updateTransaction(id, action).subscribe((resp: any) => {
+        this.subsOperation.sink = this.service.editAmountTransaction(id, amount!).subscribe((resp: any) => {
           if (resp) {
             this.service.getAllTransactions('pending', true).refetch()
             this.isLoading = false
@@ -203,7 +209,18 @@ export class CartPageComponent implements OnInit {
         icon: 'error',
         title: 'Max amount available is ' + max,
       })
-      this.service.getAllTransactions('pending', true).refetch()
+      this.isLoading = true
+      this.subsOperation.sink = this.service.editAmountTransaction(id, max).subscribe((resp: any) => {
+        if (resp) {
+          this.service.getAllTransactions('pending', true).refetch()
+          this.isLoading = false
+        }
+        else {
+          this.isLoading = false
+          
+        }
+      })      
+   
     }
   }
 }
