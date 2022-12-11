@@ -32,7 +32,7 @@
     box-sizing: border-box;
     border: 3px yellow solid;
     width: 20%;
-    height: 500px;
+    height: 400px;
     margin-left: 140px;
     padding: 10px;
     position: relative;
@@ -66,13 +66,21 @@
 
 .card-container>p:nth-child(3) {
     text-align: center;
-    font-size: 12px;
+    font-size: 0.9vw;
     color: white;
-    margin-top: 15 px;
+    margin-top: 15px;
     font-style: italic;
+    text-decoration: line-through;
 }
 
 .card-container>p:nth-child(4) {
+    text-align: center;
+    font-size: 0.9vw;
+    color: white;
+    margin-top: 15px;
+}
+
+.card-container>p:nth-child(5) {
     text-align: center;
     font-size: 10px;
     color: white;
@@ -86,13 +94,7 @@
     margin-top: 10px;
 }
 
-.card-container>p:nth-child(5) {
-    left: 33%;
-    font-size: 13px;
-    position: absolute;
-    bottom: 80px;
-    font-weight: 700;
-}
+
 
 .cartButton {
     width: 100%;

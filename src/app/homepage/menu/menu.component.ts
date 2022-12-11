@@ -82,21 +82,21 @@ export class MenuComponent implements OnInit {
 
   onAddCart(id: string, amount: number) {
 
-      this.isLoading = true;
-      this.subsOrder.sink = this.service.createTransaction(id, amount).subscribe((resp: any) => {
-        if (resp) {
-          this.service.getAllTransactions('pending', true).refetch()
-          this.isLoading = false;
-          Swal.fire({
-            position: 'top',
-            icon: 'success',
-            title: 'Menu succesfully added to cart',
-            showConfirmButton: false,
-            timer: 1000
-          })
-        }
-      })
-  
+    this.isLoading = true;
+    this.subsOrder.sink = this.service.createTransaction(id, amount).subscribe((resp: any) => {
+      if (resp) {
+        this.service.getAllTransactions('pending', true).refetch()
+        this.isLoading = false;
+        Swal.fire({
+          position: 'top',
+          icon: 'success',
+          title: 'Menu succesfully added to cart',
+          showConfirmButton: false,
+          timer: 1000
+        })
+      }
+    })
+
   }
 
   openDialog(): void {
@@ -125,15 +125,13 @@ export class MenuComponent implements OnInit {
         showCancelButton: true,
         showConfirmButton: true,
         input: 'number',
-        inputAttributes:{
+        inputAttributes: {
           min: '1',
-        }
-      }).then((result) => {
+        }, 
+      }).then((result: any) => {
         /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          if (result.value > 0) {
-            this.onAddCart(id, result.value)
-          }
+        if (result.isConfirmed && result.value > 0) {
+          this.onAddCart(id, result.value)
         }
       })
     }

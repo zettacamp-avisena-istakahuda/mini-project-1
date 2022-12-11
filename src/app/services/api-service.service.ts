@@ -243,6 +243,8 @@ export class ApiServiceService {
               }
             }
             price
+            isDiscount
+            finalPrice
             img
           }
         }
