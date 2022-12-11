@@ -31,19 +31,19 @@
     </form>
 
     <form class="register" [formGroup]="registerForm" *ngIf="this.formStatus==='Register'">
-        <p style="font-size:14px; font-weight:700; top: 0px; left:0%; position: absolute;">E-mail</p> 
+        <p style="font-size:14px; font-weight:700; top: 0px; left:0%; position: absolute;">E-mail*</p> 
         <mat-form-field appearance="outline" style="font-size:14px; font-weight:700; top:20px; left:0%; width:430px; position: absolute;">
             <input type="text" matInput formControlName="email">
         </mat-form-field>
-        <p style="font-size:14px; font-weight:700; top: 100px; left:0%; position: absolute;">Front Name</p> 
+        <p style="font-size:14px; font-weight:700; top: 100px; left:0%; position: absolute;">Front Name*</p> 
         <mat-form-field appearance="outline" style="font-size:14px; font-weight:700; top:120px; left:0%; width:180px; position: absolute;">
             <input type="text" matInput formControlName="frontName">
         </mat-form-field>
-        <p style="font-size:14px; font-weight:700; top: 100px; left:60%; position: absolute;">Last Name</p> 
+        <p style="font-size:14px; font-weight:700; top: 100px; left:60%; position: absolute;">Last Name*</p> 
         <mat-form-field appearance="outline" style="font-size:14px; font-weight:700; top:120px; left:60%; width:180px; position: absolute;">
             <input type="text" matInput formControlName="lastName">
         </mat-form-field>
-        <p style="font-size:14px; font-weight:700; top: 200px; left:0%; position: absolute;">Password</p> 
+        <p style="font-size:14px; font-weight:700; top: 200px; left:0%; position: absolute;">Password*</p> 
         <mat-form-field appearance="outline" style="font-size:14px; font-weight:700; top:220px; left:0%; width:430px; position: absolute;">
             <input type="password" matInput formControlName="password">
         </mat-form-field>
@@ -52,11 +52,11 @@
             <input type="password" matInput formControlName="password2">
             <mat-hint *ngIf="this.registerForm.value.password!=this.registerForm.value.password2">Password doesn't match</mat-hint>
         </mat-form-field>
-        <p style="font-size:14px; font-weight:700; top: 400px; left:0%; position: absolute;">Create your security question</p> 
+        <p style="font-size:14px; font-weight:700; top: 400px; left:0%; position: absolute;">Create your security question*</p> 
         <mat-form-field appearance="outline" style="font-size:14px; font-weight:700; top:420px; left:0%; width:180px; position: absolute;">
             <input type="text" matInput formControlName="question">
         </mat-form-field>
-        <p style="font-size:14px; font-weight:700; width:200px; top: 400px; left:60%; position: absolute;">Your security question answer</p> 
+        <p style="font-size:14px; font-weight:700; width:200px; top: 400px; left:60%; position: absolute;">Your security question answer*</p> 
         <mat-form-field appearance="outline" style="font-size:14px; font-weight:700; top:420px; left:60%; width:180px; position: absolute;">
             <input type="text" matInput formControlName="answer">
         </mat-form-field>
