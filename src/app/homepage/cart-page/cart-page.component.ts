@@ -51,7 +51,6 @@ export class CartPageComponent implements OnInit {
   }
 
   amountOperation(id: string, action: string, amount?: number, available?: number) {
-    console.log(id);
 
     this.decreement = amount
     if (amount == 1 && action === 'pull') {
@@ -94,7 +93,7 @@ export class CartPageComponent implements OnInit {
           }
         })
       }
-      else if (action != 'delete') {
+      else if (action != 'delete' && amount! > 0) {
         this.isLoading = true
         this.subsOperation.sink = this.service.updateTransaction(id, action).subscribe((resp: any) => {
           if (resp) {
@@ -104,6 +103,13 @@ export class CartPageComponent implements OnInit {
           else {
             this.isLoading = false
           }
+        }, err => {
+          Swal.fire({
+            icon: 'error',
+            title: err.message,
+          })
+          this.isLoading = false
+          this.service.getAllTransactions('pending', true).refetch()
         })
       }
     }
@@ -177,21 +183,22 @@ export class CartPageComponent implements OnInit {
     })
   }
 
-  amountChange(id: string, amount: any) {
+  amountChange(id: string, amount: any, max: number) {
 
-    setTimeout(() => {
-      if (amount > 0) {
-        this.isLoading = true
-        this.subsOperation.sink = this.service.editAmountTransaction(id, amount).subscribe((resp: any) => {
-          if (resp) {
-            this.service.getAllTransactions('pending', true).refetch()
-            this.isLoading = false
-          }
-          else {
-            this.isLoading = false
-          }
-        })
-      }
-    }, 2500)
+    if (amount > 0 && amount <= max) {
+      this.isLoading = true
+      this.subsOperation.sink = this.service.editAmountTransaction(id, amount).subscribe((resp: any) => {
+        if (resp) {
+          this.service.getAllTransactions('pending', true).refetch()
+          this.isLoading = false
+        }
+        else {
+          this.isLoading = false
+          
+        }
+      })
+    }
+
+
   }
 }

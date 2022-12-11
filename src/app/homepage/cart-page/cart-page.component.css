@@ -42,12 +42,14 @@
     margin-left: 20px;
     overflow-y: scroll;
     overflow-x: hidden;
+    overflow-wrap: break-word;
 }
 
 .note>p {
     margin-left: 20px;
     width: 90%;
     height: 50px;
+
 }
 
 .action {

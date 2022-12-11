@@ -11,11 +11,13 @@ import { GeneralGuardGuard } from './general-guard.guard';
 import { LoginFormComponent } from './login/login-form/login-form.component';
 import { AccountSettingComponent } from './login/account-setting/account-setting.component';
 import { ForgetPasswordComponent } from './login/forget-password/forget-password.component';
+import { SpecialOfferManagementComponent } from './admin/special-offer-management/special-offer-management.component';
 
 const routes: Routes = [
   {path : "", component : HomepageComponent},
   {path : "homepage", component : HomepageComponent},
   {path : "menu", component : MenuComponent},
+  {path : "special-offer-management", component : SpecialOfferManagementComponent},
   {path : "login", component : LoginFormComponent},
   {path : "forget", component : ForgetPasswordComponent},
   {path : "stock-management", component : StockManagementComponent, canActivate: [AdminGuardGuard]},

@@ -23,9 +23,11 @@
                 <mat-icon>keyboard_arrow_up</mat-icon>
             </a>
             <input #amountCart style="width:30px; height:20px; text-align:center; border: 2px solid green;
-                    border-radius: 10px;" value="{{a.menu[0].amount}}" (keyup)="amountChange(a.id, amountCart.value)"
-                maxlength="2" min="1" onfocusout="if(this.value < 1) this.value = 1"
-                oninput="javascript: if(this.value < 1 && this.value.length>0) this.value = 1; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                    border-radius: 10px;" value="{{a.menu[0].amount}}" (keyup)="amountChange(a.id, amountCart.value, a.available)"
+                min="1"
+                max="{{a.available}}" 
+                onfocusout="if(this.value < 1) this.value = 1"
+                oninput="javascript: if(this.value < 1 && this.value.length>0) this.value = 1;"
                 type="number">
 
             <a href="#" style="margin-top:5px;" (click)="amountOperation(a.id, 'pull', a.menu[0].amount, a.available)"

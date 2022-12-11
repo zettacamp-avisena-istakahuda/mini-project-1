@@ -11,12 +11,14 @@ import { LoadingSpinnerModule } from '../loading-spinner/loading-spinner.module'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
+import { SpecialOfferManagementComponent } from './special-offer-management/special-offer-management.component';
 @NgModule({
   declarations: [
     StockManagementComponent,
     IngredientEditFormComponent,
     CreateRecipeFormComponent,
-    MenuManagementComponent
+    MenuManagementComponent,
+    SpecialOfferManagementComponent
   ],
   imports: [
     CommonModule, SharedModuleModule, NavbarModule, LoadingSpinnerModule, TranslateModule.forChild({
