@@ -178,7 +178,7 @@ mat-form-field {
     margin-left: 15%;
 }
 
-:host ::ng-deep .mat-menu-panel {
+::ng-deep .mat-menu-panel {
     margin-right: 100px;
     border-radius: 25px;
     border: 2px dashed green;
@@ -186,6 +186,8 @@ mat-form-field {
     background-color: rgb(238, 234, 234, 0.7);
     margin-top: 20px;
     height: 130px;
+    overflow-y: scroll;
+    overflow-y: hidden;
 }
 
 @keyframes slideInFromLeft {

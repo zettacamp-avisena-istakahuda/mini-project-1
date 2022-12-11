@@ -8,8 +8,8 @@
 
 
     <div class="content">
-        <div class="card-container" *ngFor="let a of dataMenu; let i = index;">
-            <img [src]="a.img" alt="">
+        <div class="card-container" *ngFor="let a of dataMenu; let i = index;" [matMenuTriggerFor]="menuPopUp" [matMenuTriggerData]="{description: a.description, ingredients: this.ingredients[i]}">
+            <img [src]="a.img">
             <p>{{a.recipe_name}}</p>
             <!-- <p>{{a.description}}</p>
             <p>{{('warmindo.ingredients' | translate) + ': ' + this.ingredients[i]}}</p> -->
@@ -41,4 +41,11 @@
         <mat-icon *ngIf="this.sortPrice==='asc'" style="margin-left:3px; margin-top:-3px;">arrow_upward</mat-icon>
         <mat-icon *ngIf="this.sortPrice==='desc'" style="margin-left:3px; margin-top:-3px;">arrow_downward</mat-icon>
     </div>
+</mat-menu>
+
+<mat-menu #menuPopUp="matMenu" xPosition="before">
+    <ng-template matMenuContent let-description="description" let-ingredients="ingredients">
+        <p style="text-align:center; font-weight:700; font-size: 15px;" mat-menu-item>{{description}}</p>
+        <p mat-menu-item>{{'Ingredients: ' + ingredients}}</p>
+    </ng-template>
 </mat-menu>
