@@ -45,6 +45,8 @@ mat-slide-toggle{
     right: 24%;
     position: absolute;
     font-size: 11px;
+    padding: 0 10px 10px 10px;
+
 }
 
 ::ng-deep .input {
