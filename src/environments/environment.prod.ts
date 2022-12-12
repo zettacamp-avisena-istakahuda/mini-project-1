@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiURL: 'https://78b2-103-236-192-220.ap.ngrok.io/'
+  apiURL: 'http://api.team-5.zettacamp-upn.zetta-demo.space/graphql'
 };
 
 // http://api.team-5.zettacamp-upn.zetta-demo.space/graphql
