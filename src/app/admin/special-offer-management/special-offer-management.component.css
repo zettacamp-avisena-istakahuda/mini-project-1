@@ -1,0 +1,14 @@
+table {
+    width: 100%;
+    position: absolute;
+  }
+
+  .mat-column-description {
+    width: 30%;
+
+}
+
+.mat-column-menu {
+    width: 17%;
+
+}

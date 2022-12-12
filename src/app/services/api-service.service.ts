@@ -434,10 +434,12 @@ export class ApiServiceService {
     })
   }
 
-  checkout(): Observable<any> {
+  checkout(totalPrice: number): Observable<any> {
     return this.apollo.mutate({
       mutation: gql`mutation Mutation {
-        checkoutTransaction {
+        checkoutTransaction(
+          totalPrice:${totalPrice}
+        ) {
           id
         }
       }`
@@ -579,12 +581,16 @@ export class ApiServiceService {
     })
   }
 
-  getAllSpecialOffers() {
+  getAllSpecialOffers(status: string|null) {
     return this.apollo.watchQuery({
       query: gql`query Query {
-        getAllSpecialOffers {
+        getAllSpecialOffers(
+          status: ${status}
+        ) {
           data {
+            id
             title
+            status
             description
             menuDiscount {
               recipe_id {
@@ -598,6 +604,21 @@ export class ApiServiceService {
           }
         }
       }`
+    })
+  }
+
+  updateSpecialOffer(data: any) {
+    console.log(data);
+    
+    return this.apollo.mutate({
+      mutation: gql`mutation Mutation{
+        updateSpecialOffer(
+          id: "${data.id}",
+          status: ${data.status}) 
+          {
+           id
+          }
+            }`
     })
   }
 

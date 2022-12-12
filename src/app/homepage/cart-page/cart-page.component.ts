@@ -123,7 +123,7 @@ export class CartPageComponent implements OnInit {
 
   checkout() {
     this.isLoading = true;
-    this.subsCheckout.sink = this.service.checkout().subscribe((resp: any) => {
+    this.subsCheckout.sink = this.service.checkout(this.totalCartPrice).subscribe((resp: any) => {
       if (resp) {
         Swal.fire({
           icon: 'success',

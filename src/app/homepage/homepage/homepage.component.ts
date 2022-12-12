@@ -35,7 +35,7 @@ export class HomepageComponent implements OnInit {
   ngOnInit(): void {
     this._images = []
     this._images2 = []
-    this.subsPromo.sink = this.service.getAllSpecialOffers().valueChanges.subscribe((resp: any) => {
+    this.subsPromo.sink = this.service.getAllSpecialOffers("active").valueChanges.subscribe((resp: any) => {
       this.dataPromo = resp.data.getAllSpecialOffers.data
       this.dataPromo2 = copy(this.dataPromo)
 
@@ -60,7 +60,7 @@ export class HomepageComponent implements OnInit {
       }
     })
     this.service.getActiveMenu("", true).refetch()
-    this.service.getAllSpecialOffers().refetch()
+    this.service.getAllSpecialOffers("active").refetch()
   }
 
 }
