@@ -76,6 +76,7 @@ export class SpecialOfferManagementComponent implements OnInit {
           Swal.fire('Promo status has been changed to ' + data.status)
 
         })
+        window.location.reload()
       }
     })
   }
