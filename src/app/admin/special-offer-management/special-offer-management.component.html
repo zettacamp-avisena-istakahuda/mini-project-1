@@ -15,7 +15,7 @@
     <ng-container matColumnDef="menu">
         <th mat-header-cell *matHeaderCellDef>Menu</th>
         <td mat-cell *matCellDef="let element">
-            <p *ngFor="let a of element.menuDiscount">{{a.recipe_id.recipe_name + ' ' + a.recipe_id.discountAmount+'%off'}}</p>
+            <p *ngFor="let a of element.menuDiscount">{{a.recipe_id.recipe_name + ' ' + a.recipe_id.discountAmount+'% Off'}}</p>
         </td>
     </ng-container>
 

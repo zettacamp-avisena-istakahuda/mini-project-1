@@ -97,7 +97,7 @@ export class ApiServiceService {
   createTransaction(id: string, amount: number): Observable<any> {
     return this.apollo.mutate({
       mutation: gql`mutation Mutation{
-        createTransaction(input: {
+        createTransaction(menu: {
           recipe_id: "${id}"
           amount: ${amount}
           note:""
@@ -596,9 +596,7 @@ export class ApiServiceService {
   getAllSpecialOffers(status: string|null) {
     return this.apollo.watchQuery({
       query: gql`query Query {
-        getAllSpecialOffers(
-          status: ${status}
-        ) {
+        getAllSpecialOffers(status: ${status}) {
           data {
             id
             title
@@ -616,25 +614,25 @@ export class ApiServiceService {
             }
           }
         }
-      }`, fetchPolicy: 'network-only'
+      }`
     })
   }
 
   updateSpecialOffer(data: any) { 
+    console.log(data);
+    
     const id = data.id
     const status = data.status   
     return this.apollo.mutate({
-      mutation: gql`mutation UpdateSpecialOffer($id: ID!, $status: enumRecipe) {
+      mutation: gql`mutation UpdateSpecialOffer {
         updateSpecialOffer
-         (id: $id, 
+         (id: "${id}", 
           specialOffer: {
-            status: $status
+            status: ${status}
           }) {
           id
         }
-      }`,  variables: {
-        id, status
-      }, fetchPolicy: 'network-only'
+      }`
     })
   }
 

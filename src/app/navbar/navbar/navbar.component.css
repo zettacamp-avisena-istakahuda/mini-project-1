@@ -73,6 +73,9 @@ mat-icon {
     left: 27%;
     top: 16%;
 }
+.profilePict > img{
+    border: 2px solid black;
+}
 
 .profilePict>img {
     border-radius: 10px;

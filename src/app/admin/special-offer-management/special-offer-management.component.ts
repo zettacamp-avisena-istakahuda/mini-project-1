@@ -71,6 +71,10 @@ export class SpecialOfferManagementComponent implements OnInit {
             this.service.getAllSpecialOffers("").refetch()
             Swal.fire('Promo status has been changed to ' + data.status)
           
+        },err => {
+          this.service.getAllSpecialOffers("").refetch()
+          Swal.fire('Promo status has been changed to ' + data.status)
+
         })
       }
     })
