@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiURL: 'https://78b2-103-236-192-220.ap.ngrok.io/'
+  apiURL: 'https://bc32-182-253-183-7.ap.ngrok.io/'
 };
 //https://jade-nice-crane.cyclic.app/
 /*

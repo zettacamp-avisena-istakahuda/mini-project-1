@@ -1,0 +1,46 @@
+<mat-dialog-content>
+    <form [formGroup]="createPromo" (ngSubmit)="onSubmit()">
+        <mat-form-field class="col-10">
+            <input matInput type="text" placeholder="Promo Name" formControlName="title">
+            <mat-error *ngIf="this.createPromo.get('title').invalid && this.createPromo.get('title').touched"
+                class="alert alert-danger"> {{'warmindo.input_recipe_name_error' | translate}} </mat-error><br>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="col-10">
+            <input matInput type="text" placeholder="Promo Description" formControlName="description">
+            <mat-error *ngIf="this.createPromo.get('description').invalid && this.createPromo.get('description').touched"
+                class="alert alert-danger"> {{'warmindo.input_recipe_name_error' | translate}} </mat-error><br>
+        </mat-form-field>
+        <br>
+        <div formArrayName="menuDiscount">
+            <div *ngFor="let a of menuDiscount.controls; let i=index">
+                <div [formGroupName]="i">
+                    <br>
+                    <mat-form-field>
+                        <mat-select placeholder="Choose the recipe" formControlName="recipe_id">
+                            <mat-option (click)="onCheckMenu()" *ngFor="let a of menu" [value]="a.id">
+                                {{a.recipe_name}}
+                            </mat-option>
+                        </mat-select>
+                        <br>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field class="col-10">
+                        <input matInput type="number" placeholder="Discount Amount" formControlName="discount">
+                        <mat-error
+                            *ngIf="this.menuDiscount.at(i).get('discountAmount')?.invalid && this.menuDiscount.at(i).get('discountAmount')?.touched"
+                            class="alert alert-danger"> {{'warmindo.input_amount_error' | translate}} </mat-error><br>
+                    </mat-form-field><span>%</span><br>
+                    <button class="removeMenu" *ngIf="menuDiscount.length>1" (click)="removeInput(i)" mat-flat-button color="warn">Remove
+                        Menu</button>
+                </div>
+            </div>
+        </div>
+        <button style="margin-left: 25px; margin-top:30px;" type="button" (click)="addInput()" mat-raised-button>Add More
+            Menu</button><br><br>
+            <div class="forButton">        
+                <button mat-raised-button type="button" color="warn" >Cancel</button>
+                <button style="margin-left: 60px;" mat-raised-button type="submit" color="primary">{{'warmindo.submit' | translate}}</button>
+            </div>
+    </form>
+</mat-dialog-content>

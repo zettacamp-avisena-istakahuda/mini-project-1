@@ -1,9 +1,10 @@
 table {
     width: 100%;
-    position: absolute;
-  }
+    margin-top: 20px;
+    position: relative;
+}
 
-  .mat-column-description {
+.mat-column-description {
     width: 30%;
 
 }
@@ -11,4 +12,9 @@ table {
 .mat-column-menu {
     width: 17%;
 
+}
+
+button {
+    margin-left: 2rem;
+    margin-top: 3rem;
 }

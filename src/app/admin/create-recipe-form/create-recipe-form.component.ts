@@ -60,7 +60,6 @@ export class CreateRecipeFormComponent implements OnInit {
         this.addInput()
         i++;
       }
-      console.log(this.data.selectedCard)
       this.createRecipe.patchValue(this.data.selectedCard)
     }
     else {

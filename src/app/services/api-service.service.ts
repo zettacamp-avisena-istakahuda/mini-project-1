@@ -554,8 +554,6 @@ export class ApiServiceService {
   }
 
   forgotPassword(data: any) {
-    console.log(data.newPassword);
-
     return this.apollo.mutate({
       mutation: gql`mutation Mutation {
         forgotPassword(
@@ -594,6 +592,7 @@ export class ApiServiceService {
             description
             menuDiscount {
               recipe_id {
+                id
                 recipe_name
                 price
                 discountAmount
@@ -607,18 +606,27 @@ export class ApiServiceService {
     })
   }
 
-  updateSpecialOffer(data: any) {
-    console.log(data);
-    
+  updateSpecialOffer(data: any): Observable<any> {    
     return this.apollo.mutate({
-      mutation: gql`mutation Mutation{
+      mutation: gql`mutation Mutation {
         updateSpecialOffer(
-          id: "${data.id}",
-          status: ${data.status}) 
-          {
-           id
-          }
-            }`
+          id: "6396fb2590fe43bfb0379652", 
+          specialOffer: { status: active }) {
+          id
+        }
+      }`, variables:{}
+    })
+  }
+
+  createSpecialOffer(data: any) {    
+    return this.apollo.mutate({
+      mutation: gql`mutation CreateSpecialOffer($data: specialOfferInput) {
+        createSpecialOffer(specialOffer: $data) {
+          title
+        }
+      }`, variables: {
+        data
+      }
     })
   }
 

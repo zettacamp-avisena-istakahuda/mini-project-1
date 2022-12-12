@@ -1,0 +1,17 @@
+form {
+    margin-top: 20px;
+}
+
+.removeMenu {
+    transform: translateX(23%);
+}
+
+mat-dialog-content::-webkit-scrollbar {
+    display: none;
+}
+
+.forButton {
+    display: flex;
+    flex-direction: row;
+}
+

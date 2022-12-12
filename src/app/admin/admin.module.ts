@@ -12,13 +12,15 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { SpecialOfferManagementComponent } from './special-offer-management/special-offer-management.component';
+import { SpecialOfferFormComponent } from './special-offer-form/special-offer-form.component';
 @NgModule({
   declarations: [
     StockManagementComponent,
     IngredientEditFormComponent,
     CreateRecipeFormComponent,
     MenuManagementComponent,
-    SpecialOfferManagementComponent
+    SpecialOfferManagementComponent,
+    SpecialOfferFormComponent
   ],
   imports: [
     CommonModule, SharedModuleModule, NavbarModule, LoadingSpinnerModule, TranslateModule.forChild({
