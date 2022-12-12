@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
+import { TranslateService } from '@ngx-translate/core';
 import { ApiServiceService } from 'src/app/services/api-service.service';
 import { SubSink } from 'subsink';
 import Swal from 'sweetalert2';
@@ -37,6 +38,7 @@ export class ForgetPasswordComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder, 
     public service: ApiServiceService,
+    private translate: TranslateService,
     private dialog: MatDialogRef<ForgetPasswordComponent>,
     ) { }
 
@@ -62,7 +64,7 @@ export class ForgetPasswordComponent implements OnInit {
       }, err => {
         Swal.fire({
           icon: 'error',
-          title: err.message,
+          title:this.translate.instant(`warmindo.${err.message}`),
         })
         this.isLoading = false
       })
@@ -79,7 +81,7 @@ export class ForgetPasswordComponent implements OnInit {
       }, err => {
         Swal.fire({
           icon: 'error',
-          title: err.message,
+          title: this.translate.instant(`warmindo.${err.message}`),
         })
         this.isLoading = false
       })

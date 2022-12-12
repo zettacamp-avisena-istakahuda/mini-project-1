@@ -4,6 +4,7 @@ import { ApiServiceService } from 'src/app/services/api-service.service';
 import { SubSink } from 'subsink';
 import copy from 'fast-copy';
 import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-account-setting',
@@ -22,7 +23,7 @@ export class AccountSettingComponent implements OnInit {
   settingForm: any
   imgURL!: String
   postForm: any
-  constructor(public service: ApiServiceService) {
+  constructor(public service: ApiServiceService, private translate: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -125,7 +126,7 @@ export class AccountSettingComponent implements OnInit {
           }, err => {
             Swal.fire({
               icon: 'error',
-              title: err.message,
+              title: this.translate.instant(`warmindo.${err.message}`),
             })
           })
         }
@@ -144,7 +145,7 @@ export class AccountSettingComponent implements OnInit {
       }, err => {
         Swal.fire({
           icon: 'error',
-          title: err.message,
+          title: this.translate.instant(`warmindo.${err.message}`),
         })
       })
     }

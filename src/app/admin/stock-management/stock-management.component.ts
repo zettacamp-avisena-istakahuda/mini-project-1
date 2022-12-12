@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { IngredientEditFormComponent } from '../ingredient-edit-form/ingredient-edit-form.component';
 import Swal from 'sweetalert2'
 import { FormControl } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 
 interface IDataTable {
@@ -37,7 +38,7 @@ export class StockManagementComponent implements OnInit {
   displayedFilter: string[] = ['ingredient_name_filter', 'status_filter', 'stock_filter', 'action_filter'];
 
 
-  constructor(private service: ApiServiceService, private dialog: MatDialog) { }
+  constructor(private service: ApiServiceService, private dialog: MatDialog, private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.subsPagination.sink = this.service.getAllIngredientsPagination(this.page, this.search, this.sortName!, this.sortStock!).valueChanges.subscribe((resp: any) => {
@@ -98,7 +99,7 @@ export class StockManagementComponent implements OnInit {
         }, err => {
           Swal.fire({
             icon: 'error',
-            title: err.message,
+            title: this.translate.instant(`warmindo.${err.message}`),
           })
           this.isLoading = false
         }

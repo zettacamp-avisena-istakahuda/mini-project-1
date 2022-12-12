@@ -50,7 +50,7 @@ export class IngredientEditFormComponent implements OnInit {
         }, err => {
           Swal.fire({
             icon: 'error',
-            title: err.message,
+            title:this.translate.instant(`warmindo.${err.message}`),
           })
           this.isLoading = false
         })
@@ -70,7 +70,7 @@ export class IngredientEditFormComponent implements OnInit {
         }, err => {
           Swal.fire({
             icon: 'error',
-            title: err.message,
+            title: this.translate.instant(`warmindo.${err.message}`),
           })
           this.isLoading = false
         })

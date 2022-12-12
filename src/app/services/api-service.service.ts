@@ -59,8 +59,11 @@ export class ApiServiceService {
       mutation: gql`mutation 
       Mutation{
         addIngredient(
-          name: "${name}" 
-          stock: ${stock}
+          ingredient:{
+            name: "${name}" 
+            stock: ${stock}
+          }
+          
         ) {
           name
           stock
@@ -75,11 +78,13 @@ export class ApiServiceService {
       mutation: gql`mutation 
       CreateRecipe( $a: [ingredientInput]){
           createRecipe(
-            recipe_name: "${data.recipe_name}"
-            description: "${data.description}"
-            img: "${data.img}"
-            price: ${data.price}
-            input: $a
+            inputRecipe:{
+              recipe_name: "${data.recipe_name}"
+              description: "${data.description}"
+              img: "${data.img}"
+              price: ${data.price}
+              ingredients: $a
+            }
             ) {
             recipe_name
           }
@@ -112,11 +117,13 @@ export class ApiServiceService {
       UpdateRecipe( $a: [ingredientInput]){
           updateRecipe(
             id: "${id}"
-            recipe_name: "${data.recipe_name}"
-            description: "${data.description}"
-            img: "${data.img}"
-            price: ${data.price}
-            input: $a
+            inputRecipe:{
+              recipe_name: "${data.recipe_name}"
+              description: "${data.description}"
+              img: "${data.img}"
+              price: ${data.price}
+              ingredients: $a
+            } 
             ) {
             recipe_name
           }
@@ -128,15 +135,15 @@ export class ApiServiceService {
 
   updateRecipeStatus(data: any): Observable<any> {
     return this.apollo.mutate({
-      mutation: gql`mutation 
-      UpdateRecipe{
-          updateRecipe(
-            id: "${data.id}"
-            status: ${data.status}
-            ) {
-            recipe_name
-          }
+      mutation: gql`  mutation UpdateRecipe {
+        updateRecipe(id: "${data.id}", 
+        inputRecipe: {status:${data.status}}) {
+          status
+        }
       }`
+
+    
+
     })
   }
   updateRecipeHighlight(data: any): Observable<any> {
@@ -173,7 +180,9 @@ export class ApiServiceService {
       UpdateTransaction{
           updateTransaction(
             id: "${id}"
-            amount: ${amount}
+            menu: {
+              amount: ${amount}
+            }
             ) {
             id
           }
@@ -203,8 +212,10 @@ export class ApiServiceService {
       mutation: gql`mutation Mutation {
         updateIngredient(
           id: "${id}", 
-          name: "${name}", 
-          stock: ${stock}
+          ingredient:{
+            name: "${name}", 
+            stock: ${stock}
+          }
           ) {
           name
           stock
@@ -511,10 +522,13 @@ export class ApiServiceService {
     return this.apollo.mutate({
       mutation: gql`mutation Mutation{
         updateUser(
-          last_name: "${data.lastName}", 
-          first_name:"${data.frontName}", 
-          email: "${data.email}", 
-          img: "${data.avatarURL}") {
+          updateUser:{
+            last_name: "${data.lastName}", 
+            first_name:"${data.frontName}", 
+            email: "${data.email}", 
+            img: "${data.avatarURL}"
+          }
+         ) {
           id
         }
       }`
@@ -539,12 +553,12 @@ export class ApiServiceService {
     return this.apollo.mutate({
       mutation: gql`mutation Register{
         register(
-          password: "${data.password}", 
+          newUser: {password: "${data.password}", 
           email: "${data.email}", 
           last_name: "${data.lastName}", 
           first_name: "${data.frontName}", 
           security_question: "${data.question}", 
-          security_answer: "${data.answer}"
+          security_answer: "${data.answer}"}
           ) {
           email
       
@@ -602,19 +616,25 @@ export class ApiServiceService {
             }
           }
         }
-      }`
+      }`, fetchPolicy: 'network-only'
     })
   }
 
-  updateSpecialOffer(data: any): Observable<any> {    
+  updateSpecialOffer(data: any) { 
+    const id = data.id
+    const status = data.status   
     return this.apollo.mutate({
-      mutation: gql`mutation Mutation {
-        updateSpecialOffer(
-          id: "6396fb2590fe43bfb0379652", 
-          specialOffer: { status: active }) {
+      mutation: gql`mutation UpdateSpecialOffer($id: ID!, $status: enumRecipe) {
+        updateSpecialOffer
+         (id: $id, 
+          specialOffer: {
+            status: $status
+          }) {
           id
         }
-      }`, variables:{}
+      }`,  variables: {
+        id, status
+      }, fetchPolicy: 'network-only'
     })
   }
 

@@ -28,6 +28,8 @@ export class SpecialOfferManagementComponent implements OnInit {
     })
   }
 
+   
+  
   openDialog(): void {
     // this.nextPage(this.max_page)
     this.dialog.open(SpecialOfferFormComponent, {

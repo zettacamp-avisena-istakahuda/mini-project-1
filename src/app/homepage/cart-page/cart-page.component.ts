@@ -4,6 +4,7 @@ import { ApiServiceService } from 'src/app/services/api-service.service';
 import Swal from 'sweetalert2'
 import copy from 'fast-copy';
 import { FormControl } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 
 interface ICartData {
@@ -41,7 +42,8 @@ export class CartPageComponent implements OnInit {
 
 
 
-  constructor(private service: ApiServiceService) { }
+  constructor(private service: ApiServiceService, private translate: TranslateService
+    ) { }
 
   ngOnInit(): void {
     this.subsCartData.sink = this.service.getAllTransactions('pending', true).valueChanges.subscribe((resp: any) => {
@@ -112,7 +114,7 @@ export class CartPageComponent implements OnInit {
         }, err => {
           Swal.fire({
             icon: 'error',
-            title: err.message,
+            title:  this.translate.instant(`warmindo.${err.message}`),
           })
           this.isLoading = false
           this.service.getAllTransactions('pending', true).refetch()
@@ -136,7 +138,7 @@ export class CartPageComponent implements OnInit {
     }, err => {
       Swal.fire({
         icon: 'error',
-        title: err.message,
+        title: this.translate.instant(`warmindo.${err.message}`),
       })
       this.isLoading = false
     }

@@ -6,6 +6,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import copy from 'fast-copy';
 import Swal from 'sweetalert2'
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class CreateRecipeFormComponent implements OnInit {
     private dialog: MatDialogRef<CreateRecipeFormComponent>,
     private service: ApiServiceService,
     public fb: FormBuilder,
+    private translate: TranslateService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
   }
@@ -106,7 +108,7 @@ export class CreateRecipeFormComponent implements OnInit {
         }, err => {
           Swal.fire({
             icon: 'error',
-            title: err.message,
+            title:this.translate.instant(`warmindo.${err.message}`),
           })
           this.isLoading = false
         })
@@ -125,7 +127,7 @@ export class CreateRecipeFormComponent implements OnInit {
         }, err => {
           Swal.fire({
             icon: 'error',
-            title: err.message,
+            title: this.translate.instant(`warmindo.${err.message}`),
           })
           this.isLoading = false
         })

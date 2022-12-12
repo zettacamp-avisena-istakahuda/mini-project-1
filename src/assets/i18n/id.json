@@ -85,14 +85,14 @@
     "password": "Kata Sandi",
 
 
-    "Stock Cannot be 0!": "Stok tidak bisa 0",
-    "Page is Empty!": "Page is Empty!",
-    "Ingredient Already Exists!": "Ingredient Already Exists!",
-    "Stock Cannot be less than 0!": "Stock Cannot be less than 0!",
-    "Wrong ID!": "Wrong ID!",
-    "Ingredient is used in recipe, Cannot Delete!": "Ingredient is used in recipe, Cannot Delete!",
-    "Ingredient cannot be empty!":  "Ingredient cannot be empty!",
-    "Ingredient Not Found in Database!": "Ingredient Not Found in Database!",
-    "Put Appropriate Ingredient_ID!": "Put Appropriate Ingredient ID!"
+    "Stock Cannot be 0!": "Stok Tidak Bisa 0!",
+    "Page is Empty!": "Halaman Kosong!",
+    "Ingredient Already Exists!": "Bahan Sudah Ada!",
+    "Stock Cannot be less than 0!": "Stok Tidak boleh kurang dari 0!",
+    "Wrong ID!": "ID salah!",
+    "Ingredient is used in recipe, Cannot Delete!": "Bahan yang digunakan dalam resep, Tidak Bisa Dihapus!",
+    "Ingredient cannot be empty!": "Bahan tidak boleh kosong!",
+    "Ingredient Not Found in Database!": "Bahan Tidak Ditemukan di Database!",
+    "Put Appropriate Ingredient_ID!": "Masukkan Ingredient_ID yang Sesuai!"
   }
 }

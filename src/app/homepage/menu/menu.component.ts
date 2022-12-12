@@ -127,6 +127,7 @@ export class MenuComponent implements OnInit {
         input: 'number',
         inputAttributes: {
           min: '1',
+    
         }, 
       }).then((result: any) => {
         /* Read more about isConfirmed, isDenied below */
