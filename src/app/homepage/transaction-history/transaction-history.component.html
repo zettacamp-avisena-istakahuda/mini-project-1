@@ -1,6 +1,6 @@
 <h1 style="text-align:center; margin-top: 3rem;font-weight: 800;">{{'warmindo.transaction_history' | translate}}</h1>
 <mat-form-field>
-    <mat-select placeholder="{{'warmindo.select_user_by_name' | translate}}" [formControl]="allUserName">
+    <mat-select *ngIf="this.user_type==='admin'" placeholder="{{'warmindo.select_user_by_name' | translate}}" [formControl]="allUserName">
         <mat-option [disabled]="a.choosenStatus" *ngFor="let a of dataUser" [value]="a.fullName">
             {{a.fullName}}
         </mat-option>

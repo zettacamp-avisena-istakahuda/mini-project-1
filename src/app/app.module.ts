@@ -14,6 +14,7 @@ import { NavbarModule } from './navbar/navbar.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
+import { LoadingSpinnerModule } from './loading-spinner/loading-spinner.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { HttpClient } from '@angular/common/http';
     SharedModuleModule,
     HomepageModule,
     LoginModule,
-    GraphQLModule,
+    GraphQLModule, LoadingSpinnerModule,
     HttpClientModule, AdminModule, NavbarModule,  TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,

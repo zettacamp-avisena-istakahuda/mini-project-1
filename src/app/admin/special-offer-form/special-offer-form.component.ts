@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import copy from 'fast-copy';
 import { ApiServiceService } from 'src/app/services/api-service.service';
@@ -16,12 +16,15 @@ export class SpecialOfferFormComponent implements OnInit {
   isLoading = false
   createPromo: any
   menu: any
+  sortPrice: string | null = null
+  search!: string
   private subsPromo = new SubSink()
   private subsMenu = new SubSink()
   constructor(
     private service: ApiServiceService,
     public fb: FormBuilder,
     private translate: TranslateService,
+    private dialog: MatDialogRef<SpecialOfferFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -50,9 +53,11 @@ export class SpecialOfferFormComponent implements OnInit {
       this.addInput()
     }
 
-    this.subsMenu.sink = this.service.getAllRecipes().valueChanges.subscribe((resp: any) => {
+    this.subsMenu.sink = this.service.getActiveMenu(this.search, null, this.sortPrice).valueChanges.subscribe((resp: any) => {
       if (resp) {
-        this.menu = resp.data.getAllRecipes.data;
+        this.menu = resp.data.getActiveMenu.data;
+        console.log(this.menu);
+        
       }
     })
 
@@ -85,7 +90,23 @@ export class SpecialOfferFormComponent implements OnInit {
   onSubmit() {
 
     if (this.data) {
-
+      let a = copy(this.createPromo.value)
+      a.status = this.data.status
+      this.subsPromo.sink = this.service.updateSpecialOfferForm(this.data.id, a).subscribe(resp => {
+        if (resp) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Edit Succesful',
+          })
+          this.service.getAllSpecialOffers(null).refetch()
+        }
+      },err => {
+        Swal.fire({
+          icon: 'error',
+          title:this.translate.instant(`warmindo.${err.message}`),
+        })
+        this.isLoading = false
+      })
     }
     
     else {
@@ -105,4 +126,7 @@ export class SpecialOfferFormComponent implements OnInit {
 
   }
 
+  onClose(){
+    this.dialog.close()
+  }
 }

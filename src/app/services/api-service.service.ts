@@ -619,20 +619,33 @@ export class ApiServiceService {
   }
 
   updateSpecialOffer(data: any) { 
-    console.log(data);
-    
     const id = data.id
     const status = data.status   
     return this.apollo.mutate({
       mutation: gql`mutation UpdateSpecialOffer {
         updateSpecialOffer
-         (id: "${id}", 
+         (id: "${id}",
           specialOffer: {
-            status: ${status}
+            status: ${status},
           }) {
           id
         }
       }`
+    })
+  }
+
+  updateSpecialOfferForm(id: string, data: any) { 
+    return this.apollo.mutate({
+      mutation: gql`mutation UpdateSpecialOffer($data: specialOfferInput) {
+        updateSpecialOffer
+         (id: "${id}", 
+         specialOffer: $data
+          ) {
+          id
+        }
+      }`, variables: {
+        data
+      }
     })
   }
 

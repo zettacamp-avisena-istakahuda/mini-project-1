@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiURL: 'https://bc32-182-253-183-7.ap.ngrok.io/'
+  apiURL: 'https://api.team-5.zettacamp-upn.zetta-demo.space/graphql'
 };
 //https://jade-nice-crane.cyclic.app/
 /*

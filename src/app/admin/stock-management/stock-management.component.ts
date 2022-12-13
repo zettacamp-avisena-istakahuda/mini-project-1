@@ -48,12 +48,17 @@ export class StockManagementComponent implements OnInit {
     })
 
     this.search_ingredient_name.valueChanges.subscribe((val) => {
+      this.isLoading = true
       this.page = 1
       this.search = val
       this.subsPagination.sink = this.service.getAllIngredientsPagination(1, val, this.sortName!, this.sortStock!).valueChanges.subscribe((resp: any) => {
-        this.dataIngredients = resp.data.getAllIngredient.data
-        this.dataSource = new MatTableDataSource(this.dataIngredients)
-        this.max_page = resp.data.getAllIngredient.max_page
+        if(resp){
+          this.dataIngredients = resp.data.getAllIngredient.data
+          this.dataSource = new MatTableDataSource(this.dataIngredients)
+          this.max_page = resp.data.getAllIngredient.max_page
+          this.isLoading=false
+        }
+       
       })
       this.service.getAllIngredientsPagination(this.page, this.search, this.sortName!, this.sortStock!).refetch()
 
@@ -110,10 +115,15 @@ export class StockManagementComponent implements OnInit {
 
   previousPage() {
     if (this.page > 1) {
+      this.isLoading = true
       this.page--
       this.subsIngredients.sink = this.service.getAllIngredientsPagination(this.page, this.search, this.sortName!, this.sortStock!).valueChanges.subscribe((resp: any) => {
-        this.dataIngredients = resp.data.getAllIngredient.data
-        this.dataSource = new MatTableDataSource(this.dataIngredients)
+        if(resp){
+          this.dataIngredients = resp.data.getAllIngredient.data
+          this.dataSource = new MatTableDataSource(this.dataIngredients)
+          this.isLoading = false
+        }
+        
       })
       this.service.getAllIngredientsPagination(this.page, this.search).refetch()
 
@@ -121,16 +131,21 @@ export class StockManagementComponent implements OnInit {
   }
   nextPage() {
     if (this.page < this.max_page) {
+      this.isLoading = true
       this.page++
       this.subsIngredients.sink = this.service.getAllIngredientsPagination(this.page, this.search, this.sortName!, this.sortStock!).valueChanges.subscribe((resp: any) => {
-        this.dataIngredients = resp.data.getAllIngredient.data
-        this.dataSource = new MatTableDataSource(this.dataIngredients)
+        if(resp){
+          this.dataIngredients = resp.data.getAllIngredient.data
+          this.dataSource = new MatTableDataSource(this.dataIngredients)
+          this.isLoading = false
+        }
       })
       this.service.getAllIngredientsPagination(this.page, this.search, this.sortName!, this.sortStock!).refetch()
     }
   }
 
   nameSort() {
+    this.isLoading = true;
     this.sortStock = null
     if (this.sortName == null) {
       this.sortName = "asc"
@@ -142,13 +157,17 @@ export class StockManagementComponent implements OnInit {
       this.sortName = null
     }
     this.subsIngredients.sink = this.service.getAllIngredientsPagination(this.page, this.search, this.sortName!, this.sortStock!).valueChanges.subscribe((resp: any) => {
-      this.dataIngredients = resp.data.getAllIngredient.data
-      this.dataSource = new MatTableDataSource(this.dataIngredients)
+      if(resp){
+        this.dataIngredients = resp.data.getAllIngredient.data
+        this.dataSource = new MatTableDataSource(this.dataIngredients)
+        this.isLoading = false
+      }
     })
     this.service.getAllIngredientsPagination(this.page, this.search, this.sortName!, this.sortStock!).refetch()
   }
 
   stockSort() {
+    this.isLoading = true
     this.sortName = null
     if (this.sortStock == null) {
       this.sortStock = "asc"
@@ -161,8 +180,12 @@ export class StockManagementComponent implements OnInit {
     }
 
     this.subsIngredients.sink = this.service.getAllIngredientsPagination(this.page, this.search, this.sortName!, this.sortStock!).valueChanges.subscribe((resp: any) => {
-      this.dataIngredients = resp.data.getAllIngredient.data
-      this.dataSource = new MatTableDataSource(this.dataIngredients)
+      if(resp){
+        this.dataIngredients = resp.data.getAllIngredient.data
+        this.dataSource = new MatTableDataSource(this.dataIngredients)
+        this.isLoading = false
+      }
+      
     })
     this.service.getAllIngredientsPagination(this.page, this.search, this.sortName!, this.sortStock!).refetch()
   }

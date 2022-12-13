@@ -32,7 +32,7 @@ export class MenuManagementComponent implements OnInit {
   private subsMenuUpdate = new SubSink();
   private subsPagination = new SubSink();
 
-  sortPrice: string|null = null
+  sortPrice: string | null = null
   search_recipe_name = new FormControl();
   page = 1;
   max_page: number = 1
@@ -41,31 +41,35 @@ export class MenuManagementComponent implements OnInit {
   dataMenu: IMenu[] = []
   dataSource = new MatTableDataSource(this.dataMenu)
   dataMenu2: IMenu[] = []
-  displayedColumns: string[] = ['recipe_name', 'description', 'ingredients', 'price', 'status', 'highlight','operation'];
+  displayedColumns: string[] = ['recipe_name', 'description', 'ingredients', 'price', 'status', 'highlight', 'operation'];
   displayedFilter: string[] = ['recipe_name_filter'];
 
 
-  constructor(private service: ApiServiceService, private dialog: MatDialog, private translate: TranslateService ) { }
-  
+  constructor(private service: ApiServiceService, private dialog: MatDialog, private translate: TranslateService) { }
+
   ngOnInit(): void {
     this.subsPagination.sink = this.service.getAllRecipesPagination(this.page, this.search, this.sortPrice).valueChanges.subscribe((resp: any) => {
-      this.dataMenu = resp.data.getAllRecipes.data      
+      this.dataMenu = resp.data.getAllRecipes.data
       this.dataMenu2 = this.service.extractIngredientsTable(this.dataMenu)
       this.dataSource = new MatTableDataSource(this.dataMenu2)
       this.max_page = resp.data.getAllRecipes.max_page
     })
 
     this.search_recipe_name.valueChanges.subscribe((val) => {
+      this.isLoading = true
       this.page = 1
       this.search = val
       this.subsPagination.sink = this.service.getAllRecipesPagination(1, val, this.sortPrice).valueChanges.subscribe((resp: any) => {
-        this.dataMenu = resp.data.getAllRecipes.data      
-        this.dataMenu2 = this.service.extractIngredientsTable(this.dataMenu)
-        this.dataSource = new MatTableDataSource(this.dataMenu2)
-        this.max_page = resp.data.getAllRecipes.max_page
+        if (resp) {
+          this.dataMenu = resp.data.getAllRecipes.data
+          this.dataMenu2 = this.service.extractIngredientsTable(this.dataMenu)
+          this.dataSource = new MatTableDataSource(this.dataMenu2)
+          this.max_page = resp.data.getAllRecipes.max_page
+          this.isLoading = false
+        }
       })
       this.service.getAllRecipesPagination(this.page, this.search, this.sortPrice).refetch()
-     });
+    });
 
     this.service.getAllRecipesPagination(this.page, this.search, this.sortPrice).refetch()
   }
@@ -131,7 +135,7 @@ export class MenuManagementComponent implements OnInit {
     })
   }
 
-  editHighlightedStatus(data: any){
+  editHighlightedStatus(data: any) {
     data = copy(data)
     if (data.highlight == true) {
       data.highlight = false
@@ -173,31 +177,41 @@ export class MenuManagementComponent implements OnInit {
     })
   }
 
-  previousPage(){
-    if(this.page>1){
+  previousPage() {
+    if (this.page > 1) {
+      this.isLoading = true
       this.page--
       this.subsPagination.sink = this.service.getAllRecipesPagination(this.page, this.search, this.sortPrice).valueChanges.subscribe((resp: any) => {
-        this.dataMenu = resp.data.getAllRecipes.data
-        this.dataMenu2 = this.service.extractIngredientsTable(this.dataMenu)
-        this.dataSource = new MatTableDataSource(this.dataMenu2)
+        if (resp) {
+          this.dataMenu = resp.data.getAllRecipes.data
+          this.dataMenu2 = this.service.extractIngredientsTable(this.dataMenu)
+          this.dataSource = new MatTableDataSource(this.dataMenu2)
+          this.isLoading = false
+        }
       })
       this.service.getAllRecipesPagination(this.page, this.search, this.sortPrice).refetch()
     }
   }
-  nextPage(){
+  nextPage() {
 
-    if(this.page < this.max_page){
+    if (this.page < this.max_page) {
+      this.isLoading = true
       this.page++
       this.subsPagination.sink = this.service.getAllRecipesPagination(this.page, this.search, this.sortPrice).valueChanges.subscribe((resp: any) => {
-        this.dataMenu = resp.data.getAllRecipes.data
-        this.dataMenu2 = this.service.extractIngredientsTable(this.dataMenu)
-        this.dataSource = new MatTableDataSource(this.dataMenu2)
-      }) 
+        if (resp) {
+          this.dataMenu = resp.data.getAllRecipes.data
+          this.dataMenu2 = this.service.extractIngredientsTable(this.dataMenu)
+          this.dataSource = new MatTableDataSource(this.dataMenu2)
+          this.isLoading = false
+        }
+
+      })
       this.service.getAllRecipesPagination(this.page, this.search, this.sortPrice).refetch()
     }
   }
 
-  priceSort(){
+  priceSort() {
+    this.isLoading = true
     if (this.sortPrice == null) {
       this.sortPrice = "asc"
     }
@@ -209,10 +223,13 @@ export class MenuManagementComponent implements OnInit {
     }
 
     this.subsPagination.sink = this.service.getAllRecipesPagination(this.page, this.search, this.sortPrice).valueChanges.subscribe((resp: any) => {
-      this.dataMenu = resp.data.getAllRecipes.data
-      this.dataMenu2 = this.service.extractIngredientsTable(this.dataMenu)
-      this.dataSource = new MatTableDataSource(this.dataMenu2)
-    }) 
+      if (resp) {
+        this.dataMenu = resp.data.getAllRecipes.data
+        this.dataMenu2 = this.service.extractIngredientsTable(this.dataMenu)
+        this.dataSource = new MatTableDataSource(this.dataMenu2)
+        this.isLoading = false
+      }
+    })
     this.service.getAllRecipesPagination(this.page, this.search, this.sortPrice).refetch()
   }
 }

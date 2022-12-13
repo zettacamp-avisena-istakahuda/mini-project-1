@@ -28,16 +28,16 @@ export class SpecialOfferManagementComponent implements OnInit {
     })
   }
 
-   
-  
+
+
   openDialog(): void {
     // this.nextPage(this.max_page)
     this.dialog.open(SpecialOfferFormComponent, {
       width: '250px',
-    
+
     });
   }
-  openDialogEdit(data: any): void {    
+  openDialogEdit(data: any): void {
     this.dialog.open(SpecialOfferFormComponent, {
       width: '250px',
       data: data
@@ -45,7 +45,6 @@ export class SpecialOfferManagementComponent implements OnInit {
   }
 
   editStatus(data: any) {
-
     data = copy(data)
     if (data.status === 'active') {
       data.status = 'unpublished'
@@ -67,21 +66,19 @@ export class SpecialOfferManagementComponent implements OnInit {
       if (result.isConfirmed) {
         this.isLoading = true
         this.subsPromo.sink = this.service.updateSpecialOffer(data).subscribe(resp => {
-            this.isLoading = false
-            this.service.getAllSpecialOffers("").refetch()
-            Swal.fire('Promo status has been changed to ' + data.status)
-          
-        },err => {
+          this.isLoading = false
           this.service.getAllSpecialOffers("").refetch()
           Swal.fire('Promo status has been changed to ' + data.status)
 
         })
-        window.location.reload()
+        setTimeout(() => {
+          window.location.reload()
+        }, 3000)
       }
     })
   }
 
-   deleteStatus(data: any){
+  deleteStatus(data: any) {
     data = copy(data)
     data.status = 'deleted'
     Swal.fire({
@@ -101,7 +98,10 @@ export class SpecialOfferManagementComponent implements OnInit {
             Swal.fire('Promo status has been deleted')
           }
         })
+        setTimeout(() => {
+          window.location.reload()
+        }, 3000)
       }
     })
-   }
+  }
 }

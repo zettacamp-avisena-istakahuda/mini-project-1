@@ -56,7 +56,7 @@
     "password": "Password",
 
 
-    
+
     "Put Appropriate Ingredient_ID!": "Put Appropriate Ingredient ID!",
     "Stock Cannot be 0!": "Stock Cannot be 0!",
     "Ingredient Already Exists!": "Ingredient Already Exists!",
@@ -95,5 +95,6 @@
     "Wrong password!": "Wrong password!",
     "User Not Found !": "User Not Found !",
     "PIN is Wrong, try again": "PIN is Wrong, try again"
+
   }
 }

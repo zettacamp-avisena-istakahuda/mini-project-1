@@ -22,7 +22,8 @@ export class TransactionHistoryComponent implements OnInit {
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
   });
-
+  
+  user_type = localStorage.getItem('user_type')
   totalIncome!: number
   page = 1;
   max_page: number = 1

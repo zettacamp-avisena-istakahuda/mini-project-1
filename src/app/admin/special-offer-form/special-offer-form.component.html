@@ -1,4 +1,5 @@
 <mat-dialog-content>
+    <!-- <app-spinner [isLoading]="isLoading"></app-spinner> -->
     <form [formGroup]="createPromo" (ngSubmit)="onSubmit()">
         <mat-form-field class="col-10">
             <input matInput type="text" placeholder="Promo Name" formControlName="title">
@@ -39,7 +40,7 @@
         <button style="margin-left: 25px; margin-top:30px;" type="button" (click)="addInput()" mat-raised-button>Add More
             Menu</button><br><br>
             <div class="forButton">        
-                <button mat-raised-button type="button" color="warn" >Cancel</button>
+                <button (click)="onClose()" mat-raised-button type="button" color="warn" >Cancel</button>
                 <button style="margin-left: 60px;" mat-raised-button type="submit" color="primary">{{'warmindo.submit' | translate}}</button>
             </div>
     </form>

@@ -19,7 +19,6 @@ const routes: Routes = [
   {path : "homepage", component : HomepageComponent},
   {path : "menu", component : MenuComponent},
   {path : "special-offer-management", component : SpecialOfferManagementComponent, canActivate: [AdminGuardGuard]},
-  {path : "special-offer-form", component : SpecialOfferFormComponent},
   {path : "login", component : LoginFormComponent},
   {path : "forget", component : ForgetPasswordComponent},
   {path : "stock-management", component : StockManagementComponent, canActivate: [AdminGuardGuard]},

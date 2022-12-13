@@ -3,7 +3,6 @@ import { SubSink } from 'subsink';
 import { ApiServiceService } from './services/api-service.service';
 import { TranslateService } from "@ngx-translate/core";
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,6 +12,7 @@ export class AppComponent implements OnInit, AfterContentInit {
   title = 'mini_project_1';
   selectedLang = 'en';
   isShowing: boolean = false
+  isLoading = false;
   private subsCart = new SubSink();
   private subsUser = new SubSink();
   private subsLogout = new SubSink()
