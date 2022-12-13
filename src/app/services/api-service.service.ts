@@ -152,7 +152,9 @@ export class ApiServiceService {
       UpdateRecipe{
           updateRecipe(
             id: "${data.id}"
-            highlight: ${data.highlight}
+            inputRecipe:{
+              highlight: ${data.highlight}
+            }
             ) {
             recipe_name
           }
@@ -197,8 +199,11 @@ export class ApiServiceService {
       mutation: gql`mutation 
       UpdateTransaction{
           updateTransaction(
+            menu:{
+              note: "${note}"
+            }
             id: "${id}"
-            note: "${note}"
+            
             ) {
             id
           }
